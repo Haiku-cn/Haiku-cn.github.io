@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>配置参数 &mdash; Haiku 中文文档</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Haiku 中文文档" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Haiku 中文文档</span></a></h1>
+        <h2 class="heading"><span>配置参数</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="id1">
+<h1>配置参数<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>2010 年 2 月之后，Haiku 的编译“配置”有了几个有趣的参数。在命令行中运行 “configure &#8211;help” 将会显示它们的简介介绍。下面，我们将会对它们进行讨论，并作为输出文本使用的补充。</p>
+<ul>
+<li><p class="first">&#8211;build-cross-tools &lt;build tools dir&gt;</p>
+<p>编译用于 x86-gcc2 的构建工具。由于 x86 平台是唯一一个 BeOS R5 二进制兼容的平台，因此其他目标平台不需要使用 gcc2 进行构建。如果您需要保持与 BeOS 的二进制兼容性，那么唯一的选择就是 x86-gcc2。关于 &lt;build tools dir&gt; 的说明。</p>
+</li>
+<li><p class="first">&#8211;build-cross-tools-gcc4 &lt;arch&gt; &lt;build tools dir&gt;</p>
+<p>编译 gcc4 构建工具。可以用于以下平台 <cite>&lt;arch&gt;[x86|ppc|arm|m68k|mips]</cite>。关于 &lt;build tools dir&gt; 的说明。</p>
+</li>
+<li><p class="first">&#8211;alternative-gcc-output-dir &lt;dir&gt;</p>
+<p>当构建 x86 平台的混合镜像时，该选项是必须的。如上所述，gcc2 仅可用于 x86 平台。参阅 GCC Hybirds 获取更多信息。</p>
+</li>
+<li><p class="first">&#8211;cross-tools-prefix &lt;prefix&gt;</p>
+<p>指出构建工具的预构建二进制库。该选项可以用在先前配置已经编译的 cross-tools 之后，如 &#8211;build-cross-tools* ... ; jam -q ....</p>
+</li>
+<li><p class="first">&#8211;distro-compatibility &lt;level&gt;</p>
+<p>指定发行版与 Haiku 官方发行版的兼容级别。生成文件会包含相应的商标。目前支持级别有：</p>
+<ul class="simple">
+<li>official &#8211; Haiku 官方发行版。</li>
+<li>compatible &#8211; Haiku 兼容发行版。</li>
+<li>default &#8211; 所有其他发行版(默认值)。</li>
+</ul>
+</li>
+<li><p class="first">&#8211;include-gpl-addons</p>
+<p>默认情况下，Haiku 不包含 GPL 协议下的程序。</p>
+<p><a class="reference external" href="http://grok.bikemonkey.org/source/search?q=GPL_ONLY&amp;defs=&amp;refs=&amp;path=&amp;hist=&amp;project=haiku">{OpenGrok Search for GPL Addons</a></p>
+</li>
+<li><p class="first">&#8211;include-3rdparty</p>
+<p>备注：IMKit已经由 Caya 替代，InfoPopper 已经集成为 Haiku 的通知服务组件。</p>
+<p>某些程序，如 IMKit 和 InfoPopper 能够和 Haiku 同时进行构建。该选项可以启用构建 HAIKU_TOP/3rdparty 中的所有软件，并且假定软件自身可以被支持。</p>
+</li>
+<li><p class="first">&#8211;include-partented-code</p>
+<p>在源代码中查询 <a class="reference external" href="http://grok.bikemonkey.org/source/search?q=HAIKU_INCLUDE_PATENTED_CODE&amp;defs=&amp;refs=&amp;path=&amp;hist=&amp;project=haiku">HAIKU_INCLUDE_PATENTED_CODE</a>，查看哪个代码受该设置所影响。</p>
+</li>
+<li><p class="first">&#8211;enable-multiuser</p>
+<p>启用实验性质的多用户支持。由于R1并没有多用户功能，因此该选项的使用非常有限。</p>
+</li>
+<li><p class="first">&#8211;target=TARGET</p>
+<p>起初，Haiku 的开发是以取代 BeOS 中各个组件的形式进行的。该选项允许 Haiku 的基础核心与用户程序并行开发。现在，构建 Haiku 作为 BeOS 的二进制取代已经失去了它的优势。但是我们非常欢迎提交用于增强修复该功能的代码补丁。</p>
+</li>
+<li><p class="first">&#8211;use-gcc-pipe</p>
+<p>这是一个非常有用的选项。它指导构建系统通过系统管道传递一些信息，而不是把任何内容都写入临时文件。这样，构建系统将利用额外的内存，并且缩短构建Haiku所需的时间。</p>
+</li>
+<li><p class="first">&#8211;use-32bit</p>
+<p>遗留应用：当从 64 位主机交叉编译时，需要使用该选项，它将会传递 “-m32” 到编译器。</p>
+<p>备注：从 r34211 开始，配置脚本将会自动识别和支持在 64 位主机进行构建。</p>
+</li>
+<li><p class="first">&#8211;use-xattr</p>
+<p>通过使用 xattrs ，启用在其他文件系统上模拟 BFS 属性的功能。当使用 linux 或者 BSD 发行版作为开发环境时，它们的一些文件系统可能支持该选项的使用。但还有些限制条件:(Linux)内核必须重新编译以支持 xattr，文件系统本身必须支持 xattr，文件系统的实现必须要合适。获取更多信息，请查阅配置选项：&#8211;use&#8211;xattr。</p>
+</li>
+<li><p class="first">&#8211;update</p>
+<p>在 <a class="reference external" href="http://dev.haiku-os.org/changeset/34867">34867 变更集</a> 中，在先前的执行中，使用该选项重新运行配置的功能已经实现。</p>
+</li>
+<li><p class="first">-j&lt;n&gt;</p>
+<p>该选项允许 cross-tools 同详细任务一起构建。目前，只有在构建 GCC 4.x cross-tools 时，它才唯一可用。查阅 <a class="reference external" href="http://www.freelists.org/post/haiku-development/Haikus-configure-jn-and-emulated-attributes,1">Haiku-development 邮件列表</a> 获取更多信息。</p>
+</li>
+</ul>
+<div class="section" id="id3">
+<h2>配置示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>下面是不同使用事例的一些运行示例。</p>
+<p>它们没有显示高级选项的用法，如： &#8220;&#8211;use-gcc-pipe&#8221;, &#8220;&#8211;use-xattr&#8221;, 或者 &#8220;&#8211;include-gpl-addons&#8221;。</p>
+<ul>
+<li><p class="first">从 Haiku 构建同样的 GCC:</p>
+<div class="highlight-sh"><div class="highlight"><pre>./configure
+</pre></div>
+</div>
+</li>
+<li><p class="first">从 BeOS 或者 Zeta 进行构建</p>
+<div class="highlight-sh"><div class="highlight"><pre>./configure --cross-tools-prefix /boot/apps/haiku/cross-tools/bin/i586-pc-haiku-
+</pre></div>
+</div>
+</li>
+<li><p class="first">从 Linux/BSD/... 构建 GCC 2.95 binutils (仅用于x86平台)</p>
+<div class="highlight-sh"><div class="highlight"><pre>./configure --build-cross-tools ../buildtools/
+</pre></div>
+</div>
+</li>
+<li><p class="first">从 Linux/BSD/... 构建 x86 平台的 GCC 4.x binutils</p>
+<div class="highlight-sh"><div class="highlight"><pre>./configure --build-cross-tools-gcc4 x86 ../buildtools/
+</pre></div>
+</div>
+</li>
+<li><p class="first">指向最近编译的 buildtools</p>
+<div class="highlight-sh"><div class="highlight"><pre>./configure --cross-tools-prefix cross-tools/bin/i586-pc-haiku-
+</pre></div>
+</div>
+</li>
+<li><p class="first">从 64 位 Linux 发行版构建 GCC 2.95</p>
+<div class="highlight-sh"><div class="highlight"><pre>linux32 ./configure --use-32bit --build-cross-tools ../buildtools/
+</pre></div>
+</div>
+</li>
+<li><p class="first">构建x86平台的 GCC Hybrids</p>
+<p>请查阅 <tt class="xref doc docutils literal"><span class="pre">/guides/GCC混合</span></tt> 获取详细信息。</p>
+</li>
+<li><p class="first">从 Linux/BSD/... 构建用于PPC的 GCC 4.x binutils</p>
+<div class="highlight-sh"><div class="highlight"><pre>./configure --build-cross-tools-gcc4 ppc ../buildtools/
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>注意事项<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">&lt;build tools dir&gt;</p>
+<p>该选项指的是包含构建工具源代码的目录。它通常是一个相对于您运行 configure 所处位置的路径。通常是 “../buildtools”。</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Han Pengfei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

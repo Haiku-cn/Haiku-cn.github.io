@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>移植状态 &mdash; Haiku 中文文档</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Haiku 中文文档" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Haiku 中文文档</span></a></h1>
+        <h2 class="heading"><span>移植状态</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="id1">
+<h1>移植状态<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Haiku 实现了对多个计算机平台的构建，下述是每个平台的列表及附加的信息。所有的热衷度的排序并不会对 Haiku 项目有任何的影响，它们只是目前开发者真实意愿的表达。</p>
+<div class="section" id="x86">
+<h2>x86 （第一梯队）<a class="headerlink" href="#x86" title="Permalink to this headline">¶</a></h2>
+<p>多数传统桌面和笔记本电脑的选择平台。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="13%" />
+<col width="24%" />
+<col width="20%" />
+<col width="18%" />
+<col width="13%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">平台</th>
+<th class="head">兴趣度</th>
+<th class="head">Haiku引导程序</th>
+<th class="head">Haiku 内核</th>
+<th class="head">应用服务组件</th>
+<th class="head">状态</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>i586</td>
+<td>高</td>
+<td>完成</td>
+<td>完成</td>
+<td>完成</td>
+<td>稳定</td>
+</tr>
+<tr class="row-odd"><td>x86_64</td>
+<td>高</td>
+<td>完成</td>
+<td>完成</td>
+<td>完成</td>
+<td>90%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="arm">
+<h2>ARM（第二梯队）<a class="headerlink" href="#arm" title="Permalink to this headline">¶</a></h2>
+<p>新兴的处理器产品线，主要面向低功耗，低成本硬件。详情查看源码列表中的 <a class="reference external" href="http://cgit.haiku-os.org/haiku/tree/docs/develop/ports/arm">平台说明</a> 。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="12%" />
+<col width="22%" />
+<col width="17%" />
+<col width="16%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">平台</th>
+<th class="head">兴趣度</th>
+<th class="head">Haiku引导程序</th>
+<th class="head">Haiku 内核</th>
+<th class="head">应用服务组件</th>
+<th class="head">状态</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>BeagleBord Black</td>
+<td>中</td>
+<td>完成</td>
+<td>进行中</td>
+<td>未开始</td>
+<td>20%</td>
+</tr>
+<tr class="row-odd"><td>Gumstix Verdex(emu)</td>
+<td>中</td>
+<td>进行中</td>
+<td>进行中</td>
+<td>未开始</td>
+<td>10%</td>
+</tr>
+<tr class="row-even"><td>Gumstix Overo</td>
+<td>中</td>
+<td>进行中</td>
+<td>进行中</td>
+<td>未开始</td>
+<td>10%</td>
+</tr>
+<tr class="row-odd"><td>Genesi Efika Mx</td>
+<td>中</td>
+<td>进行中</td>
+<td>进行中</td>
+<td>未开始</td>
+<td>10%</td>
+</tr>
+<tr class="row-even"><td>Raspberry Pi</td>
+<td>中</td>
+<td>完成</td>
+<td>进行中</td>
+<td>未开始</td>
+<td>20%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="powerpc">
+<h2>PowerPC（第二梯队）<a class="headerlink" href="#powerpc" title="Permalink to this headline">¶</a></h2>
+<p>早年在桌面和笔记本电脑市场上 x86 平台的挑战者。详情查看 <a class="reference external" href="http://cgit.haiku-os.org/haiku/tree/docs/develop/ports/ppc">平台说明</a> 。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="12%" />
+<col width="22%" />
+<col width="17%" />
+<col width="16%" />
+<col width="13%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">平台</th>
+<th class="head">兴趣度</th>
+<th class="head">Haiku引导程序</th>
+<th class="head">Haiku 内核</th>
+<th class="head">应用服务组件</th>
+<th class="head">状态</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Genesi Efika I &amp; II</td>
+<td>低</td>
+<td>完成</td>
+<td>存在问题</td>
+<td>存在问题</td>
+<td>80%</td>
+</tr>
+<tr class="row-odd"><td>Apple G3/G4</td>
+<td>低</td>
+<td>存在问题</td>
+<td>存在问题</td>
+<td>未开始</td>
+<td>10%</td>
+</tr>
+<tr class="row-even"><td>ACube Sam460ex</td>
+<td>高</td>
+<td>进行中</td>
+<td>进行中</td>
+<td>未开始</td>
+<td>10%</td>
+</tr>
+<tr class="row-odd"><td>BeBox</td>
+<td>无</td>
+<td>未开始</td>
+<td>未开始</td>
+<td>未开始</td>
+<td>0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="m86k">
+<h2>m86k（第二梯队）<a class="headerlink" href="#m86k" title="Permalink to this headline">¶</a></h2>
+<p>传统家庭电脑设备。详情查看 <a class="reference external" href="http://cgit.haiku-os.org/haiku/tree/docs/develop/ports/m68k">平台说明</a> 。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="12%" />
+<col width="22%" />
+<col width="17%" />
+<col width="16%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">平台</th>
+<th class="head">兴趣度</th>
+<th class="head">Haiku引导程序</th>
+<th class="head">Haiku 内核</th>
+<th class="head">应用服务组件</th>
+<th class="head">状态</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Atari TT</td>
+<td>低</td>
+<td>存在问题</td>
+<td>存在问题</td>
+<td>未开始</td>
+<td>10%</td>
+</tr>
+<tr class="row-odd"><td>Atari Falcon</td>
+<td>低</td>
+<td>存在问题</td>
+<td>存在问题</td>
+<td>未开始</td>
+<td>10%</td>
+</tr>
+<tr class="row-even"><td>Amiga A4000/040</td>
+<td>低</td>
+<td>存在问题</td>
+<td>存在问题</td>
+<td>未开始</td>
+<td>10%</td>
+</tr>
+<tr class="row-odd"><td>Amiga + 68030 cpu</td>
+<td>低</td>
+<td>存在问题</td>
+<td>存在问题</td>
+<td>未开始</td>
+<td>10%</td>
+</tr>
+<tr class="row-even"><td>Old-world Macintosh</td>
+<td>无</td>
+<td>未开始</td>
+<td>未开始</td>
+<td>未开始</td>
+<td>0%</td>
+</tr>
+<tr class="row-odd"><td>NeXT Cube</td>
+<td>无</td>
+<td>未开始</td>
+<td>未开始</td>
+<td>未开始</td>
+<td>1%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mips">
+<h2>MIPS（第三梯队）<a class="headerlink" href="#mips" title="Permalink to this headline">¶</a></h2>
+<p>由 MIPS 开发的精简指令集计算机(RISC)。在 hrev46888 之后从源码中移除相关代码。</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Han Pengfei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

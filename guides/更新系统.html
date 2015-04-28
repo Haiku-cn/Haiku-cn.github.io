@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>更新系统 &mdash; Haiku 中文文档</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Haiku 中文文档" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Haiku 中文文档</span></a></h1>
+        <h2 class="heading"><span>更新系统</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="id1">
+<h1>更新系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>随着包管理系统的引入，现在可以使用 pkgman 命令实现整个系统的更新。更新的进程是前向的，需要网络的连接，以及一次系统重启。pkgman 将会获取最新的更新，并将其应用到您的系统。</p>
+<div class="section" id="id2">
+<h2>仓库<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>下面是官方的软件包仓库列表。</p>
+<div class="section" id="id3">
+<h3>基本系统构建仓库<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>下面是每日的系统构建，包涵基本操作系统的包</p>
+<ul class="simple">
+<li>x86 (gcc2): <a class="reference external" href="http://download.haiku-os.org/haiku-repositories/master/x86_gcc2/current/">http://download.haiku-os.org/haiku-repositories/master/x86_gcc2/current/</a></li>
+<li>x86 (gcc4): <a class="reference external" href="http://download.haiku-os.org/haiku-repositories/master/x86/current/">http://download.haiku-os.org/haiku-repositories/master/x86/current/</a></li>
+<li>x86_64 (gcc4): <a class="reference external" href="http://download.haiku-os.org/haiku-repositories/master/x86_64/current/">http://download.haiku-os.org/haiku-repositories/master/x86_64/current/</a></li>
+<li>ARM (gcc4): <a class="reference external" href="http://download.haiku-os.org/haiku-repositories/master/arm/current/">http://download.haiku-os.org/haiku-repositories/master/arm/current/</a></li>
+<li>PowerPC (gcc4): <a class="reference external" href="http://download.haiku-os.org/haiku-repositories/master/ppc/current/">http://download.haiku-os.org/haiku-repositories/master/ppc/current/</a></li>
+</ul>
+</div>
+<div class="section" id="haikuports">
+<h3>Haikuports 包仓库<a class="headerlink" href="#haikuports" title="Permalink to this headline">¶</a></h3>
+<p>下面是最新编译的 haikuports 包，提供移植或者原声的软件</p>
+<ul class="simple">
+<li>x86 (gcc2): <a class="reference external" href="http://packages.haiku-os.org/haikuports/master/repo/x86_gcc2/current/">http://packages.haiku-os.org/haikuports/master/repo/x86_gcc2/current/</a></li>
+<li>x86 (gcc4): <a class="reference external" href="http://packages.haiku-os.org/haikuports/master/repo/x86/current/">http://packages.haiku-os.org/haikuports/master/repo/x86/current/</a></li>
+<li>x86_64 (gcc4): <a class="reference external" href="http://packages.haiku-os.org/haikuports/master/repo/x86_64/current/">http://packages.haiku-os.org/haikuports/master/repo/x86_64/current/</a></li>
+<li>ARM (gcc4): <a class="reference external" href="http://packages.haiku-os.org/haikuports/master/repo/arm/current/">http://packages.haiku-os.org/haikuports/master/repo/arm/current/</a></li>
+<li>PowerPC (gcc4): <a class="reference external" href="http://packages.haiku-os.org/haikuports/master/repo/ppc/current/">http://packages.haiku-os.org/haikuports/master/repo/ppc/current/</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>更新过程<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>为了更新到上面这些仓库中的软件包，需要执行以下的步骤。</p>
+<ul>
+<li><p class="first">添加当前架构的更新仓库，根据上述的列表，从中选择相应的链接地址。在承担一定的风险同时，用户可能希望添加基本的仓库和 haikuports 仓库。</p>
+<div class="highlight-sh"><div class="highlight"><pre>pkgman add-repo &lt;URL&gt;
+</pre></div>
+</div>
+</li>
+<li><p class="first">更新到最新的包</p>
+<div class="highlight-sh"><div class="highlight"><pre>pkgman update
+</pre></div>
+</div>
+</li>
+<li><p class="first">重启系统完成更新</p>
+<div class="highlight-sh"><div class="highlight"><pre>shutdown -r
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Han Pengfei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

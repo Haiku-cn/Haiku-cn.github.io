@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>连接到无线网络 &mdash; Haiku 中文文档</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Haiku 中文文档" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Haiku 中文文档</span></a></h1>
+        <h2 class="heading"><span>连接到无线网络</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="id1">
+<h1>连接到无线网络<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Haiku 在不断提升对无线网络连接（Wi-Fi，802.11）的支持。目前仅提供对未加密和 WPE 加密无线网络的支持。</p>
+<div class="section" id="id2">
+<h2>要求条件<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Haiku 版本要求: Haiku R1 Alpha 2 (R1A2) 及以后版本</li>
+<li>Haiku 建议版本: Haiku nightly r39852 及以后版本</li>
+<li>条件: 支持 802.11 的无线网卡</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>固件安装<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Some wireless network cards require binary firmware modules to properly operate. Haiku cannot include some of these proprietary firmware files due to licensing issues. Haiku does however include an easy script which will retrieve and install all of the needed proprietary bits for you. Generally if you are planning to use wireless networking it is a good idea to run this to ensure your system has all of the available proprietary bits.</p>
+<p>If you are unable to access the Internet due to the lack of wireless firmware binaries, please check out the offline method of running the firmware installer.</p>
+<ol class="arabic simple">
+<li>Open the Haiku Terminal</li>
+<li>Type <em>install-wifi-firmwares.sh</em> Enter</li>
+<li>Review the licenses and accept them to install all of the available firmware files</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2>连接网络<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>Haiku has preliminary support for accessing wireless networks via WEP encryption keys. WEP is the earliest and most common encryption method available (although not the most secure).</p>
+<p>These instructions are for the current nightly images post r39852. If you are using a release prior to r39852 (including Haiku R1A1 or Haiku R1A2), you will utilize the setwep application within the Haiku Terminal which works similarly.</p>
+<p>If you are unsure on what to enter for your wifi_device_path, you can look at the Network preferences applet, or execute <cite>ifconfig -a</cite> in the Haiku Terminal.</p>
+<ol class="arabic simple">
+<li>Open the Haiku Terminal</li>
+<li>Type ifconfig <strong>[wifi_device_path] [list|join|leave]</strong> (key) Enter</li>
+</ol>
+<p>Below are a few examples of connecting to a wireless network named wifitopia. For these examples we are assuming your Wi-Fi network card is /dev/net/iprowifi3945/0.</p>
+<div class="section" id="id5">
+<h3>列出无线网络:<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>ifconfig /dev/net/iprowifi3945/0 list
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>连接未加密网络:<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>ifconfig /dev/net/iprowifi3945/0 join wifitopia
+</pre></div>
+</div>
+</div>
+<div class="section" id="wep-ascii">
+<h3>连接 WEP 加密网络: (ascii 密码)<a class="headerlink" href="#wep-ascii" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>ifconfig /dev/net/iprowifi3945/0 join wifitopia mypassword
+</pre></div>
+</div>
+</div>
+<div class="section" id="wep-64">
+<h3>连接 WEP 加密网络: (64位十六进制密码)<a class="headerlink" href="#wep-64" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>ifconfig /dev/net/iprowifi3945/0 join wifitopia 0x4010FABEEF
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>断开网络:<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>ifconfig /dev/net/iprowifi3945/0 leave wifitopia
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>自动连接网络<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>To make your system connect to a given SSID at each boot automatically, you can specify your wireless networks and passwords in <em>/boot/common/settings/network/wireless_networks</em> with the following format:</p>
+<div class="highlight-sh"><div class="highlight"><pre>network wifitopia <span class="o">{</span>
+    password mypassword
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>备注<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3>离线下载固件文件<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>If you do not have Internet access, you can install your wireless hardware&#8217;s firmware by manually copying the remote files listed below onto your system, then running <cite>install-wifi-firmwares.sh</cite>.</p>
+<ul>
+<li><dl class="first docutils">
+<dt>copy these to system/data/firmware/broadcom43xx/b43-fwcutter/</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://bu3sch.de/b43/fwcutter/b43-fwcutter-012.tar.bz2">http://bu3sch.de/b43/fwcutter/b43-fwcutter-012.tar.bz2</a></li>
+<li><a class="reference external" href="http://cgit.haiku-os.org/haiku/plain/src/system/libroot/posix/glibc/stri">http://cgit.haiku-os.org/haiku/plain/src/system/libroot/posix/glibc/stri</a>...</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>copy these to system/data/firmware/broadcom43xx/b43-fwcutter/bits</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://cgit.haiku-os.org/haiku/plain/src/system/libroot/posix/glibc/incl">http://cgit.haiku-os.org/haiku/plain/src/system/libroot/posix/glibc/incl</a>...</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>copy these to system/data/firmware/broadcom43xx/</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://downloads.openwrt.org/sources/wl_apsta-3.130.20.0.o">http://downloads.openwrt.org/sources/wl_apsta-3.130.20.0.o</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>copy these to system/data/firmware/marvell88w8335/</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.nazgul.ch/malo/malo-firmware-1.4.tgz">http://www.nazgul.ch/malo/malo-firmware-1.4.tgz</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>If you cannot obtain the binary firmware files via the install-wifi-firmwares.sh script (for example due to lack of Internet connection within Haiku), you can also download this shell script, and run it from any other OS that has wget and zip. The script will download the needed files and will create a zip file that is to be extracted to Haiku&#8217;s /boot. Once unpacked, execute the install-wifi-firmwares.sh script to install the firmware files.</p>
+</div>
+<div class="section" id="wep-encryption-keys">
+<h3>WEP encryption keys<a class="headerlink" href="#wep-encryption-keys" title="Permalink to this headline">¶</a></h3>
+<p>WEP encryption keys are password strings used to identify one&#8217;s self to a wireless network and to encrypt data sent to the wireless network. A WEP password key can be a fixed length string or hexadecimal number.</p>
+<ul class="simple">
+<li>64-bit WEP uses a 40-bit key, which means 5 text characters or 10 hex digits</li>
+<li>128-bit WEP uses a 104-bit key, which means 13 text characters or 26 hex digits</li>
+<li>hexadecimal digits are characters 0-9 and A through F (prefixed with &#8220;0x&#8221; in setwep)</li>
+</ul>
+</div>
+<div class="section" id="wi-fi">
+<h3>Wi-Fi 硬件支持<a class="headerlink" href="#wi-fi" title="Permalink to this headline">¶</a></h3>
+<p>To support a large number of wireless cards with reduced legwork, the Haiku wireless network drivers are FreeBSD wireless drivers wrapped in code to translate them to the Haiku driver subsystem.</p>
+</div>
+<div class="section" id="id11">
+<h3>未支持硬件<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>The following Broadcom 43xx devices:</p>
+<ul class="simple">
+<li>bcm4311: vendor 14e4, device 4311</li>
+<li>bcm4312: vendor 14e4, device 4315</li>
+</ul>
+<p>As of R1A2, only PCI, PCI-X, PCI-Express, Mini PCI, and Mini PCI-Express devices are expected to work. PCMCIA, CardBus, ExpressCard, USB and ISA devices do not have the needed glue code to operate at this time.</p>
+</div>
+<div class="section" id="id12">
+<h3>支持硬件<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>All of FreeBSD 9.1 WLAN drivers should be working.</p>
+<ul>
+<li><dl class="first docutils">
+<dt>aironetwifi supporting at least</dt>
+<dd><ul class="first last simple">
+<li>Cisco Aironet 350 Series</li>
+<li>Aironet PCI4500</li>
+<li>Aironet PCI4800</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">atheroswifi supporting almost every Atheros chipset out there (Except for the AR9285)</p>
+</li>
+<li><dl class="first docutils">
+<dt>broadcom43xx supporting</dt>
+<dd><ul class="first last simple">
+<li>Broadcom BCM4301</li>
+<li>Broadcom BCM4306</li>
+<li>Broadcom BCM4307</li>
+<li>Broadcom BCM4309</li>
+<li>Broadcom BCM4311</li>
+<li>Broadcom BCM4312</li>
+<li>Broadcom BCM4318</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">ipw2100 supporting Intel Pro Wireless 2100</p>
+</li>
+<li><dl class="first docutils">
+<dt>iprowifi2200 supporting</dt>
+<dd><ul class="first last simple">
+<li>Intel Pro Wireless 2200BG</li>
+<li>Intel Pro Wireless 2225BG</li>
+<li>Intel Pro Wireless 2915ABG</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">iprowifi3945 supporting Intel Pro Wireless 3945</p>
+</li>
+<li><p class="first">iprowifi4965 supporting Intel Pro Wireless 4965</p>
+</li>
+<li><dl class="first docutils">
+<dt>marvell88w8335 supporting</dt>
+<dd><ul class="first last simple">
+<li>Marvell Libertas 88W8310</li>
+<li>Marvell Libertas 88W8335</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">marvell88w8363 supporting Marvell 88W8363</p>
+</li>
+<li><p class="first">ralink2860 supporting Ralink RT2860</p>
+</li>
+<li><dl class="first docutils">
+<dt>ralinkwifi supporting</dt>
+<dd><ul class="first last simple">
+<li>Ralink RT2560</li>
+<li>Ralink RT2561S</li>
+<li>Ralink RT2561</li>
+<li>Ralink RT2661</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>wavelanwifi supporting at least</dt>
+<dd><ul class="first last simple">
+<li>3Com Airconnect</li>
+<li>GLPRISM2 WaveLAN</li>
+<li>Intersil Prism3</li>
+<li>Intersil Prism2.5</li>
+<li>Linksys WDT11</li>
+<li>Netgear MA301</li>
+<li>PRISM2STA WaveLAN</li>
+<li>Siemens SpeedStream</li>
+<li>SMC 2602W</li>
+<li>Us Robotics 2415</li>
+<li>Addtron AWA-100 PCI</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Han Pengfei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

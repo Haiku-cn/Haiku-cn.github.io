@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>x86 平台编译 &mdash; Haiku 中文文档</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Haiku 中文文档" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Haiku 中文文档</span></a></h1>
+        <h2 class="heading"><span>x86 平台编译</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="x86">
+<h1>x86 平台编译<a class="headerlink" href="#x86" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>x86 编译器<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>构建 x86 平台编译器非常方便，并且仅和您的平台的 gcc 相关。更为完整的配置脚本的参数，请查看 <a class="reference internal" href="配置参数.html"><em>配置参数</em></a> 。</p>
+<p>在 Haiku 的源码目录，执行下属命令。（请确保调整参数以适应您的构建系统。）</p>
+</div>
+<div class="section" id="gcc2">
+<h2>gcc2<a class="headerlink" href="#gcc2" title="Permalink to this headline">¶</a></h2>
+<p>gcc2 是 R1 阶段默认的构建选择，它与 BeOS 保持二进制兼容性，能够允许原生的二进制 BeOS 应用在 Haiku 上面运行。</p>
+<div class="highlight-sh"><div class="highlight"><pre>./configure --build-cross-tools x86_gcc2 ../buildtools
+</pre></div>
+</div>
+</div>
+<div class="section" id="gcc4">
+<h2>gcc4<a class="headerlink" href="#gcc4" title="Permalink to this headline">¶</a></h2>
+<p>gcc4 是 R1 之后的默认构建选择。gcc4 并不提供完整的 BeOS 二进制兼容性，但是受益于更为现代化的编译工具链。</p>
+<div class="highlight-sh"><div class="highlight"><pre>./configure --build-cross-tools x86 ../buildtools
+</pre></div>
+</div>
+</div>
+<div class="section" id="gcc2h-gcc4h">
+<h2>gcc2h/gcc4h 混合构建<a class="headerlink" href="#gcc2h-gcc4h" title="Permalink to this headline">¶</a></h2>
+<p>Haiku 可以构建为混合的镜像，也就意味着它同时包涵 gcc2 和 gcc4 的二进制文件。更多信息可以查看 <tt class="xref doc docutils literal"><span class="pre">/guides/混合gcc</span></tt> 页面。</p>
+</div>
+<div class="section" id="x86-haiku">
+<h2>x86 Haiku 构建<a class="headerlink" href="#x86-haiku" title="Permalink to this headline">¶</a></h2>
+<p>These builds require a valid x86 compiler toolset (see above), and might also need additional software packages installed &#8211; see the pre-requisite software page for more details.</p>
+</div>
+<div class="section" id="id2">
+<h2>编译基本原生磁盘镜像<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>This is the most basic build, it generally is good for quickly testing the OS after making modifications as it doesn&#8217;t contain a lot of extra applications. Be sure to modify -j2 with the number of cpu cores on your build system to ensure the fastest build times.</p>
+<div class="highlight-sh"><div class="highlight"><pre>jam -q -j2 @image
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>编译原生每日构建镜像<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>This is the default nightly image build target. This contains a complete system with an included compiler. Be sure to modify -j2 with the number of cpu cores on your build system to ensure the fastest build times.</p>
+<div class="highlight-sh"><div class="highlight"><pre>jam -q -j2 @nightly-raw
+</pre></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Han Pengfei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

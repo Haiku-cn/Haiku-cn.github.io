@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>安装可选软件包 &mdash; Haiku 中文文档</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Haiku 中文文档" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Haiku 中文文档</span></a></h1>
+        <h2 class="heading"><span>安装可选软件包</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="id1">
+<h1>安装可选软件包<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Haiku 最近引入了一个临时的脚本以弥补合适软件包管理的缺失。该脚本为 installoptionalpackage，允许终端用户非常容易的下载和安装 Haiku 常用的第三方软件。</p>
+<div class="section" id="id2">
+<h2>使用要求<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>需求：最新 Haiku 版本</li>
+<li>需求：网络连接</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>命令行参数<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>-a 添加一个或多个软件包及所有依赖关系</li>
+<li>-s 显示最终需要安装的所有软件包列表</li>
+<li>-f 移除缓存数据，列出可供安装软件包</li>
+<li>-h 打印帮助信息</li>
+<li>-l 列出可供安装软件包</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>首次运行脚本<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>首次运行 <em>installoptionalpackage</em> 脚本，它会为可用的 Haiku 支持第三方软件在 <em>/boot/common/data/optional-packages/</em> 中构建数据缓存。您可以使用 <em>-f</em> 参数清除本地生成的缓存。</p>
+<div class="highlight-sh"><div class="highlight"><pre>~&gt; installoptionalpackage -l
+Fetching OptionalPackages ...
+Fetching OptionalPackageDependencies ...
+Fetching OptionalBuildFeatures ...
+Generating a list of Package Names ...
+...warning: Beam cannot be installed because of DevelopmentMin
+...warning: Bluetooth cannot be installed
+...warning: Development cannot be installed
+...warning: DevelopmentBase cannot be installed
+...warning: DevelopmentMin cannot be installed
+...warning: ICU-devel cannot be installed because of DevelopmentMin
+...warning: LibLayout cannot be installed because of DevelopmentMin
+...warning: NetFS cannot be installed because of UserlandFS
+...warning: UserlandFS cannot be installed
+...warning: Welcome cannot be installed
+...warning: WifiFirmwareScriptData cannot be installed
+
+
+Available Optional Packages:
+abi-compliance-checker apr apr-util beae bebook behappy beoscompatibility bepdf bezillabrowser
+bzip cdrecord clockwerk clucene cmake curl cvs expat friss gettext git keymapswitcher libevent
+libiconv libxml2 libxslt links mandatorypackages mercurial nano neon netsurf ocaml opensound
+openssh openssl p7zip pcre pe perl python rsync sed sqlite subversion tar trackernewtemplates
+transmission vim vision vlc webpositive wonderbrush xz-utils yasm
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>安装可选软件包<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>如下所示，我们将安装 Vim 软件包。安装过程非常简单，打开 Haiku 终端，然后执行 <em>installoptionalpackage</em>，并附以 <em>-a</em> 参数以安装指定的软件包及其依赖关系。</p>
+<div class="highlight-sh"><div class="highlight"><pre>~&gt; installoptionalpackage -a vim
+
+To be installed:  Vim LibIconv
+
+Installing vim-7.2-r1a2-x86-gcc2-2010-05-07.zip ...
+
+Downloading http://haiku-files.org/files/optional-packages/vim-7.2-r1a2-x86-gcc2-201... ...
+
+2010-05-10 17:02:43 URL:http://haiku-files.org/files/optional-packages/vim-7.2-r1a2-x86-gcc2-2010-05-07.zip <span class="o">[</span>8519537/8519537<span class="o">]</span> -&gt; <span class="s2">&quot;vim-7.2-r1a2-x86-gcc2-2010-05-07.zip&quot;</span> <span class="o">[</span>1<span class="o">]</span>
+
+Extracting vim-7.2-r1a2-x86-gcc2-2010-05-07.zip ...
+
+Installing libiconv-1.13.1-r1a2-x86-gcc2-2010-04-21-a.zip ...
+
+Downloading http://haiku-files.org/files/optional-packages/libiconv-1.13.1-r1a2-x86-... ...
+
+2010-05-10 17:02:50 URL:http://haiku-files.org/files/optional-packages/libiconv-1.13.1-r1a2-x86-gcc2-2010-04-21-a.zip <span class="o">[</span>1559805/1559805<span class="o">]</span> -&gt; <span class="s2">&quot;libiconv-1.13.1-r1a2-x86-gcc2-2010-04-21-a.zip&quot;</span> <span class="o">[</span>1<span class="o">]</span>
+
+Extracting libiconv-1.13.1-r1a2-x86-gcc2-2010-04-21-a.zip ...
+</pre></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Han Pengfei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>开发入门 &mdash; Haiku 中文文档</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Haiku 中文文档" href="index.html" />
+    <link rel="up" title="开发" href="开发.html" />
+    <link rel="next" title="Haiku编程学习" href="Haiku编程学习.html" />
+    <link rel="prev" title="开发" href="开发.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>Haiku 中文文档</span></a></h1>
+        <h2 class="heading"><span>开发入门</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="开发.html">开发</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="Haiku编程学习.html">Haiku编程学习</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="id1">
+<h1>开发入门<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>本手册将向你解释如何来进行 Haiku 系统的开发入门。</p>
+<div class="section" id="id2">
+<h2>手册相关<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Haiku 系统开发入门的最好的方式是深入了解它的开发环境以及尽可能的熟悉这一系统。如果你以前有过为 BeOS 开发程序的经验，那么使用 Haiku API 进行编程将会非常容易。如果你还是个新手，你可以尝试下面的任务。我们对你的技能和特点不是很了解，因此不能够给你安排一些任务，如果你可以自愿选择一个任务，然后由我们来帮助你完成，那将是一个很好的选择。</p>
+</div>
+<div class="section" id="id3">
+<h2>入门任务<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>下面是可选的任务：</p>
+<ul>
+<li><p class="first">修改字体敏感性问题以及硬编码值</p>
+<p>试着运行 apps,改变字体显示，检查是否一切都能够完好的显示；否则，您可以尝试着修改这个 bug。检查的硬编码值使用的源（例如，颜色，路径），并且使用各自的API调用来检索系统内置的编码值(如：通过 ui_color())。</p>
+</li>
+<li><p class="first">设计我们 UI(用户界面)和应用程序，使它们更加符合我们的 HIG(人机交互界面)</p>
+<p>运行一些程序，检查它们的菜单和按钮的命名和放置位置是否正确(举一个例子，那些用来打开一个会话的菜单或者按钮时以“…”结束，使用 <a href="#id19"><span class="problematic" id="id20">B_UTF8_</span></a> ELLIPSIS)同时, 检查一下是否那些参数配置会话框及时的应用了那些改变的设定(或者有“应用”两字的按钮)，并且检查它们是否有一个“恢复”按钮。(而不是“取消”和“确定”)而且还要检查它们和其他的系统偏好配置是否一致。如果希望获得有关这一方面的详细信息，可以参看 <a class="reference external" href="http://api.haiku-os.org/HIG/">人机界面规范</a>。</p>
+</li>
+<li><p class="first">清理不符合规范的源文件</p>
+<p>我们所有的源程序都遵守已经制定的 <a class="reference external" href="Haiku编码规范">源码规范</a> (但是那些从其他项目引入的源码除外)。还有一些本地程序也不遵循编码规范。把它们整理干净，让它们更加美观，然后向我们的 <a class="reference external" href="http://dev.haiku-os.org/">错误跟踪系统</a> 提交一个补丁来作为 enhancement 任务单。</p>
+</li>
+<li><p class="first">与错误跟踪系统相关的简单任务</p>
+<p>请在错误跟踪系统中浏览一下这些 <a class="reference external" href="http://dev.haiku-os.org/wiki/EasyTasks">简单任务列表</a> 。列表中的大多数错误是可以被个人所修复的。选出其中之一，然后注明您正在修复这一错误。完成之后您就可以向我们提交相关补丁。</p>
+</li>
+</ul>
+<p>如果您在上述列表中未找到适合的项目，您可以向我们的项目开发组发送一份自己的简介，这份简介包括以下的内容：</p>
+<ul class="simple">
+<li>您最擅长什么？－举例来说：“我是一个专业的C++开发者。”或“我是一个有着两年c++开发经验的编程爱好者”。</li>
+<li>您每周可以拿出多少时间进行开发？给出粗略的估计即可，您只需要让我们知道什么样的任务可以由您来胜任足矣。</li>
+<li>您是否具有其他特别领域的开发经验？例如：系统内核，网络，文件系统等等。</li>
+<li>您对哪些项目特别感兴趣？</li>
+</ul>
+<p>我们会向您提出一些问题，然后再做出任务安排，也可能会给您指出特别的错误。</p>
+</div>
+<div class="section" id="id4">
+<h2>当您找到任务<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>当您发现了自己感兴趣的任务后，你尽可在项目开发邮件列表里询问有关问题。在编写代码之前，请参阅我们的编码规范，并且尽可能的记住它们(在这点上我们是很严格的)。祝愿您可以在为Haiku编写代码的过程中找到自己的兴趣所在。</p>
+</div>
+<div class="section" id="id5">
+<h2>编写代码准备<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">目前，Haiku 是最合适的开发环境。当然 Linux、BSD 和 OS X 也可以。但是 BeOS，Zeta，Cygn 和 Solaris 等平台将不再作为开发环境，也将不再被支持。</p>
+</li>
+<li><dl class="first docutils">
+<dt>订阅以下邮件列表：</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.freelists.org/list/haiku-development">Haiku开发邮件列表</a></li>
+<li><a class="reference external" href="http://www.freelists.org/list/haiku">Haiku普通邮件列表</a></li>
+<li><a class="reference external" href="http://www.freelists.org/list/haiku-commits">提交日志</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">了解您所使用系统上的[开发工具](预备软件)。</p>
+</li>
+<li><p class="first">阅读如何[获取和编译源代码](构建Haiku)。</p>
+</li>
+<li><p class="first">熟悉我们的源代码树的基本布局。</p>
+</li>
+<li><p class="first">熟悉我们的`项目管理和错误问题跟踪系统`_ (Trac)。</p>
+</li>
+<li><p class="first">学习我们的 <a class="reference external" href="Haiku编码规范">源码规范</a>。所有 Haiku 源码都应该遵循该规范。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="git">
+<h2>获取 GIT 提交权限<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h2>
+<p>我们将根据开发者对于 Haiku 代码的贡献来决定他们是否具有 Haiku 源码库的 GIT 提交权限。您可以通过我们的 <a class="reference external" href="http://dev.haiku-os.org/">Trac 错误提交工具</a> 提交补丁来快速的获取SVN写入权限。</p>
+<p>当您成功地向我们的 Haiku 代码库里提交了一些补丁之后，则可以向 <a href="#id21"><span class="problematic" id="id22">`Haiku 开发邮件列表`_</span></a> 里发送邮件申请获得 GIT 提交权限。为了便于审查您的任务和对您的要求做出决定，请在您的邮件里包含您所提供的补丁清单(标题以及链接到 Track 的条目)。</p>
+</div>
+<div class="section" id="id7">
+<h2>深入阅读<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://haiku-os.org/development/faq#intro-tasks">FAQ: 是否有简单的引导任务？</a></li>
+<li><a class="reference external" href="源码库布局简明介绍.rst">源码库布局的简明介绍</a></li>
+<li><a class="reference external" href="开发者文档.rst">开发者文档</a></li>
+<li><a class="reference external" href="http://www.haiku-os.org/legacy-docs/bebook/">The BeBook</a></li>
+<li><a class="reference external" href="http://www.oreilly.com/catalog/beosprog/book/">Programming the Be Operating System</a> (<a class="reference external" href="http://www.haiku-os.org/files/downloads/programmingbeos.zip">镜像下载</a>)</li>
+<li><a class="reference external" href="JamRM入门教程.rst">Jam 入门</a></li>
+<li><a class="reference external" href="jamfile参考.rst">Jam 参考文档</a></li>
+<li><a class="reference external" href="http://dev.haiku-os.org/wiki/GitStarted">GIT 入门参考</a></li>
+</ul>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="开发.html">开发</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="Haiku编程学习.html">Haiku编程学习</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Han Pengfei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
