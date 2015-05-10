@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>第五课 &mdash; Haiku 中文文档</title>
+    
+    <link rel="stylesheet" href="../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Haiku 中文文档" href="../../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../index.html">
+          <span>Haiku 中文文档</span></a></h1>
+        <h2 class="heading"><span>第五课</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="id1">
+<h1>第五课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>我们要花点时间把我们已经学过的不同代码凑到一块。从第一节课开始，我们先后学习了下面几部分内容：</p>
+<ul class="simple">
+<li>模板（Template）</li>
+<li>命名空间（Namespace）</li>
+<li>迭代器（Iterator）</li>
+<li>C++ 字符串类（string class）</li>
+<li>STL 关联容器：map，set，multimap，以及 multiset</li>
+<li>STL 顺序容器：vector，deque，和 list</li>
+<li>STL 容器适配器：queue 和 priority_queue</li>
+<li>C++ 输入输出流，即 cout 等</li>
+<li>异常(Exceptions)</li>
+</ul>
+<p>以上这些内容，已经足够写厚厚的一本书，而且对标准模板库和 C++ 标准库的高效使用做一个透彻的讲解。在这里，高级应用并不是我们的目的，我们主要是希望能够对这些话题有一个全面的了解以便于我们在编写 Haiku 应用时能够写出更好的代码。</p>
+<p>## 项目：读入 Paladin 项目</p>
+<p>对于不了解的人来说，Paladin 就是 Haiku 上可用的集成开发环境之一。它的界面设计与原 BeIDE 非常相似，而 BeIDE 是彼时 BeOS 上主要的 IDE。Paladin 与 Haiku 上其他的IDE 相区分的主要特性是它独特的项目文件格式，特殊格式的文本文件。这使得它可以方便地进行导入和导出。</p>
+<p>这种格式本身相对简单。每个文件都是一个列表，每行都是一个键值对。这也使得它可以连续的读入和解析项目文件。因为新的键会被老版本的程序忽略，这也增强了它的前向兼容性。</p>
+<p>本项目是一个跨平台的项目阅读器。我们将要使用 STL 和 C++ 标准库，以保证它可以在任何的操作系统上可用。该项目主要可用作项目转换程序的一部分，用于将 Paladin 项目文件转换为 makefile，Jamfile，shell 脚本，以及其他构建系统。
+<a href="#id2"><span class="problematic" id="id3">``</span></a><a href="#id4"><span class="problematic" id="id5">`</span></a>C++</p>
+<blockquote>
+<div><p>#include &lt;fstream&gt;
+#include &lt;iostream&gt;
+#include &lt;list&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+#include &lt;strings.h&gt;
+#include &lt;vector&gt;</p>
+<p>// 因为我们需要多次使用 std 命名空间，如下使用可以节省很多次输入呢。
+using namespace std;</p>
+<p>// 虽然以下的结构体可以并且应该用作类，但我们仅使用结构体以简化程序
+// 和节省空间。
+typedef struct
+{</p>
+<blockquote>
+<div><p>// 文件路径可以存储为绝对路径，即其以 / 作为起始，或者相对于
+// 项目文件位置的相对路径。
+string path;</p>
+<p>// 依赖文件存储为文件路径列表，彼此之间以管道符（|）分开。
+string dependencies;</p>
+</div></blockquote>
+<p>} ProjectFile;</p>
+<p>typedef struct
+{</p>
+<blockquote>
+<div>string name;
+bool expanded;
+vector&lt;ProjectFile&gt; files;</div></blockquote>
+<p>} ProjectGroup;</p>
+<p>// Paladin 实际使用的项目类将更加复杂，因为它有一些在程序
+// 运行时管理状态的属性，但是这个结构体已经具有了所有用
+// 于构建和管理项目的数据。
+typedef struct
+{</p>
+<blockquote>
+<div>map&lt;string, string&gt;             properties;
+vector&lt;string&gt;                  localIncludes;
+vector&lt;string&gt;                  systemIncludes;
+vector&lt;ProjectGroup&gt;            groups;
+vector&lt;string&gt;                  libraries;</div></blockquote>
+<p>} PaladinProject;</p>
+<p>int
+ReadPaladinProject(const char <a href="#id6"><span class="problematic" id="id7">*</span></a>path, PaladinProject &amp;proj)
+{</p>
+<blockquote>
+<div><p>// 创建输入文件流以读取文件。
+ifstream file;</p>
+<p>file.open(path, ifstream::in);
+if (!file.isopen())
+{</p>
+<blockquote>
+<div>// endl 是跨平台的行结束符。而 EOL 字符在 Windows，
+// Haiku/Linux/Haiku，以及 OSX 上则不同，因此它省去
+// 了我们深究它的不同，而且还不失去可移植性。
+cout &lt;&lt; “Could’t open the file ” &lt;&lt; path &lt;&lt; endl;
+return -1;</div></blockquote>
+<p>}</p>
+<p>// 清空项目数据，以确保我们没有在已存在的项目上进行构建。
+proj.properties.clear();
+proj.localIncludes.clear();
+proj.systemIncludes.clear();
+proj.groups.clear();</p>
+<p>while (!file.eof())
+{</p>
+<blockquote>
+<div><p>string strData;</p>
+<p>// 虽然 fstream 类具有 getline() 方法，但是它仅作用于常规字符串。
+// 在 &lt;string&gt; 中有一个全局 getline() 函数可用于从流中将数据读入
+// C++ 字符串。如下是我们使用的方法。
+getline(file, strData);</p>
+<p>// 在 Paladin 项目中不存在空行，但是我们需要处理这种异常情况，
+// 以避免让人头痛的事情。
+if (strData.empty())</p>
+<blockquote>
+<div>continue;</div></blockquote>
+<p>size_t pos = strData.find(‘=’);</p>
+<p>// npos 是 C++ 字符串的最大长度。如果查找的字符串未找到，find()
+// 将会返回 npos 。
+if (pos == string::npos)</p>
+<blockquote>
+<div>continue;</div></blockquote>
+<p>string key = strData.substr(0, pos);
+string value = strData.substr(pos + 1, string::npos);</p>
+<p>if (key.compare(“GROUP”)) == 0)
+{</p>
+<blockquote>
+<div>// vector 容器可以让我们免于为内存管理和指针而纠结。而且，
+// 我们所需要做的只是在栈上新建一个组，并使用它类初始化
+// 组的 vector 中的新元素。
+ProjectGroup newGroup;
+newGroup.name = value;
+proj.groups.push_back(newGroup);</div></blockquote>
+<p>}
+else if (key.compare(“EXPANDGROUP”) == 0)
+{</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>if (!proj.groups.empty())</dt>
+<dd>proj.groups.back().expanded = strcasecmp(value.c_str(), “yes”);</dd>
+</dl>
+</div></blockquote>
+<p>}
+else if (key.compare(“SOURCEFILE”) == 0)
+{</p>
+<blockquote>
+<div>// 很多点用于创建新文件，但是没关系。它确实很容易和指针相混淆。
+ProjectFile newFile;
+newFile.path = value;
+proj.groups.back().files.push_back(newFile);</div></blockquote>
+<p>}
+else if (key.compare(“DEPENDENCY”) == 0)
+{</p>
+<blockquote>
+<div>proj.groups.back().files.back().dependencies = value;</div></blockquote>
+<p>}
+else if (key.compare(“LIBRARY”) == 0)
+{</p>
+<blockquote>
+<div>proj.libraries.push_back(value);</div></blockquote>
+<p>}
+else
+{</p>
+<blockquote>
+<div>proj.properties[key] = value;</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+<p>return 0;</p>
+</div></blockquote>
+<p>}</p>
+<p>int
+main (int argc, char <a href="#id8"><span class="problematic" id="id9">**</span></a>argv)
+{</p>
+<blockquote>
+<div><p>PaladinProject project;</p>
+<p>if (argc == 2)
+{</p>
+<blockquote>
+<div>ReadPaladinProject(argv[1], project);</div></blockquote>
+<p>}
+else
+{</p>
+<blockquote>
+<div>cout &lt;&lt; “Usage: ” &lt;&lt; argv[0] &lt;&lt; “ &lt;path&gt; n”;</div></blockquote>
+<p>}</p>
+<p>map&lt;string, string&gt;::iterator i;
+for (i = project.properties.begin(); i != project.properties.end(); i++)
+{</p>
+<blockquote>
+<div>cout &lt;&lt; i-&gt;first &lt;&lt; “: ” &lt;&lt; i-&gt;second &lt;&lt; endl;</div></blockquote>
+<p>}</p>
+<p>return 0;</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p><a href="#id10"><span class="problematic" id="id11">``</span></a>`
+## 深入了解</p>
+<ul class="simple">
+<li>使用本项目作为打印 Paladin 项目信息的起点。</li>
+<li>创建一个项目，读取 Paladin 项目文件，并且将其分割为 makefile 或者 Jamfile 。</li>
+</ul>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Han Pengfei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

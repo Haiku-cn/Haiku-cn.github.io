@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>第二十二课 &mdash; Haiku 中文文档</title>
+    
+    <link rel="stylesheet" href="../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Haiku 中文文档" href="../../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../index.html">
+          <span>Haiku 中文文档</span></a></h1>
+        <h2 class="heading"><span>第二十二课</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="id1">
+<h1>第二十二课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>## 深入开发：QuickEdit</p>
+<p>假若所有的计算机程序都如 HelloWorld 或其他演示程序那般简单！开发人员的生活就不会那般艰难。奈何，事实并不如此。在接下来的几节课中，我们将会揭去这层薄的面纱，深入其中了。为任何的操作系统设计简单的程序都会如这些程序一般琐碎，并且它们都会非常的粗糙。幸运的是，随着我们对操作系统功能的学习和了解，您将会对编写稍大型的 Haiku 程序中所涉及到的内容有所认识。</p>
+<p>您可能会问，我们的项目会是什么呢？它是一个简单的格式化文本编辑器，QuickEdit。</p>
+<p>尽管 Haiku 已经有了一个编辑器 StyledEdit，所以，毫无疑问，我们编写的代码将会与它有所雷同，但我们添加的功能并不一定都能够在 StyledEdit 中找到。</p>
+<p>## 程序架构</p>
+<p>如果没有了 BTextView 控件，我们的任务可就非常非常艰巨了。当然，不禁自惭，文档处理器的编写尤为不易呀。我们的程序非常简单，其蓝图如下：以 BTextView 为中心的相对简单 GUI 来构建一个简单，但是有用的文档处理器。</p>
+<p>在我们轻率的写出代码之前，我们来概览一下 BTextView 类的定义，查看一下我们可以利用哪些功能，而不需要花费很多时间。这之后，会为我们省些精力和时间。需要注意的是，这些并不是这个类完整的定义，我们省却了与 QuickEdit 不相关的功能。
+<a href="#id2"><span class="problematic" id="id3">``</span></a><a href="#id4"><span class="problematic" id="id5">`</span></a>C++
+class BTextView : public BView
+{
+public:</p>
+<blockquote>
+<div><p>void            SetText(const char* inText, const text_run_array* inRuns = NULL);
+void            SetText(const char* inText, int32 inLength, const text_run_array* inRuns = NULL);
+void            SetText(BFile* inFile, int32 startOffset, int32 inLength, const text_run_array*</p>
+<blockquote>
+<div>inRuns = NULL);</div></blockquote>
+<p>void            Insert(const char* inText, const text_run_array* inRuns = NULL);
+void            Insert(const char* inText, int32 inLength, const text_run_array* inRuns = NULL);
+void            Insert(int32 startOffset, const char* inText, int32 inLength,</p>
+<blockquote>
+<div>const text_run_array* inRuns = NULL);</div></blockquote>
+<p>void            Delete();
+void            Delete(int32 startOffset, int32 endOffset);
+const char*     Test() const;
+int32           TestLength() const;
+void            GetText(int32 offset, int32 length, char* buffer) const;
+uint8           ByteAt(int32 offset) const;</p>
+<p>int32           CountLines() const;
+int32           CurrentLine() const;
+void            GoToLine(int32 lineIndex);</p>
+<p>void            Cut(BClipboard* clipboard);
+void            Copy(BClipboard* clipboard);
+void            Paste(BClipboard* clipboard);
+void            Clear();</p>
+<p>bool            AcceptsPaste(BClipboard* clipboard);
+bool            AcceptsDrop(const BMessage* inMessage);</p>
+<p>void            Select(int32 startOffset, int32 endOffset);
+void            SelectAll();
+void            GetSelection(int32* outStart, int32* outEnd) const;</p>
+<dl class="docutils">
+<dt>void            SetFontAndColor(const BFont* inFont, uint32 inMode = B_FONT_ALL,</dt>
+<dd>const rgb_color* inColor = NULL);</dd>
+<dt>void            SetFontAndColor(int32 startOffset, int32 endOffset,</dt>
+<dd>const BFont* inFont, uint32 inMode = B_FONT_ALL,
+const rgb_color* inColor = NULL);</dd>
+<dt>void            GetFontAndColor(int32 inOffset, BFont* outFont,</dt>
+<dd>rgb_color* outColor = NULL) const;</dd>
+<dt>void            FindWord(int32 inOffset, int32* outFromOffset,</dt>
+<dd>int32* outToOffset);</dd>
+</dl>
+<p>float           LineWidth(int32 lineIndex = 0) cosnt;
+float           LineHeight(int32 lineIndex = 0) const;
+float           TextHeight(int32 startLine, int32 endLine) const;</p>
+<p>void            ScrollToOffset(int32 inOffset);
+void            ScrollToSelection();</p>
+<p>void            Highlight(int32, startOffset, int32 endOffset);</p>
+<p>void            SetTextRect(BRect rect);
+BRect           TextRect() const;
+void            SetInsets(float left, float top, float right, float bottom);</p>
+<dl class="docutils">
+<dt>void            GetInsets(float* _left, float* _top,</dt>
+<dd>float* _right, float* _bottom) const;</dd>
+</dl>
+<p>void            SetStylable(bool stylable);
+bool            IsStylable() const;</p>
+<p>void            SetTabWidth(float width);
+float           TabWidth() const;</p>
+<p>void            SetWordWrap(bool wrap);
+bool            DoesWordWrap() const;</p>
+<p>void            SetMaxBytes(int32 max);
+int32           MaxBytes() const;</p>
+<p>void            DisallowChar(uint32 aChar);
+void            AllowChar(uint32 aChar);</p>
+<p>void            SetAlignment(alignment flag);
+alignment       Alignment() const;</p>
+<p>void            SetAutoindent(bool state);
+bool            DoesAutoindent() const;</p>
+<p>void            SetColorSpace(color_space colors);
+color_space     ColorSpace() const;</p>
+<p>void            MakeResizable(bool resize, BView* resizeView = NULL);
+bool            IsResizable() const;</p>
+<p>void            SetDoesUndo(bool undo);
+bool            DoesUndo() const;</p>
+<p>void            HideTyping(bool enabled);
+bool            IsTypingHidden() const;</p>
+<p>void            Undo(Clipboard* clipboard);
+undo_state      UndoState(bool* isRedo) const;</p>
+</div></blockquote>
+<div class="section" id="id6">
+<h2>}<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>看看这些方法，它们为我们提供了非常有趣的功能。我们可以提供撤销和在窗口锁定文字等选项。制表键所占据的空间宽度也可以通过小控件进行修改，我们也可以使用文本矩形框特性来作为页面边角设置等功能。字体颜色和样式也可以进行设置，并且我们还有一些其他的字体效果并未列出，如下划线，粗体和斜体样式，轮廓等等。也可以执行剪贴板操作。还有一些基本的对齐操作支持，尽管在常规的字处理程序中，它并不常用。</p>
+<p>尽管有这么多的功能，我们还是从简入手。如果我们尽量遵循基本字处理程序常用的工作流程，那么从这里开始和构建将会比事先确定所有内容要更为容易。</p>
+<p>在编写字处理程序最初阶段，我们的目标将是我们早已熟知的内容：一个带有文本编辑器的窗口，可用于保存和载入文本。在 Paladin 中利用 Main Window with Menu 模板新建一个项目
+。在 App.cpp 中修改程序署名为 “application/x-vnd.dw-QuickEdit”，使用您自己的初始化内容取代原作者的程序，然后保存您的修改。您需要进入 Project 菜单中的 Change System Libraries 菜单，然后添加 libtracker.so 和 libtranslation.so 库。App.h 和 App.cpp 如下所示：</p>
+<p>### App.h
+<a href="#id7"><span class="problematic" id="id8">``</span></a><a href="#id9"><span class="problematic" id="id10">`</span></a>C++
+#ifndef APP_H
+#define APP_H</p>
+<p>#include &lt;Application.h&gt;</p>
+<p>class App : public BApplication
+{
+public:</p>
+<blockquote>
+<div>App(void);</div></blockquote>
+<p>};</p>
+<p>#endif
+<a href="#id11"><span class="problematic" id="id12">``</span></a>`
+### App.cpp
+<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a>C++
+#include &#8220;App.h&#8221;
+#include &#8220;MainWindow.h&#8221;</p>
+<dl class="docutils">
+<dt>App::App(void)</dt>
+<dd>:   BApplication(&#8220;application/x-vnd.dw-QuickEdit&#8221;)</dd>
+</dl>
+<dl class="docutils">
+<dt>{</dt>
+<dd>MainWindow* mainwin = new MainWindow();
+mianwin-&gt;Show();</dd>
+</dl>
+<p>}</p>
+<p>int
+main(void)
+{</p>
+<blockquote>
+<div>App <a href="#id17"><span class="problematic" id="id18">*</span></a>app = new App();
+app-&gt;Run();
+delete app;
+return 0;</div></blockquote>
+</div>
+<div class="section" id="id19">
+<h2>}<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>以上这些代码目前都没什么特别的意义。我们的重点在于 MainWindow.h 和 MainWindow.cpp。</p>
+<p>### MainWindow.h
+<a href="#id20"><span class="problematic" id="id21">``</span></a><a href="#id22"><span class="problematic" id="id23">`</span></a>C++
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H</p>
+<p>#include &lt;Window.h&gt;
+#include &lt;Entry.h&gt;
+#include &lt;FilePanel.h&gt;
+#include &lt;MenuBar.h&gt;
+#include &lt;String.h&gt;
+#include &lt;TextView.h&gt;</p>
+<p>class MainWindow : public BWindow
+{
+public:</p>
+<blockquote>
+<div><blockquote>
+<div>MainWindow(void);
+~MainWindow(void);</div></blockquote>
+<p>void            MessageReceived(BMessage* msg);
+bool            QuitRequested(void);
+void            OpenFile(const entry_ref &amp;ref);
+void            SaveFile(const char* path);
+void            FrameResized(float w, float h);</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>private:</dt>
+<dd><p class="first">void            UpdateTextRect(void);</p>
+<p>BMenuBar*       fMenuBar;
+BTextView*      fTextView;
+BFilePanel*     fOpenPanel;
+BFilePanel*     fSavePanel;</p>
+<p class="last">BString         fFilePath;</p>
+</dd>
+</dl>
+<p>};</p>
+<p>#endif
+<a href="#id24"><span class="problematic" id="id25">``</span></a>`
+在上述头文件中，我们新碰到的是用于在载入和保存文件的 BFilePanel 类，以及提供了所有我们需要的文本编辑服务的 BTextView 类。</p>
+<p>### MainWindow.cpp
+<a href="#id26"><span class="problematic" id="id27">``</span></a><a href="#id28"><span class="problematic" id="id29">`</span></a>C++
+#include &#8220;MainWindow.h&#8221;</p>
+<p>#include &lt;Alert.h&gt;
+#include &lt;Application.h&gt;
+#include &lt;Directory.h&gt;
+#include &lt;File.h&gt;
+#include &lt;Menu.h&gt;
+#include &lt;MenuItem.h&gt;
+#include &lt;Messenger.h&gt;
+#include &lt;NodeInfo.h&gt;
+#include &lt;Path.h&gt;
+#include &lt;ScrollView.h&gt;
+#include &lt;String.h&gt;
+#include &lt;TranslationUtils.h&gt;</p>
+<p>enum
+{</p>
+<blockquote>
+<div>M_FILE_VIEW = &#8216;flnw&#8217;,
+M_SHOW_OPEN = &#8216;shop&#8217;,
+M_SAVE = &#8216;save&#8217;,
+M_SAVE_AS = &#8216;svas&#8217;,
+M_PRINT_SETUP = &#8216;ptcf&#8217;,
+M_PRINT = &#8216;prin&#8217;</div></blockquote>
+<p>};</p>
+<dl class="docutils">
+<dt>MainWindow::MainWindow(void)</dt>
+<dd><dl class="first last docutils">
+<dt>:   BWindow(BRect(100,100,500,400), &#8220;QuickEdit&#8221;, B_TITLED_WINDOW,</dt>
+<dd>B_ASYNCHRONOUS_CONTROLS)</dd>
+</dl>
+</dd>
+</dl>
+<dl class="docutils">
+<dt>{</dt>
+<dd><p class="first">// 我们首先创建一个菜单栏，并且使用我们将要实现的命令来填充该菜单。
+BRect(Bounds());
+r.bottom = 20;
+fMenuBar = new BMenuBar(r, &#8220;menubar&#8221;);
+AddChild(fMenuBar);
+BMenu* menu = new BMenu(&#8220;File&#8221;);
+fMenuBar-&gt;AddItem(menu);</p>
+<p>// 下面是添加菜单项的快捷方式。需要注意的是
+// 快捷键是 Haiku 标准：
+//          Alt + N =&gt; New file
+//          Alt + O =&gt; Open file
+//          Alt + S =&gt; Save file
+//          Alt + Shift + S =&gt; Save As</p>
+<p>// 快捷键通常和Alt按键成对执行只是习惯如此，
+// 也可以如 Windows 和 Linux 一样使用 Ctrl
+// 按键作为命令键。
+menu-&gt;AddItem(new BMenuItem(&#8220;New&#8221;, new BMessage(M_FILE_NEW), &#8216;N&#8217;));
+menu-&gt;AddItem(new BMenuItem(&#8220;Open&#8221;, new BMessage(M_SHOW_OPEN), &#8216;O&#8217;));
+menu-&gt;AddSeparatorItem();
+menu-&gt;AddItem(new BMenuItem(&#8220;Save&#8221;, new BMessage(M_SAVE), &#8216;S&#8217;));</p>
+<p>// 下面的函数，跟上述其他不同，其指明了使用多于Alt加上单个字
+// 符的快捷键。
+menu-&gt;AddItem(new BMenuItem(&#8220;Save As&#8221;, B_UTF8_ELLIPSIS,</p>
+<blockquote>
+<div>new BMessage(M_SAVE_AS), &#8216;S&#8217;,
+B_COMMAND_KEY | B_SHIFT_KEY));</div></blockquote>
+<p>// 接下来，我们将添加文本视图和滚动栏。为了方便，我们将使用
+// BScrollView。在使用BScrollView时，首先需要创建其目标对象，
+// 然后创建BScrollView，最后调用仅适用于BScrollView的AddChild
+// 方法，它将会完成添加其目标对象的操作。
+r = Bounds();
+r.top = fMenuBar-&gt;Frame().bottom + 1;</p>
+<p>// 在计算目标视图的区域大小时，您必须为BScrollView提供的滚动栏
+// 预先留足额外的宽和高。Haiku为我们提供了用于此的B_V_SCROLL_BAR_WIDTH
+// B_H_SCROLL_BAR_WIDTH常量。
+r.right -= B_V_SCROLL_BAR_WIDTH;</p>
+<p>// 我们将要用到的BTextView构造函数不仅需要一个框架大小，还需要
+// 用于文本现实的矩形区域。可以对其或多或少的加以设置。
+BRect textRect = r;
+textRect.OffsetTo(0,0);
+textRect.InsetBy(5,5);
+fTextView = new BTextView(r, &#8220;textview&#8221;, textRect, B_FOLLOW_ALL);</p>
+<p>// 没有下面的调用，我们的BTextView仅仅是一个纯文本编辑器
+fTextView-&gt;SetStylable(true);</p>
+<dl class="docutils">
+<dt>BScrollView* scrollView = new BScrollView(&#8220;scrollview&#8221;, fTextView,</dt>
+<dd>B_FOLLOW_ALL, 0, false, true);</dd>
+</dl>
+<p>AddChild(scrollView);</p>
+<p>// 下面我们将使用一个新类：BFilePanel。更多使用稍后再述。
+BMessenger msgr(NULL, this);
+fOpenPanel = new BFilePanel(B_OPEN_PANEL, &amp;msgr, NULL, 0, false);
+fSavePanel = new BFilePanel(B_SAVE_PANEL, &amp;msgr, NULL, 0, false);</p>
+<p class="last">// 下面的代码能够让用户在程序运行时马上可以进行输入。如果
+// 没有该调用，用户必须手动点击窗口以便输入。这相当的犯人！
+fTextView-&gt;MakeFocus(true);</p>
+</dd>
+</dl>
+<p>}</p>
+<p>MainWindow::~MainWindow(void)
+{</p>
+<blockquote>
+<div>delete fOpenPanel;
+delete fSavePanel;</div></blockquote>
+<p>}</p>
+<p>void
+MainWindow::MessageReceived(BMessage* msg)
+{</p>
+<blockquote>
+<div><p>switch (msg-&gt;what)
+{
+case M_FILE_NEW:
+{</p>
+<blockquote>
+<div>// 清空BTextView中的所有文本。并且将文件路径
+// 置为空以表明文件未被保存到磁盘。
+fTextView-&gt;SetText(&#8220;&#8221;);
+fFilePath = &#8220;&#8221;;
+break;</div></blockquote>
+<p>}
+// 下述是与文件的打开和保存相关的case语句
+case M_SHOW_OPEN:
+{</p>
+<blockquote>
+<div>fOpenPanel-&gt;Show();
+break;</div></blockquote>
+<p>}
+case B_REFS_RECEIVED:
+{</p>
+<blockquote>
+<div><p>entry_ref ref;
+if (msg-&gt;FindRef(&#8220;ref&#8221;, &amp;ref) != B_OK)</p>
+<blockquote>
+<div>break;</div></blockquote>
+<p>OpenFile(ref);
+break;</p>
+</div></blockquote>
+<p>}
+case M_SAVE:
+{</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>if (fFilePath.CountChars() &lt; 1)</dt>
+<dd>fSavePanel-&gt;Show();</dd>
+<dt>else</dt>
+<dd>SaveFile(fFilePath.String());</dd>
+</dl>
+<p>break;</p>
+</div></blockquote>
+<p>}
+case M_SAVE_AS:
+{</p>
+<blockquote>
+<div>fSavePanel-&gt;Show();
+break;</div></blockquote>
+<p>}
+case B_SAVE_REQUESTED:
+{</p>
+<blockquote>
+<div><p>entry_ref dir;
+BString name;
+if (msg-&gt;FindRef(&#8220;directory&#8221;, &amp;dir) == B_OK &amp;&amp;</p>
+<blockquote>
+<div>msg-&gt;FindString(&#8220;name&#8221;, &amp;name) == B_OK)</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>BPath path(&amp;dir);
+path.Append(name);
+SaveFile(path.Path());</dd>
+</dl>
+<p>}
+break;</p>
+</div></blockquote>
+<p>}
+default:
+{</p>
+<blockquote>
+<div>BWindow::MessageReceived(msg);
+break;</div></blockquote>
+</div></blockquote>
+<p>}</p>
+<p>bool
+MainWindow::QuitRequested(void)
+{</p>
+<blockquote>
+<div>be_app-&gt;PostMessage(B_QUITE_REQUESTED);
+return true;</div></blockquote>
+<p>}</p>
+<p>void
+MainWindow::OpenFile(const entry_ref&amp; ref)
+{</p>
+<blockquote>
+<div><p>// 将符号链接转换为其目标对象
+BEntry entry(&amp;ref, true);
+entry_ref realRef;
+entry.GetRef(&amp;realRef);</p>
+<p>// Translation套件提供了文本文件的翻译服务。
+BFile file(&amp;realRef, B_READ_ONLY);
+if (file.InitCheck() != B_OK)</p>
+<blockquote>
+<div>return;</div></blockquote>
+<p>// 一个从文件中读取格式化文本的简单函数。Nice!
+if (BTranslationUtils::GetStyledText(&amp;file, fTextView) == B_OK)
+{</p>
+<blockquote>
+<div>// BPath 是Storage套件中使用数据类和常规字符串
+// 路径之间转换的桥梁。下面我们设置BPath实例为
+// 打开文件的绝对路径，并且将窗口的标题设置为文件名。
+BPath path(&amp;realRef);
+fFilePath = path.Path();
+SetTitle(path.Leaf());</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+<p>void
+MainWindow::SaveFile(const char* path)
+{</p>
+<blockquote>
+<div><p>// 该函数接收一个字符串路径，然后保存BTextView中的数据到
+// 路径所指的文件，如果文件不存在则创建该文件，否则则覆盖
+// 已存在的文件。
+BFile file;
+if (file.SetTo(path, B_READ_WRITE | B_CREATE_FILE | B_ERASE_FILE)</p>
+<blockquote>
+<div><blockquote>
+<div>!= B_OK)</div></blockquote>
+<p>return;</p>
+</div></blockquote>
+<p>if (BTranslationUtils::PutStyledText(fTextView, &amp;file) == B_OK)
+{</p>
+<blockquote>
+<div><p>fFilePath = path;</p>
+<p>BNodeInfo nodeInfo(&amp;file);
+nodeInfo.SetType(&#8220;text/plain&#8221;);</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+<p>void
+MainWindow::FrameResized(float w, float h)
+{</p>
+<blockquote>
+<div>// 下面是一些需要铭记的箴言：在BTextView缩放时，
+// 它并不会更新他的文本框区域。在窗口缩放时，
+// 我们的TextView将也会进行缩放。FrameResized()
+// 将确保文本框的更新。
+UpdateTextRect();</div></blockquote>
+<p>}</p>
+<p>void
+MainWindow::UpdateTextRect(void)
+{</p>
+<blockquote>
+<div>BRect r(fRectView-&gt;Bounds());
+r.InsetBy(5,5);
+fTextView-&gt;SetTextRect(r);</div></blockquote>
+</div>
+<div class="section" id="id30">
+<h2>}<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h2>
+<p>在上面这段代码中，我们有两点需要重申。第一点是 GetStyledText() 和 PutStyledText() 调用。Translation 套件已经为我们提供了保存格式化文本的工具！我们编程技巧的第二点就是工具包，也就是对 BFilePanel 的使用。</p>
+<p>BFilePanel 是一个高度定制的文件和目录选择类。尽管它属于 Storage 套件的一部分，它也被认为是 Interface 套件的一部分。在构造之后，您只需要调用它的 Show() 方法以便让用户选择文件即可。我们在 MainWindow 构造函数中还看到了一下三行代码：
+<tt class="docutils literal"><span class="pre">`C++</span>
+<span class="pre">BMessenger</span> <span class="pre">msgr(NULL,</span> <span class="pre">this);</span>
+<span class="pre">fOpenPanel</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">BFilePanel(B_OPEN_PANEL,</span> <span class="pre">&amp;msgr,</span> <span class="pre">NULL,</span> <span class="pre">0,</span> <span class="pre">false);</span>
+<span class="pre">fSavePanel</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">BFilePanel(B_SAVE_PANEL,</span> <span class="pre">&amp;msgr,</span> <span class="pre">NULL,</span> <span class="pre">0,</span> <span class="pre">false);</span>
+<span class="pre">`</span></tt>
+它们分别用于创建打开和保存面板，但是这些调用中的参数并未告诉我们它们究竟如何运行。下面是 BFilePanel 构造函数的声明：
+<a href="#id31"><span class="problematic" id="id32">``</span></a><a href="#id33"><span class="problematic" id="id34">`</span></a>C++
+BFilePanel(file_panel_mode panelMode = B_OPEN_PANEL,</p>
+<blockquote>
+<div>BMessenger* target = NULL, entry_ref* panelDirectory = NULL,
+uint32 nodeTypes = 0, bool allowMultiple = true,
+BMessage* msg = NULL, BRefFilter* refFilter = NULL,
+bool modal = false, bool hide_when_done = true);</div></blockquote>
+<p><a href="#id35"><span class="problematic" id="id36">``</span></a>`
+该构造函数为提供了很多参数，并且为每个参数都提供了默认值。panelMode 可以设置为 B_OPEN_PANEL 或者 B_SAVE_PANEL。如果设置，它也可以进行修改。由于这两个模式在行为上具有微小但重要的不同，因此我们在该实例中需要两种不同模式的面板。target 是面板发送的保存或打开消息的接收方。默认的对象是 be_app_messenger，也就是指向每个程序所使用的 BApplication 实例的 BMessenger 对象。我们已经修改了该面板，使其指向我们的窗口。panelDirectory 可以是文件系统中的任何目录，但是其默认为用户的 home 文件夹。allowMultiple 决定了是否可以选择多个文件入口。msg 是做出选择时面板发送的消息。我们过会儿再分析 msg 的默认情况。refFilter 是一个 BRefFilter 对象，其可以用于仅显示指定文件类型的文件。modal 可以使面板的窗口需要一次按钮的点击；只在很少的情况下才需要。除非真的有合理的理由，否则不要启用面板的 modal 参数。最后，如果 hide_when_done 设置为 false，那么面板将会保持打开，即使用户已经做了选择，该选项也极少用到。</p>
+<p>我们需要更近一步的介绍一下 nodeTypes 参数。其值由一个或之多三个标记设置，B_FILE_NODE，B_DIRECTORY_NODE，和 B_SYMLINK_NODE。默认情况下，B_FILE_NODE，允许选中文件和任何指向文件的符号链接。同时使用 B_FILE_NODE 和 B_DIRECTORY_NODE 则允许用户选择目录和指向目录的符号链接。在这两种情况下，在面板中双击目录，面板将会进入该目录，但并不会进行选中。B_SYMLINK 总是单独使用，并且很少使用：如果单独使用，它仅允许选中符号链接。</p>
+<p>在用户做出选择时，所发送的消息取决于所作的选择和面板的模式。如果未作定义，打开面板将会发送 B_REFS_RECEIVED 消息，而保存面板将会发送 B_SAVE_REQUESTED 消息。自定义消息具有和构造函数或者 SetMessage() 调用所设置的相同的 what 字段。它也可以在设置时添加附加数据，即拷贝您原本的消息，添加标准打开和保存字段，然后发送消息到指定目标。</p>
+<p>打开通知将发送消息 refs 字段中保存的一系列 entry_ref 对象发送到目标对象。需要注意的是，它们是用户选中的内容。尽管您必须解析所有的符号链接，但这些都微不足道：利用 entry_ref 创建 BEnry，并将第二个参数设为 true。如果您需要新建一个 entry_ref，调用 BEntry 的 GetRef() 方法创建即可。您可以参照上述的 MainWindow::OpenFile()中的代码作为示例。</p>
+<p>保存通知包含两个额外的字段：命名为 directory 的 entry_ref 对象和命名为 name 的字符串。您可以使用这两个字段和 BPath 实例构造文件的完整路径。我们在 MessageReceived() 函数中使用了这种方法。当然，您也可以传递 BDirectory 实例的引用，然后调用 CreateFile()。需要注意的是，如果文件可能已经存在，用户需要确认覆盖文件。在这种情况下，您只需要将文件删除。我们可以在 SaveFile() 中使用 B_CREATE_FILE 和 B_ERASE_FILE 标志进行处理，这样可以确保，如果文件不存在则进行创建，反之则将其覆盖。</p>
+<p>## 思路总结</p>
+<p>如果您并未进行过任何大的编程项目，而只是做过一些简单的小应用，那么本节课中的代码可能会有点冗长。大型程序，例如字处理程序都是非常大的项目。但是，这些程序通常都是从小的部分开始的，就像上述我们所编写的程序，然后慢慢增长。如果我们做一个规划和设计方案，那么 QuickEdit 对我们来说将不难理解。</p>
+<p>## 深入理解</p>
+<ul class="simple">
+<li>思考一下，您自己是否有一些希望实现的功能。</li>
+<li>试着思考一下，如何将本节课中所讨论的功能整合到程序中。</li>
+</ul>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Han Pengfei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
