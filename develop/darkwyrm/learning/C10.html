@@ -41,223 +41,236 @@
         
         
   <div class="section" id="id1">
-<h1>第十课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id9">第十课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id9">第十课</a><ul>
+<li><a class="reference internal" href="#id2" id="id10">参数的默认值</a></li>
+<li><a class="reference internal" href="#id3" id="id11">引用</a></li>
+<li><a class="reference internal" href="#id4" id="id12">参数使用：传引用还是传值</a></li>
+<li><a class="reference internal" href="#id5" id="id13">函数指针</a></li>
+<li><a class="reference internal" href="#id6" id="id14">指针的指针</a></li>
+<li><a class="reference internal" href="#id7" id="id15">命令行参数</a></li>
+<li><a class="reference internal" href="#id8" id="id16">项目</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>当我们第一眼看到指针时候，我就觉得它们是非常强大的工具。今天我们就来学习一下如何在函数中使用它们，还有一些给函数传递参数的不同方法。</p>
-<p>## 参数的默认值</p>
-<p>当我们调用函数的时候，会发现有时候某些参数几乎不会有什么变化，比如说我们正在写一段在屏幕上创建一个窗口的函数：
-<a href="#id2"><span class="problematic" id="id3">``</span></a><a href="#id4"><span class="problematic" id="id5">`</span></a>C++
-void MakeWindow(int left,int top,</p>
-<blockquote>
-<div>int right,int bottom,const char <a href="#id6"><span class="problematic" id="id7">*</span></a>title,
-int type,
-int look);</div></blockquote>
-<p><a href="#id8"><span class="problematic" id="id9">``</span></a>`
-每次我们调用这个函数的时候，窗口的位置，大小和标题可能都各不相同，不过类型和外观很可能不太会变化，几乎每一次 type 和 look 的值都一样因为我们只是生成普通的窗口。每次都输入会浪费时间，所以我们就给这这两个参数定义个默认值。我们通过小小的修改声明文件来完成这个工作。
-<a href="#id10"><span class="problematic" id="id11">``</span></a><a href="#id12"><span class="problematic" id="id13">`</span></a>C++
-void MakeWindow(int left,int top,</p>
-<blockquote>
-<div>int right,int bottom,const char <a href="#id14"><span class="problematic" id="id15">*</span></a>title,
-int type = REGULAR_WINDOW_TYPE,
-int look = REGULAR_WINDOW_LOOK);</div></blockquote>
-<p><a href="#id16"><span class="problematic" id="id17">``</span></a>`
-现在我们已经为这两个参数设置了默认值，这样一来每当我们调用这个函数的时候就不必都要给这两个参数传值了。有默认值的参数都要放在参数表的最后。在这个例子中，当要创建普通窗体时就节省了很多打字工作。
-<a href="#id18"><span class="problematic" id="id19">``</span></a><a href="#id20"><span class="problematic" id="id21">`</span></a>C++
-MakeWindow(100,100,500,400,</p>
-<blockquote>
-<div>&#8220;MyWindow&#8221;,
-REGULAR_WINDOW_TYPE,
-REGULAR_WINDOW_LOOK);</div></blockquote>
-<p><a href="#id22"><span class="problematic" id="id23">``</span></a>`
-就可以简写成</p>
-<p><cite>MakeWindow(100,100,500,400,&#8221;MyWindow&#8221;);</cite></p>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id10">参数的默认值</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>当我们调用函数的时候，会发现有时候某些参数几乎不会有什么变化，比如说我们正在写一段在屏幕上创建一个窗口的函数：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">MakeWindow</span><span class="p">(</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span><span class="kt">int</span> <span class="n">top</span><span class="p">,</span>
+             <span class="kt">int</span> <span class="n">right</span><span class="p">,</span><span class="kt">int</span> <span class="n">bottom</span><span class="p">,</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">title</span><span class="p">,</span>
+             <span class="kt">int</span> <span class="n">type</span><span class="p">,</span>
+             <span class="kt">int</span> <span class="n">look</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>每次我们调用这个函数的时候，窗口的位置，大小和标题可能都各不相同，不过类型和外观很可能不太会变化，几乎每一次 type 和 look 的值都一样因为我们只是生成普通的窗口。每次都输入会浪费时间，所以我们就给这这两个参数定义个默认值。我们通过小小的修改声明文件来完成这个工作。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">MakeWindow</span><span class="p">(</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span><span class="kt">int</span> <span class="n">top</span><span class="p">,</span>
+             <span class="kt">int</span> <span class="n">right</span><span class="p">,</span><span class="kt">int</span> <span class="n">bottom</span><span class="p">,</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">title</span><span class="p">,</span>
+             <span class="kt">int</span> <span class="n">type</span> <span class="o">=</span> <span class="n">REGULAR_WINDOW_TYPE</span><span class="p">,</span>
+             <span class="kt">int</span> <span class="n">look</span> <span class="o">=</span> <span class="n">REGULAR_WINDOW_LOOK</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>现在我们已经为这两个参数设置了默认值，这样一来每当我们调用这个函数的时候就不必都要给这两个参数传值了。有默认值的参数都要放在参数表的最后。在这个例子中，当要创建普通窗体时就节省了很多打字工作。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="n">MakeWindow</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span>
+        <span class="s">&quot;MyWindow&quot;</span><span class="p">,</span>
+        <span class="n">REGULAR_WINDOW_TYPE</span><span class="p">,</span>
+        <span class="n">REGULAR_WINDOW_LOOK</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>就可以简写成</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="n">MakeWindow</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="s">&quot;MyWindow&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
 <p>在我们开始编写和 Haiku 的图型包有关的程序之前我们不会看到太多用到默认值的实例，但早点了解还是有帮助的。</p>
-<p>## 引用</p>
-<p>这里说的引用，不是某些你可以从库里找到的东西，它们其实是指针和普通变量的一种混合体，使用中它被看作是一个普通的变量，不用在前面加个星号才能读出它的值，不过它们本身有没有存储数据的空间，而是使用其他变量的存储空间。这里有个声明引用的例子：
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">int</span> <span class="pre">myInt;</span>
-<span class="pre">int</span> <span class="pre">&amp;myRef</span> <span class="pre">=</span> <span class="pre">myInt;</span>
-<span class="pre">`</span></tt>
-这里在 int 和 myRef 中间的 (&amp;) 符号就是声明普通变量和声明引用的不同点，在这个例子中，myRef 是 myInt 的一个引用，myRef 是，简单说来，就是 myInt 另外的一个名字。改变它们中一个的值，另一个也会跟着改变，这对于存储了有效地址的指针也是一样的，看下列代码：
-<a href="#id24"><span class="problematic" id="id25">``</span></a><a href="#id26"><span class="problematic" id="id27">`</span></a>C++</p>
-<blockquote>
-<div><p>#include &lt;stdio.h&gt;
-#include &lt;malloc.h&gt;</p>
-<p>int
-main(void)
-{</p>
-<blockquote>
-<div><p>//创建一个指向堆内存空间的指针并初始化它
-int <a href="#id28"><span class="problematic" id="id29">*</span></a>myPointer = (int <a href="#id30"><span class="problematic" id="id31">*</span></a>) malloc(sizeof(int));
-<a href="#id32"><span class="problematic" id="id33">*</span></a>myPointer = 1;</p>
-<p>//创建一个myPointer指向空间的引用
-int &amp;myRef = <a href="#id34"><span class="problematic" id="id35">*</span></a>myPointer;</p>
-<p>myRef++;</p>
-<p>printf(&#8220;The value at myPointer&#8217;s location is %db&#8221;,*myPointer);
-free(myPointer);</p>
-<p>return 0;</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p><a href="#id36"><span class="problematic" id="id37">``</span></a>`
-现在引用可能会让你想说“好吧，这玩意挺好，我们继续”，不过还有一些东西得让你知道，首先，你不能改变一个引用的指向。就是说 myRef 将永远是 myPointer 指针指向的那块内存的引用，即使 myPointer 指针自己都变了。所以如果在 myPointer 被释放后还试着使用 myRef 会引发段错误。这个不可变性其实是很有益的。一个引用必须被初始化，所以它就一直都有效，除非它引用的内存被释放或者它引用的变量出了自身的生命周期。这让引用相对指针来说更安全而同时也带来了同样的灵活性。</p>
-<p>## 参数使用：传引用还是传值</p>
-<p>从函数外获取数据是有不止一种方法的。最普通的方法是传值，不过引用提供了另外一种方法。一般的，当一个参数被传入函数时，是变量的一个副本被传了进去 &#8211; 是参数的“值”被传入函数，而不是变量本身，这意味着，你可以完全不考虑在这个函数外是否会造成麻烦的随意修改这个参数。当一个参数的引用被传入函数，那在这个函数对这个参数所做的一切更改会持续到这个函数退出之后。让一个函数用引用来传递参数只需要简单在参数名前加个(&amp;)符号。
-<a href="#id38"><span class="problematic" id="id39">``</span></a><a href="#id40"><span class="problematic" id="id41">`</span></a>C++</p>
-<blockquote>
-<div>const char * someFunction(int &amp;integerByReference);
-float someOtherFunction(const double &amp;doubleByReference);</div></blockquote>
-<p><a href="#id42"><span class="problematic" id="id43">``</span></a>`
-在这个例子里，someFunction 函数不仅返回一个字符串，而且它还可以修改 integerByReference 的值，这就相当与让我们可以通过一个函数得到两个返回值。someOtherFunction 使用了一个常引用 const reference，可能这看上去有点傻&#8211;传入一个我们不能更改的引用。但这么做其实是有目的的：它节约了一个副本。这是让一个经常被调用的函数跑的更快的一种方法，特别当这个函数有很多参数或者其中的某个参数占很大内存空间的时候。</p>
-<p>现在来让我们确定一下我们的确已经了解了值传递和引用传递的区别。让我们来看一段能说明这个区别的代码：
-<a href="#id44"><span class="problematic" id="id45">``</span></a><a href="#id46"><span class="problematic" id="id47">`</span></a>C++</p>
-<blockquote>
-<div><p>#include &lt;stdio.h&gt;</p>
-<p>//这个函数的x参数通过引用传递，y通过值传递
-int
-myFunction(int &amp;x,int y)
-{</p>
-<blockquote>
-<div>x = x * 2;
-y = y + 5;
-return x * y;</div></blockquote>
-<p>}</p>
-<p>int
-main( void )
-{</p>
-<blockquote>
-<div><p>//为了测试来创建两个变量
-int foo = 5;
-int bar = 10;</p>
-<p>int outValue = myFunction(foo,bar);</p>
-<dl class="docutils">
-<dt>printf(&#8220;foo is %d,bar is %d,and myFunction(foo,bar) is %dn,</dt>
-<dd>foo,bar,outValue&#8221;);</dd>
-</dl>
-<p>return 0;</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p><a href="#id48"><span class="problematic" id="id49">``</span></a>`
-在这个例子中 foo 开始是 5，但由于 myFunction() 改变了它，在打印出来的时候它的值已经变成了 10，bar 的值并没有变化因为 myFunction() 函数其实只是改变了 bar 的一个副本的值。</p>
-<p>## 函数指针</p>
-<p>就在你觉得指针已经没法更怪异的时候，它就更怪异了。指针不仅能够指向存储值的内存，它还能指向存储代码的地址。
-<a href="#id50"><span class="problematic" id="id51">``</span></a><a href="#id52"><span class="problematic" id="id53">`</span></a>C++</p>
-<blockquote>
-<div>void (<a href="#id54"><span class="problematic" id="id55">*</span></a>functionPointer)(int value,int anotherValue);</div></blockquote>
-<p><a href="#id56"><span class="problematic" id="id57">``</span></a>`
-上面这行代码不是函数，它实际上一个叫做 functionPointer 函数指针的类型是很特殊的，返回值，参数的个数和类型都是函数指针类型的一部分。下面两个函数指针就不是一个类型的:
-<a href="#id58"><span class="problematic" id="id59">``</span></a><a href="#id60"><span class="problematic" id="id61">`</span></a>C++</p>
-<blockquote>
-<div>void (<a href="#id62"><span class="problematic" id="id63">*</span></a>integerFunction)(int value);
-int (<a href="#id64"><span class="problematic" id="id65">*</span></a>anotherIntegerFunction)(int value);</div></blockquote>
-<p><a href="#id66"><span class="problematic" id="id67">``</span></a>`
-用指针的方式运行一个函数简单到死：把指针当作函数名就行了。下面这个例子就调用了 integerFunction 指针所指向的函数：
-<a href="#id68"><span class="problematic" id="id69">``</span></a><a href="#id70"><span class="problematic" id="id71">`</span></a>C++</p>
-<blockquote>
-<div>integerFunction(5);</div></blockquote>
-<p><a href="#id72"><span class="problematic" id="id73">``</span></a>`
-就好像引用一样，指针函数的用处到目前来讲没那么明显。但它实际上能给程序带来难以置信的弹性。代码可以被拆上拆下的就好像汽车一样。对于类似Perl或者Python这类解释型语言，更改程序是很简单的，不过对于编译型语言比如C++就没那么容易了。尽管不太多见，我们会在日后学习程序插件的时候使用到一些函数指针。现在，不用多去管它。</p>
-<p>## 指针的指针</p>
-<p>是滴，指针还可以指向其他指针。一个指针存储的内存地址完全可以是另一个指针自身的地址。其实只要在声明指针的时候加上第 2 个星号就可以了。
-<a href="#id74"><span class="problematic" id="id75">``</span></a><a href="#id76"><span class="problematic" id="id77">`</span></a>C++</p>
-<blockquote>
-<div>char <a href="#id78"><span class="problematic" id="id79">**</span></a>somePointerToAPointer;</div></blockquote>
-<p><a href="#id80"><span class="problematic" id="id81">``</span></a>`
-不要忘记指针的声明是不会申请空间的。这个声明完成后唯一存在的是一个叫 somePointerToAPointer 的指针。我们可以把它用在很多事情上，比如从函数返回一个指针但不用返回值或者创建一个字符串列。是滴，这就是你在堆上创建一个字符串列的方法。这也是我们从命令行里得到参数的方法。</p>
-<p>## 命令行参数</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id11">引用</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>这里说的引用，不是某些你可以从库里找到的东西，它们其实是指针和普通变量的一种混合体，使用中它被看作是一个普通的变量，不用在前面加个星号才能读出它的值，不过它们本身有没有存储数据的空间，而是使用其他变量的存储空间。这里有个声明引用的例子：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span> <span class="n">myInt</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">&amp;</span><span class="n">myRef</span> <span class="o">=</span> <span class="n">myInt</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>这里在 int 和 myRef 中间的 (&amp;) 符号就是声明普通变量和声明引用的不同点，在这个例子中，myRef 是 myInt 的一个引用，myRef 是，简单说来，就是 myInt 另外的一个名字。改变它们中一个的值，另一个也会跟着改变，这对于存储了有效地址的指针也是一样的，看下列代码：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;malloc.h&gt;</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//创建一个指向堆内存空间的指针并初始化它</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">myPointer</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="o">*</span><span class="n">myPointer</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="c1">//创建一个myPointer指向空间的引用</span>
+    <span class="kt">int</span> <span class="o">&amp;</span><span class="n">myRef</span> <span class="o">=</span> <span class="o">*</span><span class="n">myPointer</span><span class="p">;</span>
+
+    <span class="n">myRef</span><span class="o">++</span><span class="p">;</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The value at myPointer&#39;s location is %d</span><span class="se">\b</span><span class="s">&quot;</span><span class="p">,</span><span class="o">*</span><span class="n">myPointer</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">myPointer</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>现在引用可能会让你想说“好吧，这玩意挺好，我们继续”，不过还有一些东西得让你知道，首先，你不能改变一个引用的指向。就是说 myRef 将永远是 myPointer 指针指向的那块内存的引用，即使 myPointer 指针自己都变了。所以如果在 myPointer 被释放后还试着使用 myRef 会引发段错误。这个不可变性其实是很有益的。一个引用必须被初始化，所以它就一直都有效，除非它引用的内存被释放或者它引用的变量出了自身的生命周期。这让引用相对指针来说更安全而同时也带来了同样的灵活性。</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id12">参数使用：传引用还是传值</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>从函数外获取数据是有不止一种方法的。最普通的方法是传值，不过引用提供了另外一种方法。一般的，当一个参数被传入函数时，是变量的一个副本被传了进去 &#8211; 是参数的“值”被传入函数，而不是变量本身，这意味着，你可以完全不考虑在这个函数外是否会造成麻烦的随意修改这个参数。当一个参数的引用被传入函数，那在这个函数对这个参数所做的一切更改会持续到这个函数退出之后。让一个函数用引用来传递参数只需要简单在参数名前加个(&amp;)符号。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="nf">someFunction</span><span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">integerByReference</span><span class="p">);</span>
+<span class="kt">float</span> <span class="nf">someOtherFunction</span><span class="p">(</span><span class="k">const</span> <span class="kt">double</span> <span class="o">&amp;</span><span class="n">doubleByReference</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>在这个例子里，someFunction 函数不仅返回一个字符串，而且它还可以修改 integerByReference 的值，这就相当与让我们可以通过一个函数得到两个返回值。someOtherFunction 使用了一个常引用 const reference，可能这看上去有点傻&#8211;传入一个我们不能更改的引用。但这么做其实是有目的的：它节约了一个副本。这是让一个经常被调用的函数跑的更快的一种方法，特别当这个函数有很多参数或者其中的某个参数占很大内存空间的时候。</p>
+<p>现在来让我们确定一下我们的确已经了解了值传递和引用传递的区别。让我们来看一段能说明这个区别的代码：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="c1">//这个函数的x参数通过引用传递，y通过值传递</span>
+<span class="kt">int</span>
+<span class="nf">myFunction</span><span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span> <span class="kt">void</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//为了测试来创建两个变量</span>
+    <span class="kt">int</span> <span class="n">foo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">bar</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="n">outValue</span> <span class="o">=</span> <span class="n">myFunction</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span><span class="n">bar</span><span class="p">);</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;foo is %d,bar is %d,and myFunction(foo,bar) is %d</span><span class="se">\n</span><span class="s">,</span>
+               <span class="n">foo</span><span class="p">,</span><span class="n">bar</span><span class="p">,</span><span class="n">outValue</span><span class="s">&quot;);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>在这个例子中 foo 开始是 5，但由于 myFunction() 改变了它，在打印出来的时候它的值已经变成了 10，bar 的值并没有变化因为 myFunction() 函数其实只是改变了 bar 的一个副本的值。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id13">函数指针</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>就在你觉得指针已经没法更怪异的时候，它就更怪异了。指针不仅能够指向存储值的内存，它还能指向存储代码的地址。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">functionPointer</span><span class="p">)(</span><span class="kt">int</span> <span class="n">value</span><span class="p">,</span><span class="kt">int</span> <span class="n">anotherValue</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>上面这行代码不是函数，它实际上一个叫做 functionPointer 函数指针的类型是很特殊的，返回值，参数的个数和类型都是函数指针类型的一部分。下面两个函数指针就不是一个类型的:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">integerFunction</span><span class="p">)(</span><span class="kt">int</span> <span class="n">value</span><span class="p">);</span>
+<span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">anotherIntegerFunction</span><span class="p">)(</span><span class="kt">int</span> <span class="n">value</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>用指针的方式运行一个函数简单到死：把指针当作函数名就行了。下面这个例子就调用了 integerFunction 指针所指向的函数：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="n">integerFunction</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>就好像引用一样，指针函数的用处到目前来讲没那么明显。但它实际上能给程序带来难以置信的弹性。代码可以被拆上拆下的就好像汽车一样。对于类似 Perl 或者 Python 这类解释型语言，更改程序是很简单的，不过对于编译型语言比如 C++ 就没那么容易了。尽管不太多见，我们会在日后学习程序插件的时候使用到一些函数指针。现在，不用多去管它。</p>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id14">指针的指针</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>是滴，指针还可以指向其他指针。一个指针存储的内存地址完全可以是另一个指针自身的地址。其实只要在声明指针的时候加上第 2 个星号就可以了。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">char</span> <span class="o">**</span><span class="n">somePointerToAPointer</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>不要忘记指针的声明是不会申请空间的。这个声明完成后唯一存在的是一个叫 somePointerToAPointer 的指针。我们可以把它用在很多事情上，比如从函数返回一个指针但不用返回值或者创建一个字符串列。是滴，这就是你在堆上创建一个字符串列的方法。这也是我们从命令行里得到参数的方法。</p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id15">命令行参数</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>就好象函数有参数，程序本身也可以接受传给它们的某些信息，让我们拿下面的终端命令做为例子：</p>
-<blockquote>
-<div>$rm -f &#8211;verbose myFile</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$rm</span> -f --verbose myFile
+</pre></div>
+</div>
 <p>这个命令 rm 有三个参数：一个文件名和 2 个开关 switches。命令行开关 command line switches 是改变程序行为的属性选择。在这个例子中，rm 作用与 myFile 之上。-f 开关告诉它要强制删除，不用确认。&#8211;verbose 开关告诉它要打印出比平时多的执行信息。</p>
-<p>在 Windows 中开关以斜杠开始，而在 Linux,OS X 和 Haiku 里，它由中划线开始。还有默认的规则，一条中划线的开关只跟一个字母，而两条中划线的开关后可以跟由一条中划线分割开的词语或者短语。我们不会在课程里花太多的时间来关注命令行开关，因为我们的项目一般不会复杂到要使用它们。</p>
-<p>为了能让程序占到命令行参数的便宜，我们必须改变我们写 main() 函数的方式：
-<a href="#id82"><span class="problematic" id="id83">``</span></a><a href="#id84"><span class="problematic" id="id85">`</span></a>C++</p>
-<blockquote>
-<div><p>int
-main(int argc,char <a href="#id86"><span class="problematic" id="id87">**</span></a>argv)
-{</p>
-<blockquote>
-<div>return 0;</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p><a href="#id88"><span class="problematic" id="id89">``</span></a>`
-现在 main 函数有两个参数：argc 是从命令行中读取的参数的个数，argv 则是一个字符串列表，转载了命令行参数。把 argv 当成是一个数组&#8211; 如果 argc 等于 2,那 argv 就有两个元素标记是 0 和 1。<a href="#id90"><span class="problematic" id="id91">`</span></a>argv[0]`永远是当程序运行时存储这个程序名字的地方。下面这个程序将打印被传递给它的命令行参数：
-<a href="#id92"><span class="problematic" id="id93">``</span></a><a href="#id94"><span class="problematic" id="id95">`</span></a>C++</p>
-<blockquote>
-<div><p>#include &lt;stdio.h&gt;</p>
-<p>int
-main(int argc,char <a href="#id96"><span class="problematic" id="id97">**</span></a>argv)
-{</p>
-<blockquote>
-<div>for(int i = 0; i &lt; argc; i++)
-printf(&#8220;Program argument %d: %sn&#8221;,i,argv[i]);
-return 0;</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p><a href="#id98"><span class="problematic" id="id99">``</span></a>`
-要注意的地方是 printf() 的最后。使用指针的指针就好像是在使用多维数组。string 只不过就是一个特殊的 char 数组。所谓我们这里就逐个的访问字符串。如果我们指向使用第一个参数的第二个字符。我们可以使用 <cite>argv[0][1]</cite>。这里可能会搞混，方括号顺序是从左到右从最大组到最小组。所以是在访问列表的列表中的第 0 个元素中的第 1 个元素&#8211;也就是那个列中的第 2 个字符。</p>
-<p>## 项目</p>
+<p>在 Windows 中开关以斜杠开始，而在 Linux, OS X 和 Haiku 里，它由中划线开始。还有默认的规则，一条中划线的开关只跟一个字母，而两条中划线的开关后可以跟由一条中划线分割开的词语或者短语。我们不会在课程里花太多的时间来关注命令行开关，因为我们的项目一般不会复杂到要使用它们。</p>
+<p>为了能让程序占到命令行参数的便宜，我们必须改变我们写 main() 函数的方式：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span><span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>现在 main 函数有两个参数：argc 是从命令行中读取的参数的个数，argv 则是一个字符串列表，转载了命令行参数。把 argv 当成是一个数组&#8211; 如果 argc 等于 2,那 argv 就有两个元素标记是 0 和 1。 <em>argv[0]</em> 永远是当程序运行时存储这个程序名字的地方。下面这个程序将打印被传递给它的命令行参数：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span><span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">argc</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Program argument %d: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>要注意的地方是 printf() 的最后。使用指针的指针就好像是在使用多维数组。string 只不过就是一个特殊的 char 数组。所谓我们这里就逐个的访问字符串。如果我们指向使用第一个参数的第二个字符。我们可以使用 <em>argv[0][1]</em> 。这里可能会搞混，方括号顺序是从左到右从最大组到最小组。所以是在访问列表的列表中的第 0 个元素中的第 1 个元素&#8211;也就是那个列中的第 2 个字符。</p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id16">项目</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>学到现在，我们已经有能力利用我们所学到的一切来做出点东西了。这将会是我们第一个有价值的项目。我们要写一个 cat 命令的简略版本。文件要依照它们被输入到命令行里的顺序被依次打印到标准输出 stdout 里。</p>
-<p>为了完成这个项目，我们还需要两个新函数,fread 和 fwrite:
-<a href="#id100"><span class="problematic" id="id101">``</span></a><a href="#id102"><span class="problematic" id="id103">`</span></a>C++</p>
-<blockquote>
-<div>size_t fread (void <a href="#id104"><span class="problematic" id="id105">*</span></a>buffer,size_t size,siez_t count,File <a href="#id106"><span class="problematic" id="id107">*</span></a>stream);
-size_t fwrite(void <a href="#id108"><span class="problematic" id="id109">*</span></a>buffer,size_t size,size_t count,File <a href="#id110"><span class="problematic" id="id111">*</span></a>stream);</div></blockquote>
-<p><a href="#id112"><span class="problematic" id="id113">``</span></a>`
-fread 从文件流中读取数据，这个函数将尝试读取 <cite>size*count</cite> 字节的数据，并把它们放在 buffer 中。这个函数非常好使，因为你可以为 buffer 申请任意类型的数组。使用 sizeof() 函数确定类型的大小给 size，然后设定数组里元素的个数给 count，fread 返回真正被读取的元素的个数。如果这和被要求的个数不一样，那就要么有错误发生，要么就是文件读到头了。</p>
+<p>为了完成这个项目，我们还需要两个新函数,fread 和 fwrite:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">size_t</span> <span class="nf">fread</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span><span class="kt">siez_t</span> <span class="n">count</span><span class="p">,</span><span class="n">File</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<span class="kt">size_t</span> <span class="nf">fwrite</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span><span class="kt">size_t</span> <span class="n">count</span><span class="p">,</span><span class="n">File</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>fread 从文件流中读取数据，这个函数将尝试读取 <em>size*count</em> 字节的数据，并把它们放在 buffer 中。这个函数非常好使，因为你可以为 buffer 申请任意类型的数组。使用 sizeof() 函数确定类型的大小给 size，然后设定数组里元素的个数给 count，fread 返回真正被读取的元素的个数。如果这和被要求的个数不一样，那就要么有错误发生，要么就是文件读到头了。</p>
 <p>fwrite 和 fread 工作模式很像，但是是逆向的，在 buff 中的数据会被写到 stream 里，实际被写入流的元素的个数被作为返回值返回。</p>
 <p>总体说来，这个项目包含了我们刚学到的如果使用命令行参数，结合第8课里的文件操作加上 fread 和 fwrite。使用 for 循环来为每个命令行参数执行下面这一连串操作：</p>
 <ol class="arabic simple">
 <li>尝试将参数当文件打开用于读取</li>
 <li>如果打开错误，跳到下一个循环</li>
 <li>如果打开成功，尝试读取文件的一块，把读取的字节数储存在一个变量中</li>
-<li>使用while循环读取文件内的数据，当读取的字节数大于0的时候不停的循环</li>
+<li>使用 while 循环读取文件内的数据，当读取的字节数大于 0 的时候不停的循环</li>
 <li>把读取的字节数打印在标准输出里</li>
 <li>尝试从文件流中读取更多的数据，并保存实际读取的字节数</li>
 <li>关闭文件流</li>
 </ol>
 <p>提示，警告和建议：</p>
 <ul class="simple">
-<li>使用ferror来打印文件错误是一个很好的尝试</li>
+<li>使用 ferror 来打印文件错误是一个很好的尝试</li>
 <li>用来储存文件数据的内存块可以来自堆也可以来自栈</li>
 </ul>
-<p>因为我们还没有真正写过什么代码，所以我来帮你入一下门。你要做的就是把每行评论都替换成真正的代码就行了。每次写一点编译一点是个很好的做法。一步步的写代码，测试代码有助于定位 Bug 和让 Bug 最小化
-<a href="#id114"><span class="problematic" id="id115">``</span></a><a href="#id116"><span class="problematic" id="id117">`</span></a>C++</p>
-<blockquote>
-<div><p>#include &lt;stdio.h&gt;
-#include &lt;malloc.h&gt;</p>
-<p>int
-main(int argc, char <a href="#id118"><span class="problematic" id="id119">**</span></a>argv)
-{</p>
-<blockquote>
-<div><p>for (int i = 1; i &lt; argc; i++)
-{
-// 为了从argv[i]中读取数据打开一个文件流
-// 如果文件流为NULL或者有错误，则进入下一个循环
-// 创建一个数据缓冲 &#8211; 一个存放我们数据的数组，大小不是很重要
-// 但它至少应该有几百字节大,但不要大过4000字节
-// 你可以把它创建在栈上
-// 或者使用malloc，你爱怎么做都可以
-// 创建一个变量来存储真正读出的字节的个数
-// 从文件流里读取数据并存储读出的字节个数
-// 读取我们刚建立的变量的值
-// 开始while循环，如果读出的字节的个数大于0,
-// 并且文件流没有出现ferror错误，则一直循环
-{</p>
-<blockquote>
-<div>// 把读取的字节个数输出到标准输出stdout里
-// 读取更多的数据并更新读取的字节个数
-// 到我们上面创建的那个变量里</div></blockquote>
-<p>}
-// 如果你使用了malloc，则释放缓存
-// 如果你使用的是栈空间，就不要管了
-// 关闭文件流
-}
-return 0;</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p><a href="#id120"><span class="problematic" id="id121">``</span></a><a href="#id122"><span class="problematic" id="id123">`</span></a></p>
+<p>因为我们还没有真正写过什么代码，所以我来帮你入一下门。你要做的就是把每行评论都替换成真正的代码就行了。每次写一点编译一点是个很好的做法。一步步的写代码，测试代码有助于定位 Bug 和让 Bug 最小化</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;malloc.h&gt;</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">argc</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="c1">// 为了从argv[i]中读取数据打开一个文件流</span>
+    <span class="c1">// 如果文件流为NULL或者有错误，则进入下一个循环</span>
+    <span class="c1">// 创建一个数据缓冲 -- 一个存放我们数据的数组，大小不是很重要</span>
+    <span class="c1">// 但它至少应该有几百字节大,但不要大过4000字节</span>
+    <span class="c1">// 你可以把它创建在栈上</span>
+    <span class="c1">// 或者使用malloc，你爱怎么做都可以</span>
+    <span class="c1">// 创建一个变量来存储真正读出的字节的个数</span>
+    <span class="c1">// 从文件流里读取数据并存储读出的字节个数</span>
+    <span class="c1">// 读取我们刚建立的变量的值</span>
+    <span class="c1">// 开始while循环，如果读出的字节的个数大于0,</span>
+    <span class="c1">// 并且文件流没有出现ferror错误，则一直循环</span>
+    <span class="p">{</span>
+        <span class="c1">// 把读取的字节个数输出到标准输出stdout里</span>
+        <span class="c1">// 读取更多的数据并更新读取的字节个数</span>
+        <span class="c1">// 到我们上面创建的那个变量里</span>
+    <span class="p">}</span>
+    <span class="c1">// 如果你使用了malloc，则释放缓存</span>
+    <span class="c1">// 如果你使用的是栈空间，就不要管了</span>
+    <span class="c1">// 关闭文件流</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
