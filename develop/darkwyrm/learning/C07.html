@@ -43,57 +43,62 @@
   <div class="section" id="id1">
 <h1>第七课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>学习编程，快乐与收获时时相伴，最快乐的时光莫过于，头脑一阵风暴，产生一个想法，一通鼓捣，竟然实现了自己的所思所想，最后一声长啸 “神功练成第一重，我终于让计算机动起来了！”。本节可能不会让您产生这种感慨，但是，和一日三餐一样，开卷有益，总有好处。但是在继续之后的课程之前，请确保您已经理解了本节的内容。</p>
-<p>## 内存：堆与栈</p>
+<div class="section" id="id2">
+<h2>内存：堆与栈<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>您可能已经注意到了，每个变量都会占用一定的计算机内存。如果您未曾注意到这点，那么相信现在您已经开始对它进行关注。您可能不了解的是，系统执行的每个程序都有两种不同类型的内存，也就是变量被创建的地方：堆和栈。</p>
-<p><a href="#id2"><span class="problematic" id="id3">**</span></a>栈（Stack）**是具有限制大小的快速内存空间。在您的代码执行前，系统将其载入内存时，会为您的程序预留一个主内存块，用于栈内存。无需深入了解过多细节，简单地说，它的运行速度很快，空间大小也是受限制的，如果您的程序耗尽了栈空间，它将会崩溃。为许多大型数组使用栈空间可是个坏习惯。目前我们使用的所有变量都从栈内存进行分配。</p>
-<p><a href="#id4"><span class="problematic" id="id5">**</span></a>堆（Heap）**是计算机系统内存的主要部分。从堆获取内存耗费时间较长，但是您不需要担心会将其耗尽，除非，您希望为其分配“卑鄙”的数量。使用堆内存的不便之处在于您必须保证，在处理完成之后，将所有从系统中获取的内存返回给系统。如果不这样做将会导致“内存泄露”，也就是在分配内存后未将其释放。这样的话，您的程序将会逐渐耗费更多的系统内存，直到您的程序优雅地或者不甚优雅地退出时，它们才会返还系统。</p>
+<p><strong>栈（Stack）</strong> 是具有限制大小的快速内存空间。在您的代码执行前，系统将其载入内存时，会为您的程序预留一个主内存块，用于栈内存。无需深入了解过多细节，简单地说，它的运行速度很快，空间大小也是受限制的，如果您的程序耗尽了栈空间，它将会崩溃。为许多大型数组使用栈空间可是个坏习惯。目前我们使用的所有变量都从栈内存进行分配。</p>
+<p><strong>堆（Heap）</strong> 是计算机系统内存的主要部分。从堆获取内存耗费时间较长，但是您不需要担心会将其耗尽，除非，您希望为其分配“卑鄙”的数量。使用堆内存的不便之处在于您必须保证，在处理完成之后，将所有从系统中获取的内存返回给系统。如果不这样做将会导致“内存泄露”，也就是在分配内存后未将其释放。这样的话，您的程序将会逐渐耗费更多的系统内存，直到您的程序优雅地或者不甚优雅地退出时，它们才会返还系统。</p>
 <p>截至目前，我已经接连的涉及到了 C 和 C++。我们所学的内容对两者来说基本上是相同的。尽管两者的方法都需要指针（也就是我们将要提到的内存指针），但是在内存管理方面，两者是非常不同的。接下来我们来探讨一下 C++ 的方式，因为之后我们会很快涉及到特定于 C++ 的内容。</p>
 <p>C 语言的内存分配为使用 malloc() 来获取内存空间的指针以供使用，然后通过对该指针执行 free() 函数将内存块返还系统。也可以使用 realloc() 函数修改通过 malloc() 分配的RAM空间大小。这些函数的使用可能需要一些详细的解释，那么我们通过一个函数来看一下它们的声明，以及细节处理。</p>
-<p><tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">void</span> <span class="pre">*</span> <span class="pre">malloc(size_t</span> <span class="pre">size);</span>
-<span class="pre">void</span>&nbsp; <span class="pre">free(void</span> <span class="pre">*pointer);</span>
-<span class="pre">void</span> <span class="pre">*</span> <span class="pre">realloc(void</span> <span class="pre">*pointer,</span> <span class="pre">size_t</span> <span class="pre">newSize);</span>
-<span class="pre">`</span></tt></p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">void</span> <span class="o">*</span> <span class="nf">malloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
+<span class="kt">void</span>  <span class="nf">free</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">pointer</span><span class="p">);</span>
+<span class="kt">void</span> <span class="o">*</span> <span class="nf">realloc</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">pointer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">newSize</span><span class="p">);</span>
+</pre></div>
+</div>
 <p>之前，我们可能会去思考这些都是用来做什么的，显然这里有一些类型我们未曾见过。第一个新类型是 size_t，但它并不是全新的。它只是我们所熟识的整形类型的新名称而已。这种技巧通常是为了增强可移植性，即，这样的代码很容易在一种系统上完成，并且在另一类系统上进行编译。您只要把它当成 int，一切万事大吉。</p>
-<p>另一个新的类型是**空指针**(void指针)。空指针本身并没有类型，可能听起来毫无用处，您可能也会认为我们无法使用 * 解引用操作符来获取它们的值。即便如此，它们的便利之处在于能够传递任何类型的指针，并且当我们需要获取它们的值时，我们可以通过类型转换将其转换为其他类型。</p>
-<p><strong>类型转换（Typecasting）</strong>，也可以简称转换，用于告诉编译器将一种类型以其他类型对待。虽然内存保存的值未发生改变，但是它们解析的方式却变了。之后，我们讨论 C++ 优于 C 的特性时，这点就会显得尤为有用。</p>
+<p>另一个新的类型是 <strong>空指针</strong> (void指针)。空指针本身并没有类型，可能听起来毫无用处，您可能也会认为我们无法使用 * 解引用操作符来获取它们的值。即便如此，它们的便利之处在于能够传递任何类型的指针，并且当我们需要获取它们的值时，我们可以通过类型转换将其转换为其他类型。</p>
+<p><strong>类型转换（Typecasting）</strong> ，也可以简称转换，用于告诉编译器将一种类型以其他类型对待。虽然内存保存的值未发生改变，但是它们解析的方式却变了。之后，我们讨论 C++ 优于 C 的特性时，这点就会显得尤为有用。</p>
 <p>malloc() 用于为我们获取指定大小的堆内存块。内存块的地址会以空指针的形式返回给我们，因此通常调用 malloc() 时，它的返回值会被转换为其他指针类型。如果 malloc() 无法获取要求大小的内存块，它将返回 NULL。</p>
 <p>free() 用于将堆内存返回给系统。当一个函数，如 free() 接受空指针作为参数时，这也就意味着该函数能够接受任何数据类型的指针。这样就在参数传递时，就无需进行类型转换，例如传递堆分配字符串 给free()。一旦将一个指针传递给 free() 以将其内存返回给系统，这个指针在重新赋予有效地址之前将无法使用。尝试使用已经被释放的内存块将会导致无法预期的结果，但是通常会导致段错误（segfault）。如果一个指针在其内存释放之后还将会用到，通常需要将其赋值为 NULL，这样就指明它是无效的。</p>
 <p>realloc() 用于修改先前通过 malloc() 获取的内存块大小。需要传递的参数为需要修改大小的内存块指针和希望获得的大小。如果指针 为NULL，并且新的大小大于0，那么 realloc() 函数就和 malloc() 很相像了。如果给定的指针有效，而新大小为 0，那么它就和 free() 相仿了。但是这两种情况不常使用，因为直接使用 malloc() 和 realloc() 会使代码更加清晰。realloc() 可能会将内存移动到不同的地址，并且如果是这样的话，它将会返回新的地址。即使指针移动到了不同的地址，内存块中的数据仍会保留，但是通过该调用获取到的新内存将包含随机数据。</p>
-<p>这些内存函数的使用并不困难。我们通过下述简单的示例来看一下它们的实际应用。
-<a href="#id6"><span class="problematic" id="id7">``</span></a><a href="#id8"><span class="problematic" id="id9">`</span></a>C++</p>
-<blockquote>
-<div><p>#include &lt;stdio.h&gt;</p>
-<p>// 一个新的包含文件！malloc.h包含了用于分配内存
-// 和相关内存分配程序的定义。
-#include &lt;malloc.h&gt;</p>
-<p>int main(void)
-{</p>
-<blockquote>
-<div><p>// 在这个示例中，我们将要打印一个字符串，但是这里我们将会使用堆内存
-// 而不是栈。这个指针将会保存字符串的内存块地址。暂时我们还未为其分
-// 配内存，因此将其赋值为NULL。
-char <a href="#id10"><span class="problematic" id="id11">*</span></a>string = NULL;</p>
-<p>// 现在我们将向系统申请一块内存，然后将其值赋予我们的字符串指针。
-// (char <a href="#id12"><span class="problematic" id="id13">*</span></a>)即用于将我们的内存块类型从空指针(void <a href="#id14"><span class="problematic" id="id15">*</span></a>)转换为字符指针。
-// 我们申请了50字节，它足以保存49个字符以及一个NULL结束符。
-string = (char <a href="#id16"><span class="problematic" id="id17">*</span></a>)malloc(50);</p>
-<p>// sprintf 是用于将数字转换为字符串的较为简单的方式。
-sprintf(string,&#8221;The number pi is approx. %f&#8221;,3.1415927);
-printf(&#8220;%sn&#8221;,string);</p>
-<p>// free 函数将会把我们先前申请的50个字节内存块返还系统。
-free(string);</p>
-<p>// 我们的指针保存的地址将不再有效。任何尝试使用它的行为都将导致无法
-// 预期的结果，但是通常都会产生段错误。在这个示例中，我们已经完工了，
-// 但是如果我们希望继续使用该指针，我们就需要为其赋予一个有效的地址。
-return 0;</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p><a href="#id18"><span class="problematic" id="id19">``</span></a>`
-## 超越十进制：二进制数学</p>
+<p>这些内存函数的使用并不困难。我们通过下述简单的示例来看一下它们的实际应用。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="c1">// 一个新的包含文件！malloc.h包含了用于分配内存</span>
+<span class="c1">// 和相关内存分配程序的定义。</span>
+<span class="cp">#include &lt;malloc.h&gt;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 在这个示例中，我们将要打印一个字符串，但是这里我们将会使用堆内存</span>
+    <span class="c1">// 而不是栈。这个指针将会保存字符串的内存块地址。暂时我们还未为其分</span>
+    <span class="c1">// 配内存，因此将其赋值为NULL。</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">string</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="c1">// 现在我们将向系统申请一块内存，然后将其值赋予我们的字符串指针。</span>
+    <span class="c1">// (char *)即用于将我们的内存块类型从空指针(void *)转换为字符指针。</span>
+    <span class="c1">// 我们申请了50字节，它足以保存49个字符以及一个NULL结束符。</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+
+    <span class="c1">// sprintf 是用于将数字转换为字符串的较为简单的方式。</span>
+    <span class="n">sprintf</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="s">&quot;The number pi is approx. %f&quot;</span><span class="p">,</span><span class="mf">3.1415927</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">string</span><span class="p">);</span>
+
+    <span class="c1">// free 函数将会把我们先前申请的50个字节内存块返还系统。</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>
+
+    <span class="c1">// 我们的指针保存的地址将不再有效。任何尝试使用它的行为都将导致无法</span>
+    <span class="c1">// 预期的结果，但是通常都会产生段错误。在这个示例中，我们已经完工了，</span>
+    <span class="c1">// 但是如果我们希望继续使用该指针，我们就需要为其赋予一个有效的地址。</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>超越十进制：二进制数学<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>现在让我们花点时间来学习一些数学，在之后的课程中，我们可能会用到它们。就像计算机和人类从不同的数字开始计数一样，他们所使用的计数系统也彼此相异。</p>
-<p>人类使用**十进制系统**，也就是说**10进制计数法**。.它之所以称之为 10 进制计数是因为每一位都有 10 个可选值，从 0 至 9。当您还很小的时候，您可能听自己的数学老师讲过“个位”，“十位”，以及“百位”。从右至左，从 0 算起，每个数位的值和对应的 10 的指数相等。</p>
+<p>人类使用 <strong>十进制系统</strong>，也就是说 <strong>10进制计数法</strong> 。.它之所以称之为 10 进制计数是因为每一位都有 10 个可选值，从 0 至 9。当您还很小的时候，您可能听自己的数学老师讲过“个位”，“十位”，以及“百位”。从右至左，从 0 算起，每个数位的值和对应的 10 的指数相等。</p>
 <dl class="docutils">
 <dt>&lt;table width=&#8221;400&#8221; border=&#8221;1&#8221; cellpadding=&#8221;0&#8221; cellspacing=&#8221;0&#8221;&gt;</dt>
 <dd><dl class="first docutils">
@@ -136,7 +141,7 @@ return 0;</p>
 </dd>
 </dl>
 <p>&lt;/table&gt;</p>
-<p>每个二进制数字中的单个数位都成为**位(bit)**。它只是一个位的信息，并且本身并没有很大用处。位都是八个组织在一起，成为**字节（byte）**。编程时，我们执行的任何二进制计算，它都会至少使用一个字节甚至更多，但是现在，我们尽量让这个让人迷惑的话题变得简单。</p>
+<p>每个二进制数字中的单个数位都成为 <strong>位(bit)</strong> 。它只是一个位的信息，并且本身并没有很大用处。位都是八个组织在一起，成为 <strong>字节（byte）</strong> 。编程时，我们执行的任何二进制计算，它都会至少使用一个字节甚至更多，但是现在，我们尽量让这个让人迷惑的话题变得简单。</p>
 <p>请谨记，二进制只是一种不同的数字书写方式而已，就跟数字 68 和罗马数字 LXVIII 的不同一样。</p>
 <p>为了将数字从二进制转换为十进制，您需要在每处地方添加下列数值。字节中的每个位都是2的指数：</p>
 <dl class="docutils">
@@ -208,7 +213,8 @@ return 0;</p>
 </dl>
 <p>&lt;/table&gt;</p>
 <p>该表格没有足够的地方来给出所有的信息。但是我们需要更多的讲解。它们都是具有特殊用途的特别数学操作符。布尔与，或，和非操作符用于程序的逻辑运算，例如if条件语句的连接和类似情况。而上表中的位操作符则用于操作数字中的位。</p>
-<p>###  位与操作</p>
+<div class="section" id="id4">
+<h3>位与操作<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>位与操作符用于关闭数字中的位，即，将其中为 1 的位设为 0。通过比较每个数中对应的位，然后使用布尔逻辑来决定将该位设为 1 或是 0。下面两个示例将有助于我们的理解。</p>
 <dl class="docutils">
 <dt>&lt;div style=&#8221;float:left;margin-right:5px;&#8221;&gt;&lt;table width=&#8221;300&#8221; border=&#8221;1&#8221; cellpadding=&#8221;0&#8221; cellspacing=&#8221;0&#8221;&gt;</dt>
@@ -303,7 +309,9 @@ return 0;</p>
 </dd>
 </dl>
 <p>&lt;/table&gt;</p>
-<p>### 位或操作</p>
+</div>
+<div class="section" id="id5">
+<h3>位或操作<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>位或用于和位与相反的用途，其用于开启数字中的位，即将某个为0的位设置为1。</p>
 <dl class="docutils">
 <dt>&lt;table width=&#8221;400&#8221; border=&#8221;1&#8221; cellpadding=&#8221;0&#8221; cellspacing=&#8221;0&#8221;&gt;</dt>
@@ -366,7 +374,9 @@ return 0;</p>
 </dd>
 </dl>
 <p>&lt;/table&gt;</p>
-<p>### 位异或操作</p>
+</div>
+<div class="section" id="id6">
+<h3>位异或操作<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>位异或可能是所有位操作符中最神秘的操作符。异或，其意为异常或操作。其用于翻转位，因为如果对应位不同其结果为1，若相同则为0。</p>
 <dl class="docutils">
 <dt>&lt;table width=&#8221;400&#8221; border=&#8221;1&#8221; cellpadding=&#8221;0&#8221; cellspacing=&#8221;0&#8221;&gt;</dt>
@@ -398,21 +408,26 @@ return 0;</p>
 </dd>
 </dl>
 <p>&lt;/table&gt;</p>
-<p>### 位求反</p>
-<p>位求反也用于翻转位，和位异或相类似，但是可控性较小。它会翻转数值中的所有位，例如上述示例，但是它不需要其他参数。下面是一个使用示例：
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">int</span> <span class="pre">a</span> <span class="pre">=</span> <span class="pre">5;</span>
-<span class="pre">printf(&quot;The</span> <span class="pre">value</span> <span class="pre">of</span> <span class="pre">~%d</span> <span class="pre">is</span> <span class="pre">%d\n&quot;,</span> <span class="pre">a,</span> <span class="pre">~a);</span>
-<span class="pre">`</span></tt>
-### 移位操作符</p>
-<p>除了将位设为开启关闭，进行翻转之外，C和C++还提供了移位操作符，我们可以快速的执行一些乘法和除法。
-<a href="#id20"><span class="problematic" id="id21">``</span></a><a href="#id22"><span class="problematic" id="id23">`</span></a>C++
-//将A的数值向左移动B位。也就是将A乘以2B。
-A &lt;&lt; B;</p>
-<p>//将A的数值向右移动B位。也就是将A除以2B。
-A &gt;&gt; B;
-<a href="#id24"><span class="problematic" id="id25">``</span></a>`
-我们可以通过移位操作符对位的实际操作，很容易的明白为何它们被称为移位操作符。</p>
+</div>
+<div class="section" id="id7">
+<h3>位求反<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>位求反也用于翻转位，和位异或相类似，但是可控性较小。它会翻转数值中的所有位，例如上述示例，但是它不需要其他参数。下面是一个使用示例：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;The value of ~%d is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="o">~</span><span class="n">a</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>移位操作符<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>除了将位设为开启关闭，进行翻转之外，C和C++还提供了移位操作符，我们可以快速的执行一些乘法和除法。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="c1">//将A的数值向左移动B位。也就是将A乘以2B。</span>
+<span class="n">A</span> <span class="o">&lt;&lt;</span> <span class="n">B</span><span class="p">;</span>
+
+<span class="c1">//将A的数值向右移动B位。也就是将A除以2B。</span>
+<span class="n">A</span> <span class="o">&gt;&gt;</span> <span class="n">B</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>我们可以通过移位操作符对位的实际操作，很容易的明白为何它们被称为移位操作符。</p>
 <dl class="docutils">
 <dt>&lt;table border=&#8221;1&#8221; cellspacing=&#8221;0&#8221; cellpadding=&#8221;0&#8221;&gt;</dt>
 <dd><dl class="first docutils">
@@ -460,117 +475,91 @@ A &gt;&gt; B;
 </dl>
 <p>&lt;/table&gt;</p>
 <p>在进行位操作时，了解移位操作符显得尤为有用，因为它们允许我们非常快速的执行指定数学运算。在这种情形下，乘或除以 2 的指数非常的普遍，并且其等价调用 pow() 或者常规除法运算速度都非常迟缓。</p>
-<p>## 错误查找</p>
-<p>### 查找#1</p>
-<ul>
-<li><dl class="first docutils">
-<dt>代码</dt>
-<dd><dl class="first docutils">
-<dt><a href="#id26"><span class="problematic" id="id27">``</span></a><a href="#id28"><span class="problematic" id="id29">`</span></a>C++</dt>
-<dd><p class="first">#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-#include &lt;malloc.h&gt;
-char <a href="#id30"><span class="problematic" id="id31">*</span></a>ReverseString(char <a href="#id32"><span class="problematic" id="id33">*</span></a>string)
-{</p>
-<blockquote>
-<div><p>// 该函数用于对字符串进行重新排序，例如 abcdef -&gt; fedcba
-if (!string)</p>
-<blockquote>
-<div><blockquote>
-<div><p>return NULL;</p>
-</div></blockquote>
-<p>int length = strlen(string);</p>
-</div></blockquote>
-<p>int count = length / 2;
-for (int i = 0; i &lt; count; i++)
-{</p>
-<blockquote>
-<div><p>char temp = string[length - 1 - i];
-string[length - 1 - i] = string[i];
-string[i] = temp;</p>
-</div></blockquote>
-<p>}
-return string;</p>
-</div></blockquote>
-<p>}</p>
-<p>int main(void)
-{</p>
-<blockquote>
-<div><p>char firstString[100],secondString[100];
-char <a href="#id34"><span class="problematic" id="id35">*</span></a>combinedString = NULL;
-printf(&#8220;Enter your first word: &#8221;);
-gets(firstString);
-printf(&#8220;Enter your second word: &#8221;);
-gets(secondString);</p>
-<p>sprintf(combinedString,&#8221;%s %s&#8221;,ReverseString(secondString), ReverseString(firstString));
-printf(&#8220;If you saw these two words in a mirror, it would read &#8216;%s&#8217;n&#8221;,combinedString);</p>
-</div></blockquote>
-<p class="last">}</p>
-</dd>
-</dl>
-<p class="last"><a href="#id36"><span class="problematic" id="id37">``</span></a><a href="#id38"><span class="problematic" id="id39">`</span></a></p>
-</dd>
-</dl>
-</li>
-<li><p class="first">错误现象</p>
-<blockquote>
-<div><p>在运行时，程序打印“segmentation fault”，没有其他任何结果。</p>
-</div></blockquote>
-</li>
-</ul>
-<p>### 查找 #2</p>
-<ul>
-<li><dl class="first docutils">
-<dt>代码</dt>
-<dd><dl class="first docutils">
-<dt><a href="#id40"><span class="problematic" id="id41">``</span></a><a href="#id42"><span class="problematic" id="id43">`</span></a>C++</dt>
-<dd><p class="first">#include &lt;stdio.h&gt;
-#include &lt;math.h&gt;
-void MakeBinaryString(char <a href="#id44"><span class="problematic" id="id45">*</span></a>outString, char valueToConvert)
-{</p>
-<blockquote>
-<div><p>// 将一个1字节的值转换为字符串，即以二进制的方式显示其值。
-// 我们检查其每位开启与否，如果位为开启状态，则将字符的值置
-// 为‘1’，反之则置为‘0’，以这样的方式来进行此操作。
-for (int i = 0; i &lt; 8; i++)
-{
-// 该位是否为 1?
-// 移位操作用于快速的产生2的指数，这样我们可以一次检查一位，
-// 从第7位开始，直到第0位。
-if (valueToConvert &amp; (1 &lt;&lt; (7 - i)))
-outString[i] = &#8216;1&#8217;;
-else
-outString[i] = &#8216;0&#8217;;
-}
-outString[8] = &#8216;0&#8217;;</p>
-</div></blockquote>
-<p>}</p>
-<p>int main(void)
-{</p>
-<blockquote>
-<div><p>char value = 5;
-char binaryString[6];
-MakeBinaryString(binaryString,value);
-printf(&#8220;The binary equivalent of %d is %sn&#8221;,value, binaryString);
-return 0;</p>
-</div></blockquote>
-<p class="last">}</p>
-</dd>
-</dl>
-<p class="last"><a href="#id46"><span class="problematic" id="id47">``</span></a><a href="#id48"><span class="problematic" id="id49">`</span></a></p>
-</dd>
-</dl>
-</li>
-<li><p class="first">错误现象</p>
-<blockquote>
-<div><p>在运行时，程序打印如下内容：</p>
-<blockquote>
-<div><p>The binary equivalent of 48 is 00000101
-Segmentation fault</p>
-</div></blockquote>
-</div></blockquote>
-</li>
-</ul>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>错误查找<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3>找错 #1<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>代码：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+<span class="cp">#include &lt;malloc.h&gt;</span>
+<span class="kt">char</span> <span class="o">*</span><span class="nf">ReverseString</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">string</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="c1">// 该函数用于对字符串进行重新排序，例如 abcdef -&gt; fedcba</span>
+   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">string</span><span class="p">)</span>
+       <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+
+   <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>
+   <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+   <span class="p">{</span>
+        <span class="kt">char</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">];</span>
+        <span class="n">string</span><span class="p">[</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">firstString</span><span class="p">[</span><span class="mi">100</span><span class="p">],</span><span class="n">secondString</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">combinedString</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Enter your first word: &quot;</span><span class="p">);</span>
+    <span class="n">gets</span><span class="p">(</span><span class="n">firstString</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Enter your second word: &quot;</span><span class="p">);</span>
+    <span class="n">gets</span><span class="p">(</span><span class="n">secondString</span><span class="p">);</span>
+
+    <span class="n">sprintf</span><span class="p">(</span><span class="n">combinedString</span><span class="p">,</span><span class="s">&quot;%s %s&quot;</span><span class="p">,</span><span class="n">ReverseString</span><span class="p">(</span><span class="n">secondString</span><span class="p">),</span> <span class="n">ReverseString</span><span class="p">(</span><span class="n">firstString</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;If you saw these two words in a mirror, it would read &#39;%s&#39;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">combinedString</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>错误：</p>
+<p>在运行时，程序打印“segmentation fault”，没有其他任何结果。</p>
+</div>
+<div class="section" id="id11">
+<h3>找错 #2<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>代码：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;math.h&gt;</span>
+<span class="kt">void</span> <span class="nf">MakeBinaryString</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">outString</span><span class="p">,</span> <span class="kt">char</span> <span class="n">valueToConvert</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="c1">// 将一个1字节的值转换为字符串，即以二进制的方式显示其值。</span>
+     <span class="c1">// 我们检查其每位开启与否，如果位为开启状态，则将字符的值置</span>
+     <span class="c1">// 为‘1’，反之则置为‘0’，以这样的方式来进行此操作。</span>
+     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="c1">// 该位是否为 1?</span>
+         <span class="c1">// 移位操作用于快速的产生2的指数，这样我们可以一次检查一位，</span>
+         <span class="c1">// 从第7位开始，直到第0位。</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">valueToConvert</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="mi">7</span> <span class="o">-</span> <span class="n">i</span><span class="p">)))</span>
+             <span class="n">outString</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;1&#39;</span><span class="p">;</span>
+         <span class="k">else</span>
+             <span class="n">outString</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="n">outString</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+ <span class="p">}</span>
+
+ <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+ <span class="p">{</span>
+     <span class="kt">char</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+     <span class="kt">char</span> <span class="n">binaryString</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+     <span class="n">MakeBinaryString</span><span class="p">(</span><span class="n">binaryString</span><span class="p">,</span><span class="n">value</span><span class="p">);</span>
+     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The binary equivalent of %d is %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">value</span><span class="p">,</span> <span class="n">binaryString</span><span class="p">);</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>错误：</p>
+<p>在运行时，程序打印如下内容：</p>
+<div class="highlight-sh"><div class="highlight"><pre>The binary equivalent of 48 is 00000101
+Segmentation fault
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 

@@ -43,208 +43,182 @@
   <div class="section" id="id1">
 <h1>第六课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在本节，我们主要来扩展讲解我们已经了解的内容。在第四课中，我们了解了在 if 语句中，只有满足特定的条件，才可以运行相关的代码，并且我们也学习了如何使用 for 循环重复执行一系列的指令。那么在本节中，我们将会进一步介绍一些工具。</p>
-<p>## 更多的循环</p>
+<div class="section" id="id2">
+<h2>更多的循环<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>尽管它们可能是最常用的，但是除了 for 循环，还有许多其他类型的循环。事实上，还有其他两个非常相近的循环：while 循环，和 do-while 循环。</p>
-<p>而且循环比较简单，仅需要一个循环条件，循环中的代码将会重复运行，直到循环条件为假。那么我们就寻找一种方法，利用 while 循环来完成我们第五课中的项目。
-<a href="#id2"><span class="problematic" id="id3">``</span></a><a href="#id4"><span class="problematic" id="id5">`</span></a>C++</p>
-<blockquote>
-<div><p>#include &lt;stdio.h&gt;</p>
-<p>int main(void)
-{</p>
-<blockquote>
-<div><p>char inString[1024];
-printf(&#8220;Type some text and hit Enter:n&#8221;);
-gets(inString);</p>
-<p>int i = 0;
-while (inString[i])</p>
-<blockquote>
-<div>printf(&#8220;String[%d]: %cn&#8221;,i,inString[i++]);</div></blockquote>
-<p>return 0;</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p><a href="#id6"><span class="problematic" id="id7">``</span></a>`
-在上面的示例中，我们甚至采取了一个捷径，没有使用花括号 - 当消息打印之后，使用自增操作符实现索引变量 i 的自加。循环的条件语句检查 <cite>inString[i]</cite> 是否为无效字符。整型可以用于真/假测试的布尔逻辑运算，而零被视为假，所有其他的值则被视为真。因此循环将会不断执行，直到索引指向的值为字符串结束标志 0。看起来非常的诱人，是么？</p>
-<p>除了上述的 while 语句以及跟随的条件语句，循环其他部分和 for 循环相似；因此，我们可以简单的使用花括号中的一组语句来替换我们的 <cite>printf()</cite> 语句。使用这种循环的一个警告：如果您对确保循环条件最终为假不关心，那么很容易就会导致无限循环。在这个实例中，如果 <cite>inString[i++]</cite> 仅仅是 <cite>inString[i]</cite>，那么我们将会创建一个无限循环。</p>
-<p>Do-while 循环不像其他循环一样很常用，但是它偶尔也非常有用。它首先运行循环语句，然后检查循环条件再决定是否继续执行循环语句。下面是一个使用 do-while 循环语句的示例：
-<a href="#id8"><span class="problematic" id="id9">``</span></a><a href="#id10"><span class="problematic" id="id11">`</span></a>C++</p>
-<blockquote>
-<div><p>#include &lt;stdio.h&gt;</p>
-<p>int main(void)
-{</p>
-<blockquote>
-<div><p>char inString[1024];
-printf(&#8220;Type some text and hit Enter:n&#8221;);
-gets(inString);</p>
-<p>int i = 0;</p>
-<p>do
-{</p>
-<blockquote>
-<div>printf(&#8220;String[%d]: %cn&#8221;,i,inString[i]);</div></blockquote>
-<p>} while (inString[i++]);</p>
-<p>return 0;</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p><a href="#id12"><span class="problematic" id="id13">``</span></a>`
-我们打印一个字符，检查它是否为零——所有的字符串都以之结束——并且如果它不为零，则打印该字符。需要注意的是，该类循环和其他的循环如 for 和常规 while 循环不同, while 条件语句之后需要加上一个分号。幸运的是，如果您碰巧忘记了这个要求，编译器将会产生错误回馈。</p>
-<blockquote>
-<div>foo.cpp: In function ‘int main()’:
-foo.cpp:13: error: expected &#8216;;&#8217; before &#8216;}&#8217; token</div></blockquote>
-<p>在使用该循环执行任务时存在一个问题：如果用户没有输入任何内容而只是按下回车键，它将会打印出一个空字符。如果用户没有输入任何有效的内容，我们将会跳过打印。该任务使用 for 循环刚好，因为它需要很少的工作，但是我们可以添加一些代码来使其完成该任务。
-<a href="#id14"><span class="problematic" id="id15">``</span></a><a href="#id16"><span class="problematic" id="id17">`</span></a>C++</p>
-<blockquote>
-<div><p>do
-{</p>
-<blockquote>
-<div><p>// This will prevent problems caused by the user not typing anything
-if (!inString[i])</p>
-<blockquote>
-<div>continue;</div></blockquote>
-<p>printf(&#8220;String[%d]: %cn&#8221;,i,inString[i]);</p>
-</div></blockquote>
-<p>} while (inString[i++]);</p>
-</div></blockquote>
-<p><a href="#id18"><span class="problematic" id="id19">``</span></a>`
-这里的 if 条件语句用于检测当前字符是否为0——使用 ! ，它和布尔逻辑运算符 NOT 相似。0 字符，通常代表假，它将会是 if 条件语句为真，那么程序将会执行 continue 语句。continue 使程序继续运行，直接进入循环体。引起跳转入循环条件的 0 字符将会导致条件为假，那么循环将会结束。</p>
-<p>continue 语句的这种使用方式，可能不是很常见。这种情况下，通常会调用 break 语句，直接跳出当前的代码段。break 将会越过循环条件，然后直接结束循环。在接下来讨论的 switch 语句中，我们将会总是使用 break 语句。</p>
-<p>## Switch语句</p>
-<p>有些时候，我们必须从几个可用值之中选择一个选项用于某个变量。它可以使用一系列的if-else语句进行处理，但是C和C++为我们提供了可以更好的处理此种情况的switch语句。那么让我们把我们的字符串打印项目扩展为，提供一种方式打印字符，但是在打印时，不是用显示空格和缩进。
-<a href="#id20"><span class="problematic" id="id21">``</span></a><a href="#id22"><span class="problematic" id="id23">`</span></a>C++
-#include &lt;stdio.h&gt;</p>
-<p>int main(void)
-{</p>
-<blockquote>
-<div><p>char inString[1024];
-printf(&#8220;Type some text and hit Enter:n&#8221;);
-gets(inString);
-int i = 0;
-while (inString[i])
-{</p>
-<blockquote>
-<div><p>switch (inString[i])
-{</p>
-<blockquote>
-<div><p>case &#8216;n&#8217;:
-{</p>
-<blockquote>
-<div>printf(&#8220;String[%d]: &lt;carriage return&gt;n&#8221;,i);
-break;</div></blockquote>
-<p>}
-case &#8216;t&#8217;:
-{</p>
-<blockquote>
-<div>printf(&#8220;String[%d]: &lt;tab&gt;n&#8221;,i);
-break;</div></blockquote>
-<p>}
-case &#8216; &#8216;:
-{</p>
-<blockquote>
-<div>printf(&#8220;String[%d]:&lt;space&gt;n&#8221;,i);
-break;</div></blockquote>
-<p>}
-default:
-{</p>
-<blockquote>
-<div>printf(&#8220;String[%d]:%cn&#8221;,i,inString[i]);
-break;</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}
-i++;</p>
-</div></blockquote>
-<p>}
-return 0;</p>
-</div></blockquote>
-<div class="section" id="id24">
-<h2>}<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
-<p>我们正在判断的值放置在 switch 语句的圆括号中。我们需要处理的每个值都放置在 case 语句中。这当我们要判断的值与 case 语句中的值相匹配时，这些 case 语句定义的语句集合，将会运行。Case 语句的格式如下所示：
-<a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>C++
-case valueForCase:
-{</p>
-<blockquote>
-<div>block of instructions</div></blockquote>
+<p>而且循环比较简单，仅需要一个循环条件，循环中的代码将会重复运行，直到循环条件为假。那么我们就寻找一种方法，利用 while 循环来完成我们第五课中的项目。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="kt">char</span> <span class="n">inString</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Type some text and hit Enter:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">gets</span><span class="p">(</span><span class="n">inString</span><span class="p">);</span>
+
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">inString</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                 <span class="n">printf</span><span class="p">(</span><span class="s">&quot;String[%d]: %c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">inString</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">]);</span>
+
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 </div>
-<div class="section" id="id29">
-<h2>}<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h2>
-<p>在这里的 break 语句非常重要，因为它们用户在处理了 case 语句之后跳出 switch 语句。如果在 case 语句结尾没有 break 语句，那么程序将会继续“运行”，并且继续进入下一个 case 语句。而这不是我们所希望的。使用上面的例子，删除 case 语句后面的 break 语句，者将会导致它打印两次：一次是空格 case，而另一次是 default case 语句。它的结果类似于下面的情况：
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">String[5]:</span> <span class="pre">&lt;space&gt;</span>
-<span class="pre">String[5]:</span>
-<span class="pre">`</span></tt>
-default case 语句确保了不匹配指定情形中的所有值。它必须放置在 switch 语句中所有 case 语句的最后一个。任何放置在 default case 语句之后的 case 语句都将不被执行。虽然看起来模糊，但是它确实存在。</p>
-<p>## 条件赋值</p>
-<p>我们看到 C 和 C++ 为程序员提供了处理某些常用任务的快捷方式，例如添加 1 到变量。另一个快捷的方式是处理三项内容的单个操作符。下面是使用条件语句为变量赋值的方式：
-<a href="#id30"><span class="problematic" id="id31">``</span></a><a href="#id32"><span class="problematic" id="id33">`</span></a>C++</p>
-<blockquote>
-<div><p>int number;</p>
-<dl class="docutils">
-<dt>if (someOtherNumber &gt; 5)</dt>
-<dd>number = 1;</dd>
-<dt>else</dt>
-<dd>number = 10;</dd>
-</dl>
-</div></blockquote>
-<p><a href="#id34"><span class="problematic" id="id35">``</span></a>`
-那么接下来是另一种方式，非常简短。</p>
-<p><cite>int number = (someOtherNumber &gt; 5) ? 1 : 10;</cite></p>
+<p>在上面的示例中，我们甚至采取了一个捷径，没有使用花括号 - 当消息打印之后，使用自增操作符实现索引变量 i 的自加。循环的条件语句检查 <em>inString[i]</em> 是否为无效字符。整型可以用于真/假测试的布尔逻辑运算，而零被视为假，所有其他的值则被视为真。因此循环将会不断执行，直到索引指向的值为字符串结束标志 0。看起来非常的诱人，是么？</p>
+<p>除了上述的 while 语句以及跟随的条件语句，循环其他部分和 for 循环相似；因此，我们可以简单的使用花括号中的一组语句来替换我们的 <em>printf()</em> 语句。使用这种循环的一个警告：如果您对确保循环条件最终为假不关心，那么很容易就会导致无限循环。在这个实例中，如果 <em>inString[i++]</em> 仅仅是 <em>inString[i]</em> ，那么我们将会创建一个无限循环。</p>
+<p>do-while 循环不像其他循环一样很常用，但是它偶尔也非常有用。它首先运行循环语句，然后检查循环条件再决定是否继续执行循环语句。下面是一个使用 do-while 循环语句的示例：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">inString</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Type some text and hit Enter:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">gets</span><span class="p">(</span><span class="n">inString</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">do</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;String[%d]: %c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">inString</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">inString</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">]);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>我们打印一个字符，检查它是否为零——所有的字符串都以之结束——并且如果它不为零，则打印该字符。需要注意的是，该类循环和其他的循环如 for 和常规 while 循环不同, while 条件语句之后需要加上一个分号。幸运的是，如果您碰巧忘记了这个要求，编译器将会产生错误回馈。</p>
+<div class="highlight-sh"><div class="highlight"><pre>foo.cpp: In <span class="k">function</span> ‘int main<span class="o">()</span>’:
+foo.cpp:13: error: expected <span class="s1">&#39;;&#39;</span> before <span class="s1">&#39;}&#39;</span> token
+</pre></div>
+</div>
+<p>在使用该循环执行任务时存在一个问题：如果用户没有输入任何内容而只是按下回车键，它将会打印出一个空字符。如果用户没有输入任何有效的内容，我们将会跳过打印。该任务使用 for 循环刚好，因为它需要很少的工作，但是我们可以添加一些代码来使其完成该任务。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">do</span>
+<span class="p">{</span>
+    <span class="c1">// This will prevent problems caused by the user not typing anything</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">inString</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">continue</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;String[%d]: %c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">inString</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">inString</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>这里的 if 条件语句用于检测当前字符是否为0——使用 ! ，它和布尔逻辑运算符 NOT 相似。0 字符，通常代表假，它将会是 if 条件语句为真，那么程序将会执行 continue 语句。continue 使程序继续运行，直接进入循环体。引起跳转入循环条件的 0 字符将会导致条件为假，那么循环将会结束。</p>
+<p>continue 语句的这种使用方式，可能不是很常见。这种情况下，通常会调用 break 语句，直接跳出当前的代码段。break 将会越过循环条件，然后直接结束循环。在接下来讨论的 switch 语句中，我们将会总是使用 break 语句。</p>
+</div>
+<div class="section" id="switch">
+<h2>switch 语句<a class="headerlink" href="#switch" title="Permalink to this headline">¶</a></h2>
+<p>有些时候，我们必须从几个可用值之中选择一个选项用于某个变量。它可以使用一系列的 if-else 语句进行处理，但是C和C++为我们提供了可以更好的处理此种情况的 switch 语句。那么让我们把我们的字符串打印项目扩展为，提供一种方式打印字符，但是在打印时，不是用显示空格和缩进。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">inString</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Type some text and hit Enter:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">gets</span><span class="p">(</span><span class="n">inString</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">inString</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">inString</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="p">{</span>
+         <span class="k">case</span> <span class="sc">&#39;\n&#39;</span>:
+         <span class="p">{</span>
+             <span class="n">printf</span><span class="p">(</span><span class="s">&quot;String[%d]: &lt;carriage return&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+             <span class="k">break</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="k">case</span> <span class="sc">&#39;\t&#39;</span>:
+         <span class="p">{</span>
+             <span class="n">printf</span><span class="p">(</span><span class="s">&quot;String[%d]: &lt;tab&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+             <span class="k">break</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="k">case</span> <span class="sc">&#39; &#39;</span>:
+         <span class="p">{</span>
+             <span class="n">printf</span><span class="p">(</span><span class="s">&quot;String[%d]:&lt;space&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+             <span class="k">break</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="nl">default:</span>
+         <span class="p">{</span>
+             <span class="n">printf</span><span class="p">(</span><span class="s">&quot;String[%d]:%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">inString</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+             <span class="k">break</span><span class="p">;</span>
+         <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>我们正在判断的值放置在 switch 语句的圆括号中。我们需要处理的每个值都放置在 case 语句中。这当我们要判断的值与 case 语句中的值相匹配时，这些 case 语句定义的语句集合，将会运行。Case 语句的格式如下所示：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">case</span> <span class="n">valueForCase</span>:
+<span class="p">{</span>
+    <span class="n">block</span> <span class="n">of</span> <span class="n">instructions</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>在这里的 break 语句非常重要，因为它们用户在处理了 case 语句之后跳出 switch 语句。如果在 case 语句结尾没有 break 语句，那么程序将会继续“运行”，并且继续进入下一个 case 语句。而这不是我们所希望的。使用上面的例子，删除 case 语句后面的 break 语句，者将会导致它打印两次：一次是空格 case，而另一次是 default case 语句。它的结果类似于下面的情况：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="n">String</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">:</span> <span class="o">&lt;</span><span class="n">space</span><span class="o">&gt;</span>
+<span class="n">String</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">:</span>
+</pre></div>
+</div>
+<p>default case 语句确保了不匹配指定情形中的所有值。它必须放置在 switch 语句中所有 case 语句的最后一个。任何放置在 default case 语句之后的 case 语句都将不被执行。虽然看起来模糊，但是它确实存在。</p>
+</div>
+<div class="section" id="id3">
+<h2>条件赋值<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>我们看到 C 和 C++ 为程序员提供了处理某些常用任务的快捷方式，例如添加 1 到变量。另一个快捷的方式是处理三项内容的单个操作符。下面是使用条件语句为变量赋值的方式：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">someOtherNumber</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">else</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>那么接下来是另一种方式，非常简短。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="p">(</span><span class="n">someOtherNumber</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">10</span><span class="p">;</span>
+</pre></div>
+</div>
 <p>那么，现在，您可能会想，“等一下，伙计！这完全没有意义？”，并且需要放弃幸运的马拉松赛跑。那么再次，可能不需要了。条件操作符具有两部分，问号标识和冒号。至于它的工作格式则如下：</p>
-<p><cite>条件？条件为真时的值 : 条件为假时的值</cite></p>
+<div class="highlight-cpp"><div class="highlight"><pre>条件？条件为真时的值 : 条件为假时的值
+</pre></div>
+</div>
 <p>条件语句两端不需要圆括号，但是某些人（像我）喜欢这样做，即使根本没有必要把条件语句和其他部分分开。如果条件为真，那么在问好和冒号之间的值将会被返回，否则冒号之后的值将会被返回。虽然它的用处可能会有些限制，但是它某些时候确实比较方便实用。</p>
-<p>## 找错</p>
-<ul>
-<li><dl class="first docutils">
-<dt>源码</dt>
-<dd><dl class="first docutils">
-<dt><a href="#id36"><span class="problematic" id="id37">``</span></a><a href="#id38"><span class="problematic" id="id39">`</span></a>C++</dt>
-<dd><p class="first">#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;</p>
-<p>char <a href="#id40"><span class="problematic" id="id41">*</span></a>ReverseString(char <a href="#id42"><span class="problematic" id="id43">*</span></a>string)
-{</p>
-<blockquote>
-<div><p>// This function rearranges a string so that it is backwards
-// i.e. abcdef -&gt; fedcba
-if (!string)</p>
-<blockquote>
-<div><p>return NULL;</p>
-</div></blockquote>
-<p>int length = strlen(string);
-int count = length / 2;
-for (int i = 0; i &lt; count; i++)
-{</p>
-<blockquote>
-<div><p>char temp = string[length - i];
-string[length - i] = string[i];
-string[i] = temp;</p>
-</div></blockquote>
-<p>}
-return string;</p>
-</div></blockquote>
-<p>}</p>
-<p>int main(void)
-{</p>
-<blockquote>
-<div><p>char inString[1024];
-printf(&#8220;Type a string to reverse:&#8221;);
-gets(inString);
-printf(&#8220;The reversed string is %sn&#8221;,ReverseString(inString));
-return 0;</p>
-</div></blockquote>
-<p class="last">}</p>
-</dd>
-</dl>
-<p class="last"><a href="#id44"><span class="problematic" id="id45">``</span></a><a href="#id46"><span class="problematic" id="id47">`</span></a></p>
-</dd>
-</dl>
-</li>
-<li><p class="first">错误</p>
-<blockquote>
-<div><p>该程序的编译没有问题，但是没有打印出任何内容。</p>
-</div></blockquote>
-</li>
-</ul>
-<p>## 帮助
-通常对于找错部分，我们是不给与帮助的，但是这个找错比较困难。该错误存在于 <cite>ReverseString()</cite> 中。尝试使用 <cite>printf()</cite> 调用打印特定位置的值来获取程序运行中的信息，像打印 length，count，等。</p>
+</div>
+<div class="section" id="id4">
+<h2>找错<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>源码:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+
+<span class="kt">char</span> <span class="o">*</span><span class="nf">ReverseString</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">string</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="c1">// This function rearranges a string so that it is backwards</span>
+     <span class="c1">// i.e. abcdef -&gt; fedcba</span>
+     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">string</span><span class="p">)</span>
+             <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+     <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>
+     <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+     <span class="p">{</span>
+             <span class="kt">char</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="n">length</span> <span class="o">-</span> <span class="n">i</span><span class="p">];</span>
+             <span class="n">string</span><span class="p">[</span><span class="n">length</span> <span class="o">-</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+             <span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="n">string</span><span class="p">;</span>
+ <span class="p">}</span>
+
+ <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+ <span class="p">{</span>
+     <span class="kt">char</span> <span class="n">inString</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Type a string to reverse:&quot;</span><span class="p">);</span>
+     <span class="n">gets</span><span class="p">(</span><span class="n">inString</span><span class="p">);</span>
+     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The reversed string is %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">ReverseString</span><span class="p">(</span><span class="n">inString</span><span class="p">));</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>错误:</p>
+<p>该程序的编译没有问题，但是没有打印出任何内容。</p>
+</div>
+<div class="section" id="id5">
+<h2>帮助<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>通常对于找错部分，我们是不给与帮助的，但是这个找错比较困难。该错误存在于 <em>ReverseString()</em> 中。尝试使用 <em>printf()</em> 调用打印特定位置的值来获取程序运行中的信息，像打印 length，count，等。</p>
 </div>
 </div>
 
