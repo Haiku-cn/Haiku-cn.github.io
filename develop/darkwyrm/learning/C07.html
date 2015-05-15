@@ -41,10 +41,32 @@
         
         
   <div class="section" id="id1">
-<h1>第七课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id12">第七课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id12">第七课</a><ul>
+<li><a class="reference internal" href="#id2" id="id13">内存：堆与栈</a></li>
+<li><a class="reference internal" href="#id3" id="id14">超越十进制：二进制数学</a><ul>
+<li><a class="reference internal" href="#id4" id="id15">位与操作</a></li>
+<li><a class="reference internal" href="#id5" id="id16">位或操作</a></li>
+<li><a class="reference internal" href="#id6" id="id17">位异或操作</a></li>
+<li><a class="reference internal" href="#id7" id="id18">位求反</a></li>
+<li><a class="reference internal" href="#id8" id="id19">移位操作符</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id20">错误查找</a><ul>
+<li><a class="reference internal" href="#id10" id="id21">找错 #1</a></li>
+<li><a class="reference internal" href="#id11" id="id22">找错 #2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <p>学习编程，快乐与收获时时相伴，最快乐的时光莫过于，头脑一阵风暴，产生一个想法，一通鼓捣，竟然实现了自己的所思所想，最后一声长啸 “神功练成第一重，我终于让计算机动起来了！”。本节可能不会让您产生这种感慨，但是，和一日三餐一样，开卷有益，总有好处。但是在继续之后的课程之前，请确保您已经理解了本节的内容。</p>
 <div class="section" id="id2">
-<h2>内存：堆与栈<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">内存：堆与栈</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>您可能已经注意到了，每个变量都会占用一定的计算机内存。如果您未曾注意到这点，那么相信现在您已经开始对它进行关注。您可能不了解的是，系统执行的每个程序都有两种不同类型的内存，也就是变量被创建的地方：堆和栈。</p>
 <p><strong>栈（Stack）</strong> 是具有限制大小的快速内存空间。在您的代码执行前，系统将其载入内存时，会为您的程序预留一个主内存块，用于栈内存。无需深入了解过多细节，简单地说，它的运行速度很快，空间大小也是受限制的，如果您的程序耗尽了栈空间，它将会崩溃。为许多大型数组使用栈空间可是个坏习惯。目前我们使用的所有变量都从栈内存进行分配。</p>
 <p><strong>堆（Heap）</strong> 是计算机系统内存的主要部分。从堆获取内存耗费时间较长，但是您不需要担心会将其耗尽，除非，您希望为其分配“卑鄙”的数量。使用堆内存的不便之处在于您必须保证，在处理完成之后，将所有从系统中获取的内存返回给系统。如果不这样做将会导致“内存泄露”，也就是在分配内存后未将其释放。这样的话，您的程序将会逐渐耗费更多的系统内存，直到您的程序优雅地或者不甚优雅地退出时，它们才会返还系统。</p>
@@ -96,7 +118,7 @@
 </div>
 </div>
 <div class="section" id="id3">
-<h2>超越十进制：二进制数学<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">超越十进制：二进制数学</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>现在让我们花点时间来学习一些数学，在之后的课程中，我们可能会用到它们。就像计算机和人类从不同的数字开始计数一样，他们所使用的计数系统也彼此相异。</p>
 <p>人类使用 <strong>十进制系统</strong>，也就是说 <strong>10进制计数法</strong> 。.它之所以称之为 10 进制计数是因为每一位都有 10 个可选值，从 0 至 9。当您还很小的时候，您可能听自己的数学老师讲过“个位”，“十位”，以及“百位”。从右至左，从 0 算起，每个数位的值和对应的 10 的指数相等。</p>
 <dl class="docutils">
@@ -214,7 +236,7 @@
 <p>&lt;/table&gt;</p>
 <p>该表格没有足够的地方来给出所有的信息。但是我们需要更多的讲解。它们都是具有特殊用途的特别数学操作符。布尔与，或，和非操作符用于程序的逻辑运算，例如if条件语句的连接和类似情况。而上表中的位操作符则用于操作数字中的位。</p>
 <div class="section" id="id4">
-<h3>位与操作<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">位与操作</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>位与操作符用于关闭数字中的位，即，将其中为 1 的位设为 0。通过比较每个数中对应的位，然后使用布尔逻辑来决定将该位设为 1 或是 0。下面两个示例将有助于我们的理解。</p>
 <dl class="docutils">
 <dt>&lt;div style=&#8221;float:left;margin-right:5px;&#8221;&gt;&lt;table width=&#8221;300&#8221; border=&#8221;1&#8221; cellpadding=&#8221;0&#8221; cellspacing=&#8221;0&#8221;&gt;</dt>
@@ -311,7 +333,7 @@
 <p>&lt;/table&gt;</p>
 </div>
 <div class="section" id="id5">
-<h3>位或操作<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">位或操作</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>位或用于和位与相反的用途，其用于开启数字中的位，即将某个为0的位设置为1。</p>
 <dl class="docutils">
 <dt>&lt;table width=&#8221;400&#8221; border=&#8221;1&#8221; cellpadding=&#8221;0&#8221; cellspacing=&#8221;0&#8221;&gt;</dt>
@@ -376,7 +398,7 @@
 <p>&lt;/table&gt;</p>
 </div>
 <div class="section" id="id6">
-<h3>位异或操作<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">位异或操作</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>位异或可能是所有位操作符中最神秘的操作符。异或，其意为异常或操作。其用于翻转位，因为如果对应位不同其结果为1，若相同则为0。</p>
 <dl class="docutils">
 <dt>&lt;table width=&#8221;400&#8221; border=&#8221;1&#8221; cellpadding=&#8221;0&#8221; cellspacing=&#8221;0&#8221;&gt;</dt>
@@ -410,7 +432,7 @@
 <p>&lt;/table&gt;</p>
 </div>
 <div class="section" id="id7">
-<h3>位求反<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">位求反</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>位求反也用于翻转位，和位异或相类似，但是可控性较小。它会翻转数值中的所有位，例如上述示例，但是它不需要其他参数。下面是一个使用示例：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
 <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The value of ~%d is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="o">~</span><span class="n">a</span><span class="p">);</span>
@@ -418,7 +440,7 @@
 </div>
 </div>
 <div class="section" id="id8">
-<h3>移位操作符<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">移位操作符</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>除了将位设为开启关闭，进行翻转之外，C和C++还提供了移位操作符，我们可以快速的执行一些乘法和除法。</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="c1">//将A的数值向左移动B位。也就是将A乘以2B。</span>
 <span class="n">A</span> <span class="o">&lt;&lt;</span> <span class="n">B</span><span class="p">;</span>
@@ -478,9 +500,9 @@
 </div>
 </div>
 <div class="section" id="id9">
-<h2>错误查找<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">错误查找</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id10">
-<h3>找错 #1<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">找错 #1</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>代码：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 <span class="cp">#include &lt;string.h&gt;</span>
@@ -520,7 +542,7 @@
 <p>在运行时，程序打印“segmentation fault”，没有其他任何结果。</p>
 </div>
 <div class="section" id="id11">
-<h3>找错 #2<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">找错 #2</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>代码：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 <span class="cp">#include &lt;math.h&gt;</span>

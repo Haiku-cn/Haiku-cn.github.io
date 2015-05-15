@@ -41,7 +41,18 @@
         
         
   <div class="section" id="id1">
-<h1>第一课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id5">第一课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id5">第一课</a><ul>
+<li><a class="reference internal" href="#id2" id="id6">问题</a></li>
+<li><a class="reference internal" href="#id3" id="id7">练习</a></li>
+<li><a class="reference internal" href="#id4" id="id8">思考题</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>编程，其实就是把自己的想法通过电脑来实现出来。但是电脑有点呆头呆脑的，它们不会主动的理解你的想法，事实上它们只会按照你给的指令一步一步地去执行。如果上面的讲述你还不是很清楚，那么接下来，很快你就能够理解的。</p>
 <p>和计算机交流是一件很让人脑大的事，它竟然不懂得人的语言，而且它还只能够理解一种特别的数值指令，并且只能循着这些数值指令来做些事。可是让我们通过这种数值指令来和计算机交流是非常困难的，所以我们只好采取一种折中的办法来搞定它了，我们以一种人类可以理解的语言来编写代码，然后再通过计算机把这些代码翻译成它自己可以理解的数值指令就可以啦。如果这种翻译工作是在程序运行时完成的，这种语言称为解释性语言；但是如果是在运行之前完成翻译工作的，那么这种语言就是编译语言，例如，c 和 c++ 就是编译语言。所以当编写 c++ 程序时，你使用自然语言（这些代码称为源码），然后编译器把这些源码翻译成机器可以理解的语言（这称为机器码）。</p>
 <p>在 c++ 语言中，所有的计算机指令被以块的形式组织在一起，而这些块称之为函数。下面是一个函数的例子：</p>
@@ -120,11 +131,11 @@
 <p>首先：以 <em>#include</em> 为开头的代码行告诉编译器中称被为预处理器的程序在系统头文件 <em>stido.h</em> 中寻找所定义的函数。<em>stdio.h</em> 是一个文件名，在其中定义了许多标准的输入输出函数，如 <em>printf()</em> 。尖括号 <em>&lt;&gt;</em> 告诉预处理器，这些引用的是系统头文件。当然我们也可以定制自己的头文件，但是这不是我们现在介绍的重点。</p>
 <p>其次：另一个我们没有涉及到的部分是 <em>printf()</em> 函数的圆括号中的部分。如果你在终端中运行程序的话，那么圆括号中的任何东西都将会在屏幕上显示出来。这一种类型的数据被称为string（注意：字符串中的字符。）。</p>
 <div class="section" id="id2">
-<h2>问题<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">问题</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>如果我们将字符串末尾的反斜线 “/” 以及在它之后的 “n” 移去，如下所示 “Hello，world！” 那么将会产生什么样的结果呢？</p>
 </div>
 <div class="section" id="id3">
-<h2>练习<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">练习</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>编写一个程序，让它在终端中显示一个有横线和竖线组成的盒子，这个盒子如下所示：</p>
 <div class="highlight-sh"><div class="highlight"><pre> ----------
 |          |
@@ -136,7 +147,7 @@
 </div>
 </div>
 <div class="section" id="id4">
-<h2>思考题<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">思考题</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>如何设计一个程序，使这个程序可以打印出类似上面的两个方盒子，但是不需要进行很多的横线和竖线？</p>
 </div>
 </div>

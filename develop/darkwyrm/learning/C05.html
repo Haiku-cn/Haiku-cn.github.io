@@ -41,10 +41,29 @@
         
         
   <div class="section" id="id1">
-<h1>第五课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id8">第五课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id8">第五课</a><ul>
+<li><a class="reference internal" href="#array" id="id9">数组（Array）</a></li>
+<li><a class="reference internal" href="#pointer" id="id10">指针（pointer）</a></li>
+<li><a class="reference internal" href="#string" id="id11">字符串（string）</a></li>
+<li><a class="reference internal" href="#id2" id="id12">项目</a></li>
+<li><a class="reference internal" href="#id3" id="id13">深入阅读</a></li>
+<li><a class="reference internal" href="#id4" id="id14">查找错误</a><ul>
+<li><a class="reference internal" href="#id5" id="id15">找错 #1</a></li>
+<li><a class="reference internal" href="#id6" id="id16">找错 #2</a></li>
+<li><a class="reference internal" href="#id7" id="id17">第四课找错答案</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <p>计算机语言有很多种，其中一些和人类语言很接近，而其他的则接近于机器代码。汇编语言和机器码进一步之遥，而 COBOL 则如它所设计的那样接近于人类语言。C++ 则介于两者之间，在阅读完本节之后，您会深刻的认识到这一点。</p>
 <div class="section" id="array">
-<h2>数组（Array）<a class="headerlink" href="#array" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">数组（Array）</a><a class="headerlink" href="#array" title="Permalink to this headline">¶</a></h2>
 <p>为了弥补单独变量的不足，C++ 提供了可供使用的变量的集合，称为数组(arrays)。数组的单个成员称为 元素(elements)，所有的元素具有相同的类型，并且紧密地放置于计算机内存之中。您可以认为数组类似于鸡蛋托盘（包含了同类小物件的容器）。数组的声明和普通变量相类似，除了其后具有一对方括号，方括号中的数值表示了数组中包含元素的个数。</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span> <span class="n">thisIsAnArray</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
 </pre></div>
@@ -76,7 +95,7 @@
 <p>数组的使用需要特别的注意和培养。用于存放数组的内存通常会以整块分配，而以此种方式声明的数组则具有固定的大小。如果我们尝试为 <em>intArray[6]</em> 和 <em>intArray[16]</em> 赋值，数组的大小并不会因此而自动的增加。在此种情况下，出现的结果将是不可预料的，但是通常操作系统会终止该程序的运行。使用负值来进行索引也将会产生同样的结果。这种错误被称为段错误（segmentation fault），或者简称 segfault。有些用户可能还记得 Windows 95 的时代，我们通常可以看到意外的的错误“General Protection Fault”。GPF 也只是 segfault 的另一种叫法。</p>
 </div>
 <div class="section" id="pointer">
-<h2>指针（pointer）<a class="headerlink" href="#pointer" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">指针（pointer）</a><a class="headerlink" href="#pointer" title="Permalink to this headline">¶</a></h2>
 <p>如果讨论数组时，我们没有涉及到指针，那么关于它的讨论将是不完整的。指针是 C 和 C++ 语言的基础内容，而且它看起来可能要比从0开始计数要疯狂的多。指针是包含（或者指向）一个内存地址的变量。由于指针名的前面有一个星号（*）标识，因此您可以很容易得识别出它的声明。</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="kt">char</span> <span class="o">*</span><span class="n">somePointer</span><span class="p">;</span>
 </pre></div>
@@ -112,7 +131,7 @@
 <p>指针，类似于数组，但是在使用时需要特别的注意，因为它们非常容易的让程序员在程序中制造一个段错误。因此通常需要将指针初始化为 <em>NULL</em> 或者已知的内存地址。您可能会为 <em>NULL</em> 是什么？它只是 0 的另一种写法，但是它是关于指针的。虽然 <em>NULL</em> 指针也无法使用，类似于未初始化的指针-指向随机地址的指针-您非常确定它是不可用的。</p>
 </div>
 <div class="section" id="string">
-<h2>字符串（string）<a class="headerlink" href="#string" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">字符串（string）</a><a class="headerlink" href="#string" title="Permalink to this headline">¶</a></h2>
 <p>在第三课中，我们了解了可以存储在变量中的信息的不同种类 &#8211; 类型，但是我们忽视了其中很重要的一个：字符串。我们曾经在 <em>printf()</em> 语句中使用过此种类型 &#8211; 包好在一对双引号之间的内容统称为字符串。</p>
 <p>C 和 C++ 中的字符串和其他的数据类型有很大的不同。字符串是以 0 字符结尾的字符类型数组。字符变量可以被初始化为 0 至 255 之间的任何一个整数，或者一个字符常量（包含在单引号之间的字符：&#8217;a&#8217; 或者 &#8216;b&#8217;）。</p>
 <p>除了我们常用的字符之外，还有一些特殊字符。这些特殊字符以反斜杠开始，并且虽然我们需要输入多个字符来表示它们，但是它们在内存中仅占一个字节。需要注意的是，它们只可以与反斜杠一起使用（向右倾斜的斜杠，而不是正斜杠）。</p>
@@ -235,7 +254,7 @@ int main(void)
 </ul>
 </div>
 <div class="section" id="id2">
-<h2>项目<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">项目</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>一个高效的程序员可以利用多种方式使工具可以更好的为他们的工作服务。那么我们就创建一个程序，要求用户输入一个单词，然后输出每个字符的整数值。</p>
 <p>为了从用户获取信息，我们需要使用两个新的函数：<em>gets()</em> 和 <em>strlen()</em>。它们都以一个字符指针作为唯一的参数。我们可以使用两个字符数组 &#8211; 切记，数组可以像指针一样使用，如果您省去其后的方括号和索引值。下面将会给出这两个函数的声明，并且给出相关的描述：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="kt">char</span> <span class="o">*</span><span class="nf">gets</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">inString</span><span class="p">);</span>
@@ -279,13 +298,13 @@ int main(void)
 提示：关于第四步的提示，请仔细查看前面章节中有关字符串的代码示例。同时，复习第三课中的用于 <em>printf()</em> 函数的占位符列表。</p>
 </div>
 <div class="section" id="id3">
-<h2>深入阅读<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">深入阅读</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>无论何时编译器在编译该项目时，它会抱怨，<em>gets()</em> 非常危险，不应该使用。您是如何认为呢？</p>
 </div>
 <div class="section" id="id4">
-<h2>查找错误<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">查找错误</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id5">
-<h3>找错 #1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">找错 #1</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>源码:</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 
@@ -304,7 +323,7 @@ int main(void)
 <p>代码编译正确，但是它无法停止屏幕中的打印操作，唯一可以停止的操作就是在终端窗口中按下 <em>Ctrl+C</em>。</p>
 </div>
 <div class="section" id="id6">
-<h3>找错 #2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">找错 #2</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>源码:</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 
@@ -329,7 +348,7 @@ foo.cpp:12: warning: too few arguments <span class="k">for </span>format
 </div>
 </div>
 <div class="section" id="id7">
-<h3>第四课找错答案<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">第四课找错答案</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>for 循环中的 i++ 应该替换为 i+=2</li>
 <li>警告源于 %d （主要用于整型输出）用于浮点型（float）变量。将 printf 语句中的 %d 占位符修改为 %f,该警告将不存在。</li>

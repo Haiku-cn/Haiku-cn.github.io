@@ -41,7 +41,23 @@
         
         
   <div class="section" id="id1">
-<h1>第三课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id7">第三课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id7">第三课</a><ul>
+<li><a class="reference internal" href="#printf" id="id8">使用 printf() 函数</a></li>
+<li><a class="reference internal" href="#id2" id="id9">运算符</a></li>
+<li><a class="reference internal" href="#id3" id="id10">找错</a><ul>
+<li><a class="reference internal" href="#id4" id="id11">找错 #1</a></li>
+<li><a class="reference internal" href="#id5" id="id12">找错 #2</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id13">作业</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>在前两节里，我们学习了一些编程的基础知识，例如如何编写一个函数，如何为我们的代码找出bug。那么在这一节里我们将学习不同的数据类型以及它们的存储和传递方式。</p>
 <p>由于直接进行数据的计算如 “return 1+1” 将会显得非常麻烦，我们在编程中引入了变量的概念。一个变量就是一个信息的储存容器，就如我们真实世界中的容器一样，它们也有不同的类型，大小以及用途。</p>
 <p>创建一个变量其实就是声明它的存在，如下：</p>
@@ -167,7 +183,7 @@
 </tbody>
 </table>
 <div class="section" id="printf">
-<h2>使用 printf() 函数<a class="headerlink" href="#printf" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">使用 printf() 函数</a><a class="headerlink" href="#printf" title="Permalink to this headline">¶</a></h2>
 <p>是否还记得之前 <cite>printf()</cite> 函数古怪的使用方法么？那么接下来就让我们揭开它让人迷惑面纱。</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
@@ -236,7 +252,7 @@
 </table>
 </div>
 <div class="section" id="id2">
-<h2>运算符<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">运算符</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>运算符给我们提供了一种可以不需要函数的调用就可以实现变量和数字的计算的方法。“+”，“-”和“*”都是运算符。C++ 提供了除此之外更多的运算符，下面表格中的就是我们常用到的一些运算符。</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -354,9 +370,9 @@
 <p>由于在上面的计算中，我们要求一定精度的数值，这个数超出了整数的范围，所以 <cite>Hypotenuse()</cite> 函数返回了一个双精度的数，而这也是 <cite>sqrt()</cite> 函数的返回值类型。</p>
 </div>
 <div class="section" id="id3">
-<h2>找错<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">找错</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id4">
-<h3>找错 #1<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">找错 #1</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>源码:</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">sum</span><span class="p">(</span><span class="kt">int</span> <span class="n">first</span><span class="p">,</span> <span class="kt">int</span> <span class="n">second</span><span class="p">,</span> <span class="kt">int</span> <span class="n">third</span><span class="p">)</span>
 <span class="p">{</span>
@@ -378,7 +394,7 @@ foo.cpp:14: error: ‘c’ was not declared in this scope
 </div>
 </div>
 <div class="section" id="id5">
-<h3>找错 #2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">找错 #2</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>源码:</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 <span class="kt">double</span> <span class="nf">distance</span><span class="p">(</span><span class="kt">int</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y2</span><span class="p">)</span>
@@ -407,7 +423,7 @@ foo.cpp:8: error: ‘sqrt’ was not declared in this scope
 </div>
 </div>
 <div class="section" id="id6">
-<h2>作业<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">作业</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>使用方程 <em>interest=Principal*rate*time</em> ，计算当酬金为 20000 美元而以每月 5% 的进度需要 24 个月来完成一项工作的兴趣值，并且需要使用一个单独的函数来完成这项工作。</p>
 </div>
 </div>

@@ -41,10 +41,32 @@
         
         
   <div class="section" id="id1">
-<h1>第二课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id12">第二课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id12">第二课</a><ul>
+<li><a class="reference internal" href="#id2" id="id13">注释</a></li>
+<li><a class="reference internal" href="#id3" id="id14">构建过程</a><ul>
+<li><a class="reference internal" href="#id4" id="id15">第一步：预处理器</a></li>
+<li><a class="reference internal" href="#id5" id="id16">第二步：编译器</a></li>
+<li><a class="reference internal" href="#id6" id="id17">第三步：汇编器</a></li>
+<li><a class="reference internal" href="#id7" id="id18">第四步：链接器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8" id="id19">调试程序</a><ul>
+<li><a class="reference internal" href="#id9" id="id20">例 1</a></li>
+<li><a class="reference internal" href="#id10" id="id21">例 2</a></li>
+<li><a class="reference internal" href="#id11" id="id22">例3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <p>也许现在我们写下的程序并没有实际的用处，当时随着我们学习的深入，你会发现你可以让自己的程序做很多的事情。那么在这一节里，我们主要来介绍两个方面的内容：注释和编译器在创建你的程序过程中的各个不同的阶段。在这里，我们还要探讨一下如何调试你的代码。</p>
 <div class="section" id="id2">
-<h2>注释<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">注释</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>注释其实就是你在代码中添加的所要注意的地方。注释可以有很多用处，例如：可以对某一段代码的意图进行解释，提供警告，临时禁用某一段代码。至于如何来使用注释，请参看下面的例子：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="c1">// 这是一个单行的注释.</span>
 <span class="c1">// 同上. 在两个正斜杠之后所有内容都是注释的一部分.</span>
@@ -73,32 +95,32 @@
 <p>那么接下来我们返回上一节的内容，看一下在编译器编译程序的过程中都经历了那些步骤。了解这些对于我们的变成是极为有利的，因为在编写代码的过程中将会出现各种各样的错误，而了解这个过程将可以让我们快速的找到问题的症结所在。</p>
 </div>
 <div class="section" id="id3">
-<h2>构建过程<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">构建过程</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>在一个程序从源码开始编译的过程中，会有四个程序分别对它进行处理，它们分别是：预处理器，编译器，汇编器，和链接器。</p>
 <div class="section" id="id4">
-<h3>第一步：预处理器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">第一步：预处理器</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>预处理器从开始接受源码到传递源码给编译器的过程中，只对源码做极少的处理。首先它将源码中的注释移去，然后将在 <em>#include</em> 后尖括号中所包含的头文件中的代码嵌入到源码中。还会有其他的一些指令的处理，这些指令的处理，我们将在以后在作讨论。</p>
 </div>
 <div class="section" id="id5">
-<h3>第二步：编译器<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">第二步：编译器</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>编译器将源码翻译为汇编语言。汇编语言还是可以被我们人类所理解的，但是它和机器语言已经是极为接近了。当然，使用汇编语言来编写程序是机器困难的，而且它会因为处理器的不同而不同，也就是与机器相关的。</p>
 </div>
 <div class="section" id="id6">
-<h3>第三步：汇编器<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">第三步：汇编器</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>汇编器把自身生成的汇编代码转变为 object code（目标代码），并且把目标代码放置在以“a.o”为扩展名的目标文件内。目标代码已经是可以被机器理解和运行的指令了，然而它还是不能够运行的。尽管这些代码可以组成你的程序，但是目前它们还只是一些指令碎片，它们还需要被组织起来才可以运行。</p>
 </div>
 <div class="section" id="id7">
-<h3>第四步：链接器<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">第四步：链接器</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>链接器将目标文件和程序中所要使用的库文件中的指令碎片有机的组织起来，让它们成为一个可以运行的程序。</p>
 </div>
 </div>
 <div class="section" id="id8">
-<h2>调试程序<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id19">调试程序</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>由于人类的天性，每个人都会犯错，程序员也是这样。编写代码，然后调试代码总是一步一步来的，有时候也可以同时进行。那么，接下来就让我们开始调试代码的学习。</p>
 <p>Bug 通常有两种类型：语法错误和语义错误。在语法上的错误时很容易被找到的，而且编译器通常会为我们完成这项工作。语法上的错误有大小写错误，括号的丢失或者多余以及函数名的输入错误等等。但是语义上的错误的发现是非常不容易的，因为这些错误存在于完全合法的代码的逻辑之中。在英文中 <strong>The oxygen censor on my car needed to be replaced</strong> 是完全符合语法规定和正确组织的，但是这句话是存在语义上的错误的，因为我们应该用 “sensor” 来代替 “censor”。语义上的错误有下面的几种情形：一些地方多了一个分号，数字的赋值错误，函数的返回值产生歧义等。</p>
 <p>下面是一些常见错误的例子：</p>
 <div class="section" id="id9">
-<h3>例 1<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">例 1</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>源码：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
@@ -115,7 +137,7 @@
 <p>也许在这里，你会产生疑问，<strong>What in the world is a token, genius?</strong>，token 是一个语言元素。就像我们的语言中有单词和标点符号一样，计算机也有自己的词汇和标点。如果我们在一句话中接连使用两个逗号，这产生了一个标点使用错误，那么如果我们在 c++ 中多出来一个大括号，这也是 c++ 中的标点使用错误。</p>
 </div>
 <div class="section" id="id10">
-<h3>例 2<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">例 2</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>源码:</p>
 <div class="highlight-cpp"><div class="highlight"><pre>/*-----------------------------------------------------------------------
 RedButton.cpp
@@ -146,7 +168,7 @@ int main(void)
 <p>那么接下来编译器不知道如何处理这些存在破折号的代码行，所以就报错了。</p>
 </div>
 <div class="section" id="id11">
-<h3>例3<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">例3</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>源码:</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <span class="p">{</span>

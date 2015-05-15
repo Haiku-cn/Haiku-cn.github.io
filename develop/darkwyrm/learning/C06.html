@@ -41,10 +41,23 @@
         
         
   <div class="section" id="id1">
-<h1>第六课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id6">第六课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id6">第六课</a><ul>
+<li><a class="reference internal" href="#id2" id="id7">更多的循环</a></li>
+<li><a class="reference internal" href="#switch" id="id8">switch 语句</a></li>
+<li><a class="reference internal" href="#id3" id="id9">条件赋值</a></li>
+<li><a class="reference internal" href="#id4" id="id10">找错</a></li>
+<li><a class="reference internal" href="#id5" id="id11">帮助</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>在本节，我们主要来扩展讲解我们已经了解的内容。在第四课中，我们了解了在 if 语句中，只有满足特定的条件，才可以运行相关的代码，并且我们也学习了如何使用 for 循环重复执行一系列的指令。那么在本节中，我们将会进一步介绍一些工具。</p>
 <div class="section" id="id2">
-<h2>更多的循环<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">更多的循环</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>尽管它们可能是最常用的，但是除了 for 循环，还有许多其他类型的循环。事实上，还有其他两个非常相近的循环：while 循环，和 do-while 循环。</p>
 <p>而且循环比较简单，仅需要一个循环条件，循环中的代码将会重复运行，直到循环条件为假。那么我们就寻找一种方法，利用 while 循环来完成我们第五课中的项目。</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
@@ -104,7 +117,7 @@ foo.cpp:13: error: expected <span class="s1">&#39;;&#39;</span> before <span cla
 <p>continue 语句的这种使用方式，可能不是很常见。这种情况下，通常会调用 break 语句，直接跳出当前的代码段。break 将会越过循环条件，然后直接结束循环。在接下来讨论的 switch 语句中，我们将会总是使用 break 语句。</p>
 </div>
 <div class="section" id="switch">
-<h2>switch 语句<a class="headerlink" href="#switch" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">switch 语句</a><a class="headerlink" href="#switch" title="Permalink to this headline">¶</a></h2>
 <p>有些时候，我们必须从几个可用值之中选择一个选项用于某个变量。它可以使用一系列的 if-else 语句进行处理，但是C和C++为我们提供了可以更好的处理此种情况的 switch 语句。那么让我们把我们的字符串打印项目扩展为，提供一种方式打印字符，但是在打印时，不是用显示空格和缩进。</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 
@@ -160,7 +173,7 @@ foo.cpp:13: error: expected <span class="s1">&#39;;&#39;</span> before <span cla
 <p>default case 语句确保了不匹配指定情形中的所有值。它必须放置在 switch 语句中所有 case 语句的最后一个。任何放置在 default case 语句之后的 case 语句都将不被执行。虽然看起来模糊，但是它确实存在。</p>
 </div>
 <div class="section" id="id3">
-<h2>条件赋值<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">条件赋值</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>我们看到 C 和 C++ 为程序员提供了处理某些常用任务的快捷方式，例如添加 1 到变量。另一个快捷的方式是处理三项内容的单个操作符。下面是使用条件语句为变量赋值的方式：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
 
@@ -181,7 +194,7 @@ foo.cpp:13: error: expected <span class="s1">&#39;;&#39;</span> before <span cla
 <p>条件语句两端不需要圆括号，但是某些人（像我）喜欢这样做，即使根本没有必要把条件语句和其他部分分开。如果条件为真，那么在问好和冒号之间的值将会被返回，否则冒号之后的值将会被返回。虽然它的用处可能会有些限制，但是它某些时候确实比较方便实用。</p>
 </div>
 <div class="section" id="id4">
-<h2>找错<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">找错</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>源码:</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 <span class="cp">#include &lt;string.h&gt;</span>
@@ -217,7 +230,7 @@ foo.cpp:13: error: expected <span class="s1">&#39;;&#39;</span> before <span cla
 <p>该程序的编译没有问题，但是没有打印出任何内容。</p>
 </div>
 <div class="section" id="id5">
-<h2>帮助<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">帮助</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>通常对于找错部分，我们是不给与帮助的，但是这个找错比较困难。该错误存在于 <em>ReverseString()</em> 中。尝试使用 <em>printf()</em> 调用打印特定位置的值来获取程序运行中的信息，像打印 length，count，等。</p>
 </div>
 </div>
