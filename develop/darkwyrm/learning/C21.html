@@ -41,21 +41,35 @@
         
         
   <div class="section" id="id1">
-<h1>第二十一课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id6">第二十一课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id6">第二十一课</a><ul>
+<li><a class="reference internal" href="#id2" id="id7">项目概览</a></li>
+<li><a class="reference internal" href="#bfile" id="id8">BFile：使文件完全按照要求“端坐”和“犬吠”</a></li>
+<li><a class="reference internal" href="#id3" id="id9">使用 BFile 读和写文件</a></li>
+<li><a class="reference internal" href="#haikufortune" id="id10">开始我们的项目：HaikuFortune</a></li>
+<li><a class="reference internal" href="#id4" id="id11">编写和测试代码</a></li>
+<li><a class="reference internal" href="#id5" id="id12">深入学习</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>我们所有的项目都不是很大，通常都不会花费很多时间。但是根据项目复杂性的大小，真实的编程项目可能会需要几个月或者更多的时间。在这一节里，我们将开始一个新的项目，相比于其他的许多 Haiku 程序，它比较小，但是我们需要好几个章节来完成这一项目。</p>
 <div class="section" id="id2">
-<h2>项目概览<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">项目概览</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>我们的项目相比较小。Unix 系统已经存在好长时间了，其中有一个命令行程序 fortune，它用于智能显示一些类型。通常在用户登录系统时，它就会运行。那么我们将会来编写一个 fortune 图形化程序而不是终端中的程序。由于我们不限于一个 fortune 文件，它将在原始的程序上有所给进。而且它将会在 fortune 中随机选择一个文件，然后在该文件中随机的选择一个入口。我们将会让用户能够按照自己的意愿来选择 fortune 程序。</p>
 <p>我们将会把代码分为两个主要的部分：GUI 和 fortune 的具体实现代码。fortune 的代码是一个类，它主要用于从 fortune 目录中选择 fortune 文件，从文件中随机选择一个入口，然后把它以字符的形式返回。GUI 由几多行的文本框组成，用于关闭程序的按钮和用于获取另一个 fortune 的按钮，以及一个用于显示该程序的编写者和版本号的介绍的按钮。这种根据任务来对代码进行分类的方法是一个很好的习惯，这有助于提高代码的复用性。</p>
 </div>
 <div class="section" id="bfile">
-<h2>BFile：使文件完全按照要求“端坐”和“犬吠”<a class="headerlink" href="#bfile" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">BFile：使文件完全按照要求“端坐”和“犬吠”</a><a class="headerlink" href="#bfile" title="Permalink to this headline">¶</a></h2>
 <p>通常我们不能够让文件像忠实的小狗一样听话，但是 BFile 类是非常有用，它给了我们一个选择，让我们可以对一个文件进行任何的操作：创建文件，读取文件，撤销甚至清除数据，因为它是 BNode 的子类，当然我们以为它添加，删除或者修改属性。对于那些不熟悉的东西，属性是 BeOS 的一个特性：文件的描述数据不是文件数据的一部分，但是这不是我们这一节的重点。下面是 BFile 类中我们最常使用的方法的列表：</p>
 <p>为一个 BFile 设置一个位置，这不仅仅是给予一个文件路径那么简单。实际上 SetTo() 有四个不同的版本。他们可以接收开放模式和字符路径，一个 BEntry，一个 entry_ref，或者一个字符格式相对路径的 BDirectory。开放模式是一个组合，一个由包含下面读或者写模式的标记的组合：</p>
 <p>BFile 的构造函数和他们的 SetTo() 调用使用相同的参数，但是他们不返回任何的错误代码。在处理文件时，会出现任何可能的错误，所以一定要确保在创建一个 BFile 后，及时检查由 SetTo() 或者 InitCheck() 调用返回的错误信息。同时需要注意的是，在任何给定时间，系统只能够处理一定数量的文件。在设置好路径后，每一个 BEntry、BFile、BNode 或者 BDirectory 只能使用一个路径，所以在处理完成之后，Unset() 或者删除它们。</p>
 </div>
 <div class="section" id="id3">
-<h2>使用 BFile 读和写文件<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">使用 BFile 读和写文件</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>BFile 使文件的读取非常容易。Read() 函数获取一个未类型化的字节缓冲区和将要读取的数据量以便从文件接收数据。在处理下一个数据时，通常你需要使用一个 char 阵列，或者一个 BString。下面是使用 BFile 和 BString 来读取文件的方法：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="kt">status_t</span>
 <span class="nf">ReadFile</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span>
@@ -126,7 +140,7 @@
 </div>
 </div>
 <div class="section" id="haikufortune">
-<h2>开始我们的项目：HaikuFortune<a class="headerlink" href="#haikufortune" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">开始我们的项目：HaikuFortune</a><a class="headerlink" href="#haikufortune" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>打开 Paladin，使用 MainWindow 模板创建一个新的 GUI 项目。</li>
 <li>按下 Alt+N，或者从 Project menu（项目菜单）选择 New File（新建文件），然后创建一个 FortuneFunctions.cpp 文件。一定要检查文本框中是否创建了一个相同的头文件。</li>
@@ -285,7 +299,7 @@
 </div>
 </div>
 <div class="section" id="id4">
-<h2>编写和测试代码<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">编写和测试代码</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>由于我们在处理不包含 GUI 的代码，所以在终端中测试所有的代码将会及其容易。在 App.cpp 的 main() 函数中，注释除了返回值外的所有代码，并且快速的编写代码以确保所有的代码都能够正确的运行。下面是一些建议，希望能够使程序的编写变得更加容易：</p>
 <ul class="simple">
 <li>首先编写析构函数和 MakeEmpty() 函数。</li>
@@ -297,7 +311,7 @@
 <p>如果你的 FortuneAccess 类完成并且经过了测试，你应该在其基础之上编写一个比 fortune 本身更好的命令行下的 fortune 程序。</p>
 </div>
 <div class="section" id="id5">
-<h2>深入学习<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">深入学习</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>直到现在，我们还没有接触到 GUI。好好考虑一下这个问题，如何利用图形控件制作一个简单的界面来展示 fortune。接下来，学习了 GUI 的有关内容之后，我们的项目将会得到完善。</p>
 </div>
 </div>
