@@ -41,21 +41,21 @@
         
         
   <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id20">第十七课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id18">第十七课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id20">第十七课</a><ul>
-<li><a class="reference internal" href="#app-h" id="id21">App.h</a></li>
-<li><a class="reference internal" href="#app-cpp" id="id22">App.cpp</a><ul>
-<li><a class="reference internal" href="#id4" id="id23">添加视图</a></li>
-<li><a class="reference internal" href="#id5" id="id24">添加菜单</a></li>
-<li><a class="reference internal" href="#id6" id="id25">深入理解</a></li>
-<li><a class="reference internal" href="#id7" id="id26">需要记忆的内容</a></li>
+<li><a class="reference internal" href="#id1" id="id18">第十七课</a><ul>
+<li><a class="reference internal" href="#app-h" id="id19">App.h</a></li>
+<li><a class="reference internal" href="#app-cpp" id="id20">App.cpp</a><ul>
+<li><a class="reference internal" href="#id2" id="id21">添加视图</a></li>
+<li><a class="reference internal" href="#id3" id="id22">添加菜单</a></li>
+<li><a class="reference internal" href="#id4" id="id23">深入理解</a></li>
+<li><a class="reference internal" href="#id5" id="id24">需要记忆的内容</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bwindow" id="id27">BWindow</a></li>
-<li><a class="reference internal" href="#bview" id="id28">BView</a></li>
+<li><a class="reference internal" href="#bwindow" id="id25">BWindow</a></li>
+<li><a class="reference internal" href="#bview" id="id26">BView</a></li>
 </ul>
 </li>
 </ul>
@@ -73,7 +73,7 @@
 依照相同的步骤完成 MainWindow.cpp。
 4. 我们的文件都已经设置完备，就让我们敲入代码吧。首先，是用于 App.h 和 App.cpp 的代码。对于这些示例代码，最好将它们一行一行的输入而非复制粘贴进去，这样可以使您对它们更为熟悉。</p>
 <div class="section" id="app-h">
-<h2><a class="toc-backref" href="#id21">App.h</a><a class="headerlink" href="#app-h" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id19">App.h</a><a class="headerlink" href="#app-h" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#ifndef APP_H</span>
 <span class="cp">#define APP_H</span>
 
@@ -90,7 +90,7 @@
 </div>
 </div>
 <div class="section" id="app-cpp">
-<h2><a class="toc-backref" href="#id22">App.cpp</a><a class="headerlink" href="#app-cpp" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">App.cpp</a><a class="headerlink" href="#app-cpp" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &quot;App.h&quot;</span>
 <span class="cp">#include &quot;MainWindow.h&quot;</span>
 
@@ -156,10 +156,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><a href="#id2"><span class="problematic" id="id3">``</span></a>`
-现在我们已经完成了所有基本的代码，为了保证没有发生输入错误，需要将其编译。如果出现错误，再次检查上述代码并修改错误。编译顺利完成后，运行程序，如果一切正常，将其关闭，然后开始学习下面的内容</p>
-<div class="section" id="id4">
-<h3><a class="toc-backref" href="#id23">添加视图</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>现在我们已经完成了所有基本的代码，为了保证没有发生输入错误，需要将其编译。如果出现错误，再次检查上述代码并修改错误。编译顺利完成后，运行程序，如果一切正常，将其关闭，然后开始学习下面的内容</p>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id21">添加视图</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>窗口控件都是一些对象，它们都继承自 BView 类。如果您快速浏览一下 <em>/boot/develop/headers/os/interface/View.h</em> ，您会发现它是一个巨大，复杂并且具有很多方法的类。幸运的是，我们现在还不需要了解很多。下面的 BView 类是我们的色彩框。添加这段代码到 MainWindow 构造函数：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="n">BView</span> <span class="o">*</span><span class="n">view</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BView</span><span class="p">(</span><span class="n">BRect</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="s">&quot;colorview&quot;</span><span class="p">,</span> <span class="n">B_FOLLOW_ALL</span><span class="p">,</span>
                             <span class="n">B_WILL_DRAW</span><span class="p">);</span>
@@ -170,8 +169,8 @@
 <p>上面的代码非常简单。第一行创建了一个新的 BView，它的左上角为 (100,100)，右下角为 (300,200)。其名称为 “colorview”，并且当窗口缩放时进行缩放。B_WILL_DRAW 标志告诉窗口，它将自行绘制自己。若没有这个标志，这个 BView 将只是一个空的白色框。第二行代码将这个视图附加到窗口。最后一行代码将 BView 的颜色设置为深蓝色。编译您的项目，看看这次的结果如何。</p>
 <p>在 Haiku 里添加控件到窗口并不是很特殊。多数情况下有一个构造函数，并且需要相类似的信息和可能还有一个消息，但不会需要更多的东西。为窗口添加其他的控件也是同样的方式。一定要密切注意我们所使用的方法，您将会发现这些类具有很多的相似性。</p>
 </div>
-<div class="section" id="id5">
-<h3><a class="toc-backref" href="#id24">添加菜单</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id22">添加菜单</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>除了弹出菜单，Haiku 中的其他菜单通常都保存于某种类型的菜单容器。Haiku API 提供了两种菜单容器：BMenuField 和 BMenuBar。暂时我们不需要 BMenuField，而将注意力放在 BMenuBar。如下所示，修改构造函数的代码：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="c1">// 下面将定义菜单栏的高度。Bounds()返回窗口的尺寸。</span>
 <span class="c1">// 在这里，矩形边框为 (0,0)~(200,100)。</span>
@@ -281,8 +280,8 @@
 </div>
 <p>我们终于完成了！运行您的项目，然后当您点击菜单条目时我们的视图框将会修改器颜色。我们并没有完全努力去构制一个菜单。</p>
 </div>
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id25">深入理解</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id23">深入理解</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>如果您愿意更加深入的完善代码，下面是一些您可以尝试完成的内容。</p>
 <ol class="arabic">
 <li><dl class="first docutils">
@@ -304,27 +303,27 @@
 </li>
 </ol>
 </div>
-<div class="section" id="id7">
-<h3><a class="toc-backref" href="#id26">需要记忆的内容</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id24">需要记忆的内容</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="bwindow">
-<h2><a class="toc-backref" href="#id27">BWindow</a><a class="headerlink" href="#bwindow" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id25">BWindow</a><a class="headerlink" href="#bwindow" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>BWindow(BRect frame, const char <a href="#id8"><span class="problematic" id="id9">*</span></a>title, window_type type, uint32 flags, uint32 workspace = B_CURRENT_WORKSPACE) — 创建一个新窗口。然而还有其他的类型，现在需要记住的窗口类型是 B_TITLED_WINDOW 和 B_DOCUMENT_WINDOW。</li>
-<li>void AddChild(BView <a href="#id10"><span class="problematic" id="id11">*</span></a>child) — 将一个 BView（或BView子类）附属到一个窗口。</li>
-<li>BView <a href="#id12"><span class="problematic" id="id13">*</span></a>FindView(const char <a href="#id14"><span class="problematic" id="id15">*</span></a>name) — 返回一个指向名称为 name 的 BView 的指针，若不存在则为 NULL。</li>
+<li>BWindow(BRect frame, const char <a href="#id6"><span class="problematic" id="id7">*</span></a>title, window_type type, uint32 flags, uint32 workspace = B_CURRENT_WORKSPACE) — 创建一个新窗口。然而还有其他的类型，现在需要记住的窗口类型是 B_TITLED_WINDOW 和 B_DOCUMENT_WINDOW。</li>
+<li>void AddChild(BView <a href="#id8"><span class="problematic" id="id9">*</span></a>child) — 将一个 BView（或BView子类）附属到一个窗口。</li>
+<li>BView <a href="#id10"><span class="problematic" id="id11">*</span></a>FindView(const char <a href="#id12"><span class="problematic" id="id13">*</span></a>name) — 返回一个指向名称为 name 的 BView 的指针，若不存在则为 NULL。</li>
 <li>BRect Bounds(void) — 返回窗口的客户区域尺寸，例如窗口矩形框内部的白色区域。</li>
 <li>void Show(void) — 显示窗口。</li>
 </ul>
 </div>
 <div class="section" id="bview">
-<h2><a class="toc-backref" href="#id28">BView</a><a class="headerlink" href="#bview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id26">BView</a><a class="headerlink" href="#bview" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>BView(BRect frame, const char <a href="#id16"><span class="problematic" id="id17">*</span></a>name, int32 resizeMode, int32 flags) — 创建一个新的视图，查阅 BeBook 中有关 BView 章节中所有可用的自定义尺寸模式。无需担心 flags 参数，目前只需要记住 B_WILL_DRAW 即可。</li>
+<li>BView(BRect frame, const char <a href="#id14"><span class="problematic" id="id15">*</span></a>name, int32 resizeMode, int32 flags) — 创建一个新的视图，查阅 BeBook 中有关 BView 章节中所有可用的自定义尺寸模式。无需担心 flags 参数，目前只需要记住 B_WILL_DRAW 即可。</li>
 <li>void SetViewColor(uint8 red, uint8 green, unit8 blue) — 设置视图的背景颜色。</li>
 <li>void Invalidate(void) — 强制 BView 重绘自己。</li>
-<li>void AddChild(BView <a href="#id18"><span class="problematic" id="id19">*</span></a>child) — 将一个 BView（或其子类）附属到视图。</li>
+<li>void AddChild(BView <a href="#id16"><span class="problematic" id="id17">*</span></a>child) — 将一个 BView（或其子类）附属到视图。</li>
 </ul>
 </div>
 </div>
