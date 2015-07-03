@@ -41,25 +41,25 @@
         
         
   <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id5">第三课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<h1><a class="toc-backref" href="#id6">第三课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">内容</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id5">第三课</a><ul>
-<li><a class="reference internal" href="#c" id="id6">C++ 输入输出流</a></li>
-<li><a class="reference internal" href="#istream" id="id7">输入流（istream） 方法</a></li>
-<li><a class="reference internal" href="#ostream" id="id8">输出流（ostream ）方法</a></li>
-<li><a class="reference internal" href="#id2" id="id9">输入输出流通用的方法</a></li>
-<li><a class="reference internal" href="#id3" id="id10">格式化 C++ 流</a></li>
-<li><a class="reference internal" href="#c-exceptions" id="id11">C++ 异常(Exceptions)</a></li>
-<li><a class="reference internal" href="#id4" id="id12">深入了解</a></li>
+<li><a class="reference internal" href="#id1" id="id6">第三课</a><ul>
+<li><a class="reference internal" href="#c" id="id7">C++ 输入输出流</a></li>
+<li><a class="reference internal" href="#istream" id="id8">输入流（istream） 方法</a></li>
+<li><a class="reference internal" href="#ostream" id="id9">输出流（ostream ）方法</a></li>
+<li><a class="reference internal" href="#id3" id="id10">输入输出流通用的方法</a></li>
+<li><a class="reference internal" href="#id4" id="id11">格式化 C++ 流</a></li>
+<li><a class="reference internal" href="#c-exceptions" id="id12">C++ 异常(Exceptions)</a></li>
+<li><a class="reference internal" href="#id5" id="id13">深入了解</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <p>在有关 C++ 介绍的最后一节，我们将要学习另一种使用语言特性例外来处理错误，以及使用流来处理面向对象文件操作。</p>
 <div class="section" id="c">
-<h2><a class="toc-backref" href="#id6">C++ 输入输出流</a><a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">C++ 输入输出流</a><a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
 <p>C 开发者对于 open()，close()，fprintf()，以及其他一系列用以读取与写入文件和在屏幕打印文本的函数可能非常熟悉。而 C++ 开发者也拥有一组相似的语言概念，而且它们构成了更加清晰的文件操作。您可能还记得 Bstring 类重载 &lt;&lt; 操作符以便为字符串添加信息。这种用法来自于 C++ 的文件操作方式。</p>
 <p>C++ 和 IO 流的交互方式非常的自然。它使用双箭头操作符和流进行交互。&lt;&lt; 用于流的写入，而 &gt;&gt; 则用于流的读取。标准的管道 stdout，stdin，和 stderr 则相应地被 cout，cin，和 cerr 所取代，并且还添加了附加的用于日志的输出流，clog。但是它们的性能和使用并未发生改动。这些函数已经被写成了方法，并且可以在需要时进行重载。总之，C++ 的方式让您只需要学习很少的方法，而且它们要比相应 C 地方式更加的自然协调。</p>
 <p>那么，我们来比较一下两者对文件的处理方式。下面的示例是一个 C++ 程序，其使用了 C 函数读取文件并将其打印到控制台。</p>
@@ -263,7 +263,7 @@ main(void)
 <p>虽然上述两者看起来不同，但是它们都完成了相同的任务。它们所不同的是潜在过程的多少。对于 istringstream 和 ostringstream 类，可以使用相同的接口来操作字符串。当然可以创建新的 iostream 子类来以新的方式操作，也可以重载 &lt;&lt; 和 &gt;&gt; 操作符以便将我们自己的类更好的操作 C++ 流。在许多环境中，我们可以利用那些在后台进行内存管理的方法，例如 getline() 。接下来，我们来看一下 istream 和 ostream 类提供的可用方法。</p>
 </div>
 <div class="section" id="istream">
-<h2><a class="toc-backref" href="#id7">输入流（istream） 方法</a><a class="headerlink" href="#istream" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">输入流（istream） 方法</a><a class="headerlink" href="#istream" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="k">operator</span> <span class="o">&gt;&gt;</span>
 </pre></div>
 </div>
@@ -303,7 +303,7 @@ main(void)
 <p>以上方法获取或者设置下一次 get() 调用的位置。这个位置可以是绝对位置或者相对位置（offset，direction；偏移量，和偏移方向）。</p>
 </div>
 <div class="section" id="ostream">
-<h2><a class="toc-backref" href="#id8">输出流（ostream ）方法</a><a class="headerlink" href="#ostream" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">输出流（ostream ）方法</a><a class="headerlink" href="#ostream" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="k">operator</span> <span class="o">&lt;&lt;</span>
 </pre></div>
 </div>
@@ -323,8 +323,8 @@ main(void)
 </div>
 <p>以上方法获取或者设置下一个 put() 或 write() 调用的位置。该位置可以用绝对位置或者是相对位置。（相对于当前位置的偏移量和偏移方向，即 offset 和 direction）。</p>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id9">输入输出流通用的方法</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">输入输出流通用的方法</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">good</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 <span class="kt">bool</span> <span class="n">bad</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 <span class="kt">bool</span> <span class="n">fail</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
@@ -345,8 +345,8 @@ main(void)
 <p>设置或读取用于对齐或者等宽格式的填充字符。默认为空格。</p>
 <p>细数之下，方法可真多。不过，对于基本的文件操作，如读取或者写入，仅需要很少的一部分方法。但是上述的这些方法还未完全覆盖所有可用的方法。它们只是您在日常编码中可能需要用到的方法。</p>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id10">格式化 C++ 流</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id11">格式化 C++ 流</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>C++ 流所提供的易用性之一就是格式化输出。printf() 及其兄弟们提供了很丰富的格式化选项，但是 cin 和 cout 提供了更多。它们使用的方式都相同，使用 endl 作为行结束符。</p>
 <p>多数流操作符与 endl 不同，它们将实际的修改其所影响的流的状态。例如， boolalpha 操作符将使布尔值转换为它们的字符串等价形式。鉴于它们通常都会被转换为其数值等价的字符串形式（1对应于true，0对应于false），这是一个非常好的情况。如果将 boolalpha 操作符发送到流中，那么之后所有的布尔值都会被转换为 “true” 和 “false”。当然也可以发送 noboolalpha 操作符到流中将其关闭。</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;iostream&gt;</span>
@@ -405,7 +405,7 @@ main(void)
 <p>上述表格并不完整。在任何 C++ 参考文件中都有更加完整的说明，您也可以参考 <a class="reference external" href="http://www.cplusplus.org/](http://www.cplusplus.org/">http://www.cplusplus.org/](http://www.cplusplus.org/</a></p>
 </div>
 <div class="section" id="c-exceptions">
-<h2><a class="toc-backref" href="#id11">C++ 异常(Exceptions)</a><a class="headerlink" href="#c-exceptions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">C++ 异常(Exceptions)</a><a class="headerlink" href="#c-exceptions" title="Permalink to this headline">¶</a></h2>
 <p>异常是在我们的程序中构建错误处理方法的一种方式。因为它们会对性能造成不必要的影响，在 Haiku 中通常并不会使用，但是对它们有一定的了解还是非常重要的。</p>
 <p>异常的使用主要围绕 C++ 语言中三种不同的元素：try 代码段，throw 语句，以及 catch 代码段。当一段代码可能会进入例外错误条件时，就将其放入 try 代码段。在出现问题时，它就会抛出一个异常。这样执行程序将会调用一系列嵌套的函数调用，即 call 栈，直到它找到了用于处理此类例外的 catch 代码段。如果它到达了 call 栈顶，但仍未找到相应的处理函数，那么您的程序将会意外退出。下面是异常使用的实例：</p>
 <div class="highlight-cpp"><div class="highlight"><pre>#include &lt;iostream&gt;
@@ -443,8 +443,8 @@ main(void)
 </div>
 <p>在 Haiku 编程过程中，很少用到异常，因为其 API 提供了足够的错误处理功能，并且如前所述，异常将会导致严重的性能问题。</p>
 </div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id12">深入了解</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id13">深入了解</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>查阅其他参考资料中，了解更多的操作符。怎样加以利用可以产生很好的效果？</li>
 <li>如果您希望设计一个简单的内存数据库，并且其记录具有固定的大小，您该如何表述各种数据类型？您可以使用哪些 STL 容器？如何读取，写入，以及删除记录内容？如何保存和载入其内容？</li>

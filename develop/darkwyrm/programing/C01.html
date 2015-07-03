@@ -41,29 +41,29 @@
         
         
   <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id12">第一课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<h1><a class="toc-backref" href="#id13">第一课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">内容</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id12">第一课</a><ul>
-<li><a class="reference internal" href="#id2" id="id13">模板</a></li>
-<li><a class="reference internal" href="#stl" id="id14">使用模板：标准模板库（STL）</a><ul>
-<li><a class="reference internal" href="#id5" id="id15">向量</a></li>
-<li><a class="reference internal" href="#id6" id="id16">双队列</a></li>
-<li><a class="reference internal" href="#id7" id="id17">列表</a></li>
+<li><a class="reference internal" href="#id1" id="id13">第一课</a><ul>
+<li><a class="reference internal" href="#id3" id="id14">模板</a></li>
+<li><a class="reference internal" href="#stl" id="id15">使用模板：标准模板库（STL）</a><ul>
+<li><a class="reference internal" href="#id6" id="id16">向量</a></li>
+<li><a class="reference internal" href="#id7" id="id17">双队列</a></li>
+<li><a class="reference internal" href="#id8" id="id18">列表</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8" id="id18">命名空间</a></li>
-<li><a class="reference internal" href="#id9" id="id19">STL迭代器</a></li>
-<li><a class="reference internal" href="#id10" id="id20">组合使用：使用示例</a></li>
-<li><a class="reference internal" href="#id11" id="id21">深入了解</a></li>
+<li><a class="reference internal" href="#id9" id="id19">命名空间</a></li>
+<li><a class="reference internal" href="#id10" id="id20">STL迭代器</a></li>
+<li><a class="reference internal" href="#id11" id="id21">组合使用：使用示例</a></li>
+<li><a class="reference internal" href="#id12" id="id22">深入了解</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <p>对于那些已经阅读了 Learning to Program with Haiku 的人来说，我们接下来将要接触到一些内容，它们将帮助我们完成 C++ 基础的学习。那么我们在本节中所要讲解的主题是模板和标准模板库（STL）。对于这两者的学习，需要掌握很多的信息，因此我们需要稳扎稳打的进行。</p>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id13">模板</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id14">模板</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>模板是一种归纳抽象用于处理任何类型数据的类或者函数的方式。它们大多数用于创建容器类，例如，堆栈，列表或者其他。但是，如果希望很好的利用这种灵活性的优势，可能需要对使用它们的类或者函数的声明做一些小的修改。一个基于模板的数组类应该如下所示：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">class</span> <span class="nc">ObjectArray</span>
@@ -160,7 +160,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><a href="#id3"><span class="problematic" id="id4">``</span></a>`
+<p><a href="#id4"><span class="problematic" id="id5">``</span></a>`
 除了需要注意在某些地方添加和在每个函数定义头部需要附加类型之外，在使用类模板时，还需要注意一个关键的问题：基于模板的函数定义需要放置在头部而不是主源文件中。这是因为它们是用于函数定义的模板，而不是它们自身的定义。实际的定义在编译时候才会创建。如果这些函数放置在主源文件中，链接器将会返回许多 undefined reference 错误，无需多说，它们不仅仅让人有点疑惑。</p>
 <p>有些时候，您不需要让整个类使用同一个模板。可能我们所需要的仅仅是一个或者两个需要使用模板的函数。在下面的实例中，所需要做的仅仅是把模板声明放置在函数声明的返回类型之前，如下所示：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyClass</span>
@@ -175,28 +175,28 @@
 <p>在本示例中，SomeTemplateFunction()是 MyClass 中唯一使用了模板的部分。类似于我们的 ObjectArray 类中的函数，它需要在头文件中定义，而不和 MyClass 的其他函数一样处于主源文件中。在下面的实例中，只有函数模板需要放置在头文件中——“常规”的函数应该和通常一样放在独立的源文件中。</p>
 </div>
 <div class="section" id="stl">
-<h2><a class="toc-backref" href="#id14">使用模板：标准模板库（STL）</a><a class="headerlink" href="#stl" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">使用模板：标准模板库（STL）</a><a class="headerlink" href="#stl" title="Permalink to this headline">¶</a></h2>
 <p>模板最合适的使用是用于数据容器。幸运的是，对于我们来说，很多人已经花费时间和精力创建了整个基于模板的容器库，称为标准模板库，简称 STL。大部分 Haiku API 都是精心设计的，因此我们不需要经常地使用 STL，但是它确实包含一些很实用的容器。由于 STL 中的容器设计非常精良，因此多数时候，这些模板的使用将被现定于使用这些容器，而不是创建使用这些模板的类。</p>
 <p>任何使用了 STL 的 Haiku 项目需要添加一个额外的库。Haiku 的 GCC2 编译需要使用 libstdc++.r4.so 库，而 Haiku 的 GCC4 编译为了使用 STL，则需要链接到 libstdc++.so。</p>
 <p>由 STL 提供的容器可以归为两类：顺序容器和关联容器。顺序容器用于处理列表中的元素，它具有一个确定的顺序，例如列表。由 Haiku 的 API 提供的 BList 类也是顺序容器的一个例子。这些容器主要用于处理整个列表，每次一个元素。关联容器主要用于处理那些需要随机或者非整型值查询的数据。可能需要关联容器的最常用的例子是使用字符串查询数据。对于特定容器的选择取决于您处理它们的工作方式。</p>
-<div class="section" id="id5">
-<h3><a class="toc-backref" href="#id15">向量</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id16">向量</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>头文件： <em>&lt;vector&gt;</em></p>
 <p>vector类非常类似于数组，除了它们的内存分配时自动处理的。向量非常擅长快速的通过索引获取元素，以任何顺序迭代元素，以及在结尾添加和删除元素。但是只有当它用完了内部存储器，并且需要分配更多空间时，添加元素可能会比较慢。</p>
 </div>
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id16">双队列</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id17">双队列</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>头文件： <em>&lt;deque&gt;</em></p>
 <p>双队列（deque）通常发音为“deck”，是双向队列（double-end queue）的简称。双队列非常类似于容器，除了它们可以在首尾两端添加元素，并且它们的元素不需要占用连续的大块内存空间。它有自己的优缺点。使用指针来获取队列中的元素不安全，和向量不相同，但是它们是存储大量元素时较好的选择。</p>
 </div>
-<div class="section" id="id7">
-<h3><a class="toc-backref" href="#id17">列表</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id18">列表</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>头文件： <em>&lt;list&gt;</em></p>
 <p>列表被描述为动态分配元素的集合。它们非常适用于处理随意插入，删除，和移动元素等的工作。使用列表主要的缺陷是，无法快速的获取任意的元素——获取列表中的第十个元素需要从开始（或者其他的起始点）迭代至该元素。</p>
 </div>
 </div>
-<div class="section" id="id8">
-<h2><a class="toc-backref" href="#id18">命名空间</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id19">命名空间</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>使用 STL 容器需要一些额外的输入，因为它们都被封装在各自的命名空间中。命名空间是创建一组类，函数，数据类型的一种方法。它们通常用于防止不同库中的同名类引起的冲突。一个命名空间如下进行声明：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="k">namespace</span> <span class="n">myNamespace</span>
 <span class="p">{</span>
@@ -260,8 +260,8 @@
 </div>
 <p>在以这种方式使用 using 关键字时需要特别注意。如果您的代码需要处理多个命名空间，非常建议您在每个类的底部使用它，否则，不使用它。然而，如果您正在编写一个调用API 和一些 STL 的 Haiku 程序，那么使用 using 声明将会加快您的工作，而且将会非常有意义。</p>
 </div>
-<div class="section" id="id9">
-<h2><a class="toc-backref" href="#id19">STL迭代器</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id20">STL迭代器</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>STL 中容器的设计师非常明智的试图使所有容器的 API 尽可能的相似。他们处理这个问题的方式之一是创建迭代器。由于不是所有的容器都像数组一样使用整型来获取其中的元素，因此使用了迭代器。</p>
 <p>每个迭代器都差不多是一个容器使用的指向元素类型的指针。在容器中，++ 和 &#8211; 操作符都被重载用于指向下一个或者上一个元素。在 for 循环中使用一个 <em>vector&lt;int&gt;</em> 将会如下所示：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
@@ -290,8 +290,8 @@
 </div>
 <p>我们已经介绍了许多方法，但是没有给出任何的解释。但是不幸的是，很多时候在现实世界中，对于代码的可用文档就是代码本身，但是在这里我们不需要以这种方式。下面的方法是我们在向量，双列表，和列表以及一些其他有用的东西时曾遇到过的。然而，无论如何，下面是一个解释详尽的列表：</p>
 </div>
-<div class="section" id="id10">
-<h2><a class="toc-backref" href="#id20">组合使用：使用示例</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id21">组合使用：使用示例</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p>在看到这些容器之后，我们发现没有许多实例，可以使 BList 看起来更加的有利。例如，使用了这些容器之一的实例可能会比一个标准的发行更加有效率。BList 从一个目录中创建一个 entry_ref 对象的列表。下面是一个示例，它展示了如何可以使我们看到的关于 STL 容器的所有信息应用到更加有意义的地方。</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#include &lt;deque&gt;</span>
 <span class="cp">#include &lt;Directory.h&gt;</span>
@@ -330,8 +330,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id11">
-<h2><a class="toc-backref" href="#id21">深入了解</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id22">深入了解</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <p>如何修改示例为使用列表而不是双队列？</p>
 </div>
 </div>
