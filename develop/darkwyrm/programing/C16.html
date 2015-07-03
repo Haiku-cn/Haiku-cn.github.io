@@ -41,12 +41,34 @@
         
         
   <div class="section" id="id1">
-<h1>第十六课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id8">第十六课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">内容</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id8">第十六课</a><ul>
+<li><a class="reference internal" href="#haiku" id="id9">在 Haiku 中使用字体</a></li>
+<li><a class="reference internal" href="#id3" id="id10">排版简介</a></li>
+<li><a class="reference internal" href="#id4" id="id11">字体的处理</a><ul>
+<li><a class="reference internal" href="#mainwindow-cpp" id="id12">MainWindow.cpp</a></li>
+<li><a class="reference internal" href="#mainview-h" id="id13">MainView.h</a></li>
+<li><a class="reference internal" href="#mainview-cpp" id="id14">MainView.cpp</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5" id="id15">可用的内容</a></li>
+<li><a class="reference internal" href="#id6" id="id16">其他的提示和技巧</a></li>
+<li><a class="reference internal" href="#id7" id="id17">深入了解</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>字体是一些人需要重复温习的内容之一（那些毫无理由的收集了很多喜欢的东西人），其他人可能很少关心过这些东西。不管您站在那边，了解一下如何在 Haiku 中管理文本的显示也是非常有用的。</p>
-<p>## 在 Haiku 中使用字体</p>
+<div class="section" id="haiku">
+<h2><a class="toc-backref" href="#id9">在 Haiku 中使用字体</a><a class="headerlink" href="#haiku" title="Permalink to this headline">¶</a></h2>
 <p>与 Haiku 中其他的附加组件一样，用户可以在系统中用于保存字体的文件夹中添加自己喜欢的字体。您可以使用 find_directory()来获取，即 B_COMMON_FONTS_DIRECTORY，在 Haiku 中，其对应于 /boot/common/data/fonts，而对于 BeOS R5 和 Zeta，则为 /boot/home/config/fonts 。在 R5 和 Zeta 中，字体需要分别放入相应的子文件夹，ttfonts 用于 TrueType 字体，而 psfonts 则用于 PostScript。Haiku 移除了这一限制。当然 Haiku 中，在新安装完字体之后，您也不需要重启系统，可以直接使用。</p>
 <p>相对于 BeOS R5 时代，字体的处理已经有了很大的改变。对于一些 BeOS 用户来说，文本渲染总是一块心病。R5 并没有提供文本抗锯齿处理。这种情况在 Zeta 中作了相应的提高，因为它使用了一种不同的字体引擎，由著名的字体公司 Bitstream 所开发。然而，这些提升仅能够用于 Zeta。对于 Haiku，则使用了开源的 FreeType 库提供优秀的字体渲染，并且提供了比之前更多类型的可用字体。</p>
-<p>## 排版简介</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">排版简介</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>如果在介绍字体时，对有关排版的背景不作介绍，它总是不完整的，排版是为各种类型的打印而作排布的过程。排版的基础起始于古登堡活版印刷，至今已经变得非常的复杂。当然在您的应用中使用文本，并不需要深入的掌握排版知识的所有细节，但是对一些术语的了解将会非常有用。</p>
 <p>字体构成不同的字体集。字体集并不仅仅是一个名称。例如，Times New Roman，Century Schoolbook L，以及Helvetica都是非常有名的字体集。每个字体集都包含了一种或多种独立的样式或外观。虽然您可以很容易分辨出相似的斜体（Italic）和粗体（Bold），但是字体集并不是这个意思。有时候在讨论样式时，您会听到字号（Font Weight）这一术语。字号是样式的不同表示。下面是字号的不很详尽的列表，从最轻至最重的字体。</p>
 <ul class="simple">
@@ -61,7 +83,7 @@
 <li>Extra Black</li>
 </ul>
 <p>字体集通常分为不同的类别。使用的类别取决于您的要求，但是对于我们来说，我们使用三种基本类别：serif，sans serif，和 decorative。Serif 字体在拉丁文中最为常见。Serif 是处在在特定位置的字符的装饰笔画。而在 sans serif 字体中则没有这些装饰。Decorative 字体通常用于商标或者特殊效果。下面是大写字母R在三种不同字体中的表示：</p>
-<p>![](./pictures/lesson16_2_2.JPG)</p>
+<img alt="../../../_images/lesson16_2_2.JPG" src="../../../_images/lesson16_2_2.JPG" />
 <p>Times New Roman 是一种 serif 字体，Arial 属于 sans serif字体，而 Wingdings 属于 decorative 字体。</p>
 <p>除了上述的术语，您还需要了解一下的内容：</p>
 <ul class="simple">
@@ -73,131 +95,129 @@
 <li>下格（descender） - 位于基线以下的小写字符部分，例如字符 p 的下半部分。</li>
 <li>点格（point）- 点格是计数单元，用于和像素相区别。在一个英寸上有72个点。（中国可以称之为字号，如初号对应于42 points，而八号对应于5 points）。</li>
 </ul>
-<p>## 字体的处理</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id11">字体的处理</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>字体可能是一个复杂的内容，但是如果您只是希望在屏幕上打印出文本，您该怎么做呢？这不算个问题。让我们从最简单的示例说起：在 BView 中显示文本。</p>
 <ul class="simple">
 <li>在 Paladin 中创建一个带有 GUI 和 Menu 模板的 Main Window 的项目。</li>
 <li>打开 App.cpp，将该应用署名改为 “application/x-vnd.test-FontDemo1” 并保存。</li>
 <li>新建文件 MainView.cpp，然后选中并创建其头文件。之后开始下面的任务。</li>
 </ul>
-<p>### MainWindow.cpp
-<a href="#id2"><span class="problematic" id="id3">``</span></a><a href="#id4"><span class="problematic" id="id5">`</span></a>C++
-#include “MainWindow.h”
+<div class="section" id="mainwindow-cpp">
+<h3><a class="toc-backref" href="#id12">MainWindow.cpp</a><a class="headerlink" href="#mainwindow-cpp" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cpp"><div class="highlight"><pre>#include “MainWindow.h”
 #include &lt;Application.h&gt;
 #include &lt;Menu.h&gt;
 #include &lt;MenuItem.h&gt;
-#include &lt;View.h&gt;</p>
-<p>#include “MainView.h”</p>
-<dl class="docutils">
-<dt>MainWindow::MainWindow(void)</dt>
-<dd><dl class="first last docutils">
-<dt>:       BWindow(Rect(100,100,500,400), “Font Demo”, B_TITLED_WINDOW,</dt>
-<dd>B_ASYNCHRONOUS_CONTROLS)</dd>
-</dl>
-</dd>
-</dl>
-<dl class="docutils">
-<dt>{</dt>
-<dd><p class="first">BRect r(Bounds());
-r.bottom = 20;
-fMenuBar = new BMenuBar(r, “menubar”);
-AddChild(fMenuBar);</p>
-<p class="last">r = Bounds();
-r.top = 20;
-MainView <a href="#id6"><span class="problematic" id="id7">*</span></a>view = new MainView(r);
-AddChild(view);</p>
-</dd>
-</dl>
-<p>}</p>
-<p>void
-MainWindow::MessageReceived(BMessage <a href="#id8"><span class="problematic" id="id9">*</span></a>msg)
-{</p>
-<blockquote>
-<div><p>switch (msg-&gt;what)
-{</p>
-<blockquote>
-<div><p>default:
-{</p>
-<blockquote>
-<div>BWindow::MessageReceived(msg);
-break;</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-<p>bool
-MainWindow::QuitRequested(void)
-{</p>
-<blockquote>
-<div>be_app-&gt;PostMessage(B_QUIT_REQUESTED);
-return true;</div></blockquote>
-<div class="section" id="id10">
-<h2>}<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
-<p>### MainView.h
-<a href="#id11"><span class="problematic" id="id12">``</span></a><a href="#id13"><span class="problematic" id="id14">`</span></a>C++
-#ifndef MAINVIEW_H
-#define MAINVIEW_H</p>
-<p>#include &lt;View.h&gt;
-class MainView : public BView
-{
-public:</p>
-<blockquote>
-<div><blockquote>
-<div>MainView(const BRect &amp;frame);</div></blockquote>
-<p>void            Draw(BRect update);</p>
-</div></blockquote>
-<p>}
-#endif
-<a href="#id15"><span class="problematic" id="id16">``</span></a>`
-### MainView.cpp
-<a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>C++
+#include &lt;View.h&gt;
+
 #include “MainView.h”
-MainView::MainView(const BRect &amp;frame)</p>
-<blockquote>
-<div>:       BView(frame, “textview”, B_FOLLOW_ALL, B_WILL_DRAW)</div></blockquote>
-<div class="section" id="id21">
-<h3>{<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
-<p>void
+
+MainWindow::MainWindow(void)
+        :   BWindow(Rect(100,100,500,400), “Font Demo”, B_TITLED_WINDOW,
+                        B_ASYNCHRONOUS_CONTROLS)
+{
+        BRect r(Bounds());
+        r.bottom = 20;
+        fMenuBar = new BMenuBar(r, “menubar”);
+        AddChild(fMenuBar);
+
+        r = Bounds();
+        r.top = 20;
+        MainView *view = new MainView(r);
+        AddChild(view);
+}
+
+void
+MainWindow::MessageReceived(BMessage *msg)
+{
+        switch (msg-&gt;what)
+        {
+                default:
+                {
+                        BWindow::MessageReceived(msg);
+                        break;
+                }
+        }
+}
+
+bool
+MainWindow::QuitRequested(void)
+{
+        be_app-&gt;PostMessage(B_QUIT_REQUESTED);
+        return true;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="mainview-h">
+<h3><a class="toc-backref" href="#id13">MainView.h</a><a class="headerlink" href="#mainview-h" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">#ifndef MAINVIEW_H</span>
+<span class="cp">#define MAINVIEW_H</span>
+
+<span class="cp">#include &lt;View.h&gt;</span>
+<span class="k">class</span> <span class="nc">MainView</span> <span class="o">:</span> <span class="k">public</span> <span class="n">BView</span>
+<span class="p">{</span>
+<span class="nl">public:</span>
+                        <span class="n">MainView</span><span class="p">(</span><span class="k">const</span> <span class="n">BRect</span> <span class="o">&amp;</span><span class="n">frame</span><span class="p">);</span>
+        <span class="kt">void</span>                <span class="nf">Draw</span><span class="p">(</span><span class="n">BRect</span> <span class="n">update</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mainview-cpp">
+<h3><a class="toc-backref" href="#id14">MainView.cpp</a><a class="headerlink" href="#mainview-cpp" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cpp"><div class="highlight"><pre>#include “MainView.h”
+
+MainView::MainView(const BRect &amp;frame)
+        :   BView(frame, “textview”, B_FOLLOW_ALL, B_WILL_DRAW)
+{
+}
+
+void
 MainView::Draw(BRect update)
-{</p>
-<blockquote>
-<div><p>// Draw 钩子函数在BView要求在屏幕上重绘自己时调用。
-// 我们只是用一些代码来绘制文本。
-BFont font;
-font.SetSize(18.0);</p>
-<p>SetFont(&amp;font);</p>
-<p>// DrawString 是用BView的当前字体设置，绘制模式，以及
-// 颜色来绘制文本。需要注意的是指定的点为基线的最左端，
-// 因此和其他内容的绘制相比，文本绘制位置需要一些推演。
-DrawString(“This is some text”, BPoint(50,50));</p>
-</div></blockquote>
+{
+        // Draw 钩子函数在BView要求在屏幕上重绘自己时调用。
+        // 我们只是用一些代码来绘制文本。
+        BFont font;
+        font.SetSize(18.0);
+
+        SetFont(&amp;font);
+
+        // DrawString 是用BView的当前字体设置，绘制模式，以及
+        // 颜色来绘制文本。需要注意的是指定的点为基线的最左端，
+        // 因此和其他内容的绘制相比，文本绘制位置需要一些推演。
+        DrawString(“This is some text”, BPoint(50,50));
+}
+</pre></div>
 </div>
-</div>
-<div class="section" id="id22">
-<h2>}<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
 <p>上述的实例可能已经是最简单的了。运行这个演示程序，其窗口结果如下：</p>
-<p>![](./pictures/lesson16_2_1.JPG)</p>
+<img alt="../../../_images/lesson16_2_1.JPG" src="../../../_images/lesson16_2_1.JPG" />
 <p>BView 的 Draw() 方法并不仅限于绘制文本，但是我们在这里不再赘述，留与其他课程。在这里需要注意，MainView 类得图形状态仅当我们修改时才会发生变化，例如打开位置，字体大小，当前高亮颜色等等。如果这样，我们可以将除 DrawString() 调用之外的其他内容转移至构造函数以使绘制更加快速，但是这种优化仅适用于简单的控件。</p>
-<p>## 可用的内容</p>
-<p>如果您快速的浏览一下Font.h文件，您会发现BFont类有很多不同的方法。其中很大部分都用于特殊用途，例如选择不同编码，翻转文本。下面我们将介绍您最常用的方法：
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">void</span> <span class="pre">GetHeight(font_height</span> <span class="pre">*height)</span> <span class="pre">const;</span>
-<span class="pre">`</span></tt>
-获取字体的行距，最大上格高度，和最大下格大小，并且包括当前字体的大小的像素。font_height 只是一个包含三个浮点数的结构体（struct）：ascent，decent，和leading。如果您希望了解使用该字体打印一行文本的安全像素高度，则调用该函数，然后将这三个值加起来即可。
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">void</span> <span class="pre">TruncateString(BString</span> <span class="pre">*string,</span> <span class="pre">uint32</span> <span class="pre">mode,</span> <span class="pre">float</span> <span class="pre">maxWidth);</span>
-<span class="pre">`</span></tt>
-该方法从字符串中获取字符，直到其到达 maxWidth 像素。其具有四种模式：B_TRUNCATE_BEGINNING，B_TRUNCATE_MIDDLE，B_TRUNCATE_END，及B_TRUNCATE_SMART。前三个模式非常容易明白。根据 Be Book，最后一个必须与 GetTruncatedStrings() 一起使用，以便剪切字符串，使他们能够各不相同，并且关注字符边界，分隔符，标点符号等。在 R5 中，其并未实现。Haiku 中，其实现方式与 B_TRUNCATE_MIDDLE 相同。
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">bool</span> <span class="pre">IsFixed(void)</span> <span class="pre">const;</span>
-<span class="pre">`</span></tt>
-如果字体为等快字体，则返回真。
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">void</span> <span class="pre">SetFace(uint16</span> <span class="pre">face);</span>
-<span class="pre">uint16</span> <span class="pre">Face(void)</span> <span class="pre">const;</span>
-<span class="pre">`</span></tt>
-设置或者获取字体外观。除了字符值，这些调用还有赖于整型常量，如果您希望指定某种样式且不希望了解其名称，将会非常方便。下面是外观常量：</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id15">可用的内容</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>如果您快速的浏览一下Font.h文件，您会发现BFont类有很多不同的方法。其中很大部分都用于特殊用途，例如选择不同编码，翻转文本。下面我们将介绍您最常用的方法：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">void</span> <span class="n">GetHeight</span><span class="p">(</span><span class="n">font_height</span> <span class="o">*</span><span class="n">height</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>获取字体的行距，最大上格高度，和最大下格大小，并且包括当前字体的大小的像素。font_height 只是一个包含三个浮点数的结构体（struct）：ascent，decent，和leading。如果您希望了解使用该字体打印一行文本的安全像素高度，则调用该函数，然后将这三个值加起来即可。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">TruncateString</span><span class="p">(</span><span class="n">BString</span> <span class="o">*</span><span class="n">string</span><span class="p">,</span> <span class="n">uint32</span> <span class="n">mode</span><span class="p">,</span> <span class="kt">float</span> <span class="n">maxWidth</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>该方法从字符串中获取字符，直到其到达 maxWidth 像素。其具有四种模式：B_TRUNCATE_BEGINNING，B_TRUNCATE_MIDDLE，B_TRUNCATE_END，及B_TRUNCATE_SMART。前三个模式非常容易明白。根据 Be Book，最后一个必须与 GetTruncatedStrings() 一起使用，以便剪切字符串，使他们能够各不相同，并且关注字符边界，分隔符，标点符号等。在 R5 中，其并未实现。Haiku 中，其实现方式与 B_TRUNCATE_MIDDLE 相同。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">IsFixed</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>如果字体为等快字体，则返回真。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">SetFace</span><span class="p">(</span><span class="n">uint16</span> <span class="n">face</span><span class="p">);</span>
+<span class="n">uint16</span> <span class="n">Face</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>设置或者获取字体外观。除了字符值，这些调用还有赖于整型常量，如果您希望指定某种样式且不希望了解其名称，将会非常方便。下面是外观常量：</p>
 <ul class="simple">
 <li>B_ITALIC_FACE</li>
 <li>B_UNDERSCORE_FACE</li>
@@ -210,38 +230,42 @@ DrawString(“This is some text”, BPoint(50,50));</p>
 <li>B_LIGHT_FACE*</li>
 <li>B_HEAVY_FACE*</li>
 </ul>
-<p>带有 * 号得 CONDENSED，LIGHT，HEAVY 外观常量是 Haiku 所新添的，在 Zeta 或者 BeOS R5 中不可用。
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">void</span> <span class="pre">SetFamilyAndFace(const</span> <span class="pre">font_family</span> <span class="pre">family,</span> <span class="pre">uint16</span> <span class="pre">face);</span>
-<span class="pre">void</span> <span class="pre">SetFamilyAndStyle(const</span> <span class="pre">font_family</span> <span class="pre">family,</span> <span class="pre">const</span> <span class="pre">font_style</span> <span class="pre">style);</span>
-<span class="pre">void</span> <span class="pre">SetFamilyAndStyle(font_family</span> <span class="pre">*family,</span> <span class="pre">font_style</span> <span class="pre">*style);</span>
-<span class="pre">`</span></tt>
-这三个方法可以方便的获取和设置指定字体样式。
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">void</span> <span class="pre">SetSize(float</span> <span class="pre">size);</span>
-<span class="pre">float</span> <span class="pre">Size(void)</span> <span class="pre">const;</span>
-<span class="pre">`</span></tt>
-设置字体的点格（Point）大小。在本书编写时，Be Book 对其限制为 1000 points，而 Haiku 与其不同，并没有该限制。
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">float</span> <span class="pre">StringWidth(const</span> <span class="pre">char*</span> <span class="pre">string)</span> <span class="pre">const;</span>
-<span class="pre">float</span> <span class="pre">StringWidth(const</span> <span class="pre">char*</span> <span class="pre">string,</span> <span class="pre">int32</span> <span class="pre">length)</span> <span class="pre">const;</span>
-<span class="pre">`</span></tt>
-返回当前大小字符串的宽度。
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">int32</span> <span class="pre">count_font_families(void);</span>
-<span class="pre">int32</span> <span class="pre">count_font_styles(font_family</span> <span class="pre">family);</span>
-<span class="pre">status_t</span> <span class="pre">get_font_family(int32</span> <span class="pre">index,</span> <span class="pre">font_family*</span> <span class="pre">family,</span> <span class="pre">uint32*</span> <span class="pre">flags</span> <span class="pre">=</span> <span class="pre">NULL);</span>
-<span class="pre">status_t</span> <span class="pre">get_font_style(font_family</span> <span class="pre">family,</span> <span class="pre">int32</span> <span class="pre">index,</span> <span class="pre">font_style*</span> <span class="pre">style,</span> <span class="pre">uint32*</span> <span class="pre">flags</span> <span class="pre">=</span> <span class="pre">NULL);</span>
-<span class="pre">`</span></tt>
-用于迭代读取系统中安装的所有字体的全局函数。</p>
-<p>## 其他的提示和技巧</p>
+<p>带有 * 号得 CONDENSED，LIGHT，HEAVY 外观常量是 Haiku 所新添的，在 Zeta 或者 BeOS R5 中不可用。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">SetFamilyAndFace</span><span class="p">(</span><span class="k">const</span> <span class="n">font_family</span> <span class="n">family</span><span class="p">,</span> <span class="n">uint16</span> <span class="n">face</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">SetFamilyAndStyle</span><span class="p">(</span><span class="k">const</span> <span class="n">font_family</span> <span class="n">family</span><span class="p">,</span> <span class="k">const</span> <span class="n">font_style</span> <span class="n">style</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">SetFamilyAndStyle</span><span class="p">(</span><span class="n">font_family</span> <span class="o">*</span><span class="n">family</span><span class="p">,</span> <span class="n">font_style</span> <span class="o">*</span><span class="n">style</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>这三个方法可以方便的获取和设置指定字体样式。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">SetSize</span><span class="p">(</span><span class="kt">float</span> <span class="n">size</span><span class="p">);</span>
+<span class="kt">float</span> <span class="n">Size</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>设置字体的点格（Point）大小。在本书编写时，Be Book 对其限制为 1000 points，而 Haiku 与其不同，并没有该限制。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">float</span> <span class="n">StringWidth</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">string</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">StringWidth</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">string</span><span class="p">,</span> <span class="n">int32</span> <span class="n">length</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>返回当前大小字符串的宽度。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="n">int32</span> <span class="nf">count_font_families</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="n">int32</span> <span class="nf">count_font_styles</span><span class="p">(</span><span class="n">font_family</span> <span class="n">family</span><span class="p">);</span>
+<span class="kt">status_t</span> <span class="nf">get_font_family</span><span class="p">(</span><span class="n">int32</span> <span class="n">index</span><span class="p">,</span> <span class="n">font_family</span><span class="o">*</span> <span class="n">family</span><span class="p">,</span> <span class="n">uint32</span><span class="o">*</span> <span class="n">flags</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="kt">status_t</span> <span class="nf">get_font_style</span><span class="p">(</span><span class="n">font_family</span> <span class="n">family</span><span class="p">,</span> <span class="n">int32</span> <span class="n">index</span><span class="p">,</span> <span class="n">font_style</span><span class="o">*</span> <span class="n">style</span><span class="p">,</span> <span class="n">uint32</span><span class="o">*</span> <span class="n">flags</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>用于迭代读取系统中安装的所有字体的全局函数。</p>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id16">其他的提示和技巧</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>有三个全局字体对象：be_plain_font ，be_bold_font，be_fixed_font。这些内置对象由用户通过字体首选项设置。在您的程序中尽可能使用这些字体可以保持外观界面的协调一致。</li>
 <li>如果您在给定颜色的背景上绘制文本，请确保将视图的低颜色设置为背景，否则您的文本看起来会有点诡异。</li>
 <li>在图片背景上绘制文本时，在文本绘制前，将视图的绘制模式设为 B_OP_ALPHA。</li>
 <li>在处理字距时，可以使用与退格相关的方法对其进行微调。</li>
 </ul>
-<p>## 深入了解</p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id17">深入了解</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>尝试摆弄一下与 Haiku 绑定的字体演示程序。感受每个不同的特效如何改变文本。</li>
 <li>尝试使用 BMessageRunner 创建一些动态的文本演示，如修改大小，翻转文本，或者其他有趣的效果。</li>

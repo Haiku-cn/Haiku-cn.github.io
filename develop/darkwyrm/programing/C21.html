@@ -41,275 +41,274 @@
         
         
   <div class="section" id="id1">
-<h1>第二十一课<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>## Haiku Replicants</p>
+<h1><a class="toc-backref" href="#id5">第二十一课</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">内容</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id5">第二十一课</a><ul>
+<li><a class="reference internal" href="#haiku-replicants" id="id6">Haiku Replicants</a></li>
+<li><a class="reference internal" href="#id3" id="id7">归档和实例化</a></li>
+<li><a class="reference internal" href="#replicant" id="id8">创建 Replicant</a></li>
+<li><a class="reference internal" href="#id4" id="id9">思路总结</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="haiku-replicants">
+<h2><a class="toc-backref" href="#id6">Haiku Replicants</a><a class="headerlink" href="#haiku-replicants" title="Permalink to this headline">¶</a></h2>
 <p>“神光普照，雷声轰鸣，天使腾空待发；天际处，黑云密布，鬼影瞳瞳。”</p>
 <p>在 Haiku 的世界里，Replicant 除了带了惊奇之外，别无其他，而且它们与刀锋战士无关。相反，它们与组件技术非常相似。对于不熟悉的人来说，组件属于面向对象编程的范畴，程序由对象构成，而它们虽具不同功能，但却具有通用的接口。而 Replicant 则内建于 Haiku API，是一种与基于 BView 对象交互的方法，但不需要对其有任何了解。远在 1995 年，BeOS 能够在桌面上嵌入一个网络浏览器，而不会像 Windows 95 一样带来严重的安全风险。但不幸的是，在 Be 引入这一功能之后，并没有对其进行广泛的使用，但是在近几年，Haiku 的开发者则对其进行了推广使用。在本节里，我们将花一些时间来了解它们的原理。</p>
-<p>## 归档和实例化</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id7">归档和实例化</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>在 Haiku 的 API 的继承关系中，其中最顶层的类之一就是 BArchivable 类。它主要用于提供一个接口，从而可以启用子类将它们的状态保存到 BMessage ，然后发送到目标，或者处理后保存到磁盘。如果您没有注意到这些课程的联系，BMessage 其实就像是地板蜡和金奶油，或者说万金油。</p>
-<p>为了是一个对象能够存档，仅需要实现三个函数：Archive()，Instantiate() 以及对象的一个构造函数，仅接受一个 BMessage 作为参数。Archive() 将对象的状态保存到 BMessage，Instantiate() 从 BMessage 中加载该状态。在已存在的控件环境中，归档非常容易理解，因此我们以 ColorWell 类中的一些新代码进行讲解。
-<a href="#id2"><span class="problematic" id="id3">``</span></a><a href="#id4"><span class="problematic" id="id5">`</span></a>C++
-status_t
-ColorWell::Archive(BMessage* data, bool deep) const
-{</p>
-<blockquote>
-<div><p>status_t status = BControl::Archive(data, deep);
-data-&gt;AddString(&#8220;class&#8221;, &#8220;ColorWell&#8221;);</p>
-<p>return status;</p>
-</div></blockquote>
-<div class="section" id="id6">
-<h2>}<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>为了是一个对象能够存档，仅需要实现三个函数：Archive()，Instantiate() 以及对象的一个构造函数，仅接受一个 BMessage 作为参数。Archive() 将对象的状态保存到 BMessage，Instantiate() 从 BMessage 中加载该状态。在已存在的控件环境中，归档非常容易理解，因此我们以 ColorWell 类中的一些新代码进行讲解。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">status_t</span>
+<span class="n">ColorWell</span><span class="o">::</span><span class="n">Archive</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">deep</span><span class="p">)</span> <span class="k">const</span>
+<span class="p">{</span>
+    <span class="kt">status_t</span> <span class="n">status</span> <span class="o">=</span> <span class="n">BControl</span><span class="o">::</span><span class="n">Archive</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">deep</span><span class="p">);</span>
+    <span class="n">data</span><span class="o">-&gt;</span><span class="n">AddString</span><span class="p">(</span><span class="s">&quot;class&quot;</span><span class="p">,</span> <span class="s">&quot;ColorWell&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">status</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>Archieve() 方法完成四个步骤：调用继承的方法以确保父类能够保存任何适当的属性，保存类的名称到 BMessage 的 class 属性，将对象的所有状态信息保存到 BMessage，最后如果 deep 为真，则保存所有附加信息。</p>
 <p>在上述的示例中，我们不需要保存附加信息。BControl 版本的 Archive() 保存了控件的值。我们的 ColorWell 将该值保存为 rgb_color 结构和整型。当我们解码 ColorWell 实例时，只需要将由 BControl::Archive() 保存的整型值转换为 rgb_color，然后我们需要将状态设置为消息中的状态。</p>
-<p>多数复杂的对象会将其他的属性放置到 BMessage 存储。但是，对于这些属性，其中并没有事先定义的命名机制，因此我们对名称的选择要特别注意，以免带来冲突。属性保存最简单的方法是使用类名，如下：
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">msg-&gt;AddString(&quot;MyClassName::MyStringProperty&quot;,</span> <span class="pre">&quot;SomeString&quot;);</span>
-<span class="pre">msg-&gt;AddBool(&quot;MyClassName::SomeOtherProperty&quot;,</span> <span class="pre">someBooleanFlag);</span>
-<span class="pre">`</span></tt>
-简单对象通常会忽略 deep 标记。其目的是标识对象在完成自身状态保存之后，继续。例如，如果一个 BView 标定了 deep 保存请求，它也将会保存其子类的状态。</p>
-<p>现在我们已经了解了如何保存对象的状态，那么接下来就是状态载入。下面我们定义其余两个方法：
-<a href="#id7"><span class="problematic" id="id8">``</span></a><a href="#id9"><span class="problematic" id="id10">`</span></a>C++
-ColorWell::ColorWell(BMessage* data)</p>
-<blockquote>
-<div>:    BControl(data)</div></blockquote>
-<dl class="docutils">
-<dt>{</dt>
-<dd>// 继承的BControl构造函数将会从消息中提取颜色
-// 的整型值，因此我们所需要做的就是更新fColor。
-// 除了复制和粘贴颜色，我们需要调用SetValue()
-// 来扛起所有的重任。这类技巧将使调试和代码管理
-// 更为容易。
-SetValue(Value());</dd>
-</dl>
-<p>}</p>
-<p>BArchivable*
-ColorWell::Instantiate(BMessage* data)
-{</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>if (validate_instantiation(data, &#8220;ColorWell&#8221;))</dt>
-<dd>return new ColorWell(data);</dd>
-</dl>
-<p>return NULL;</p>
-</div></blockquote>
+<p>多数复杂的对象会将其他的属性放置到 BMessage 存储。但是，对于这些属性，其中并没有事先定义的命名机制，因此我们对名称的选择要特别注意，以免带来冲突。属性保存最简单的方法是使用类名，如下：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="n">msg</span><span class="o">-&gt;</span><span class="n">AddString</span><span class="p">(</span><span class="s">&quot;MyClassName::MyStringProperty&quot;</span><span class="p">,</span> <span class="s">&quot;SomeString&quot;</span><span class="p">);</span>
+<span class="n">msg</span><span class="o">-&gt;</span><span class="n">AddBool</span><span class="p">(</span><span class="s">&quot;MyClassName::SomeOtherProperty&quot;</span><span class="p">,</span> <span class="n">someBooleanFlag</span><span class="p">);</span>
+</pre></div>
 </div>
-<div class="section" id="id11">
-<h2>}<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>简单对象通常会忽略 deep 标记。其目的是标识对象在完成自身状态保存之后，继续。例如，如果一个 BView 标定了 deep 保存请求，它也将会保存其子类的状态。</p>
+<p>现在我们已经了解了如何保存对象的状态，那么接下来就是状态载入。下面我们定义其余两个方法：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="n">ColorWell</span><span class="o">::</span><span class="n">ColorWell</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="o">:</span>    <span class="n">BControl</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 继承的BControl构造函数将会从消息中提取颜色</span>
+    <span class="c1">// 的整型值，因此我们所需要做的就是更新fColor。</span>
+    <span class="c1">// 除了复制和粘贴颜色，我们需要调用SetValue()</span>
+    <span class="c1">// 来扛起所有的重任。这类技巧将使调试和代码管理</span>
+    <span class="c1">// 更为容易。</span>
+    <span class="n">SetValue</span><span class="p">(</span><span class="n">Value</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="n">BArchivable</span><span class="o">*</span>
+<span class="n">ColorWell</span><span class="o">::</span><span class="n">Instantiate</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">validate_instantiation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s">&quot;ColorWell&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ColorWell</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>instantiate() 属于包裹代码。validate_instantiation() 仅用来检查，以确保 BMessage 保存了用于 ColorWell 对象的信息。假定检查过后，它使用上述为归档的构造函数返回了 ColorWell 实例。该构造函数就和 Archive() 中数据保存一样，仅从 BMessage 中载入了数据。</p>
-<p>为了实例化一个归档对象，必须如下调用 instantiate_object()：
-<a href="#id12"><span class="problematic" id="id13">``</span></a><a href="#id14"><span class="problematic" id="id15">`</span></a>C++
-BArchivable* archivable = instantiate_object(msg);</p>
-<p>MyDesiredClass* object = NULL;
-if (archivable)</p>
-<blockquote>
-<div>object = dynamic_cast&lt;MyDesiredClass*&gt;(archivable);</div></blockquote>
-<p><a href="#id16"><span class="problematic" id="id17">``</span></a>`
-Be Book 推荐使用预处理宏 cast_as()，但是它已被弃用。建议使用 dynamic_cast。</p>
+<p>为了实例化一个归档对象，必须如下调用 instantiate_object()：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="n">BArchivable</span><span class="o">*</span> <span class="n">archivable</span> <span class="o">=</span> <span class="n">instantiate_object</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+
+<span class="n">MyDesiredClass</span><span class="o">*</span> <span class="n">object</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">archivable</span><span class="p">)</span>
+    <span class="n">object</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">MyDesiredClass</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">archivable</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Be Book 推荐使用预处理宏 cast_as()，但是它已被弃用。建议使用 dynamic_cast。</p>
 <p>尽管能够仅解档任何归档消息，但是没有用于发现归档消息中内容的机制，Be 期望开发者遵循预定的机制，例如 replicant 所使用的方法。</p>
-<p>## 创建 Replicant</p>
-<p>Relicant 只是一个可归档的 BView 控件。假定每个子控件都能够归档，并且实例化，那么创建 replicant 所需要的仅仅是添加 BDragger 类的一个实例即可。
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">BDragger(BRect</span> <span class="pre">frame,</span> <span class="pre">BView*</span> <span class="pre">target,</span> <span class="pre">int32</span> <span class="pre">resizeMode</span> <span class="pre">=</span> <span class="pre">B_FOLLOW_NONE,</span> <span class="pre">uint32</span> <span class="pre">flags</span> <span class="pre">=</span> <span class="pre">B_WILL_DRAW);</span>
-<span class="pre">`</span></tt>
-BDragger 对象是创建 replicant 的关键。它们是 BView 的子类，并且具有目标 BView 对象，与 BScrollView 非常类似。它们需要满足一些条件：</p>
+</div>
+<div class="section" id="replicant">
+<h2><a class="toc-backref" href="#id8">创建 Replicant</a><a class="headerlink" href="#replicant" title="Permalink to this headline">¶</a></h2>
+<p>Relicant 只是一个可归档的 BView 控件。假定每个子控件都能够归档，并且实例化，那么创建 replicant 所需要的仅仅是添加 BDragger 类的一个实例即可。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="n">BDragger</span><span class="p">(</span><span class="n">BRect</span> <span class="n">frame</span><span class="p">,</span> <span class="n">BView</span><span class="o">*</span> <span class="n">target</span><span class="p">,</span> <span class="n">int32</span> <span class="n">resizeMode</span> <span class="o">=</span> <span class="n">B_FOLLOW_NONE</span><span class="p">,</span> <span class="n">uint32</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">B_WILL_DRAW</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>BDragger 对象是创建 replicant 的关键。它们是 BView 的子类，并且具有目标 BView 对象，与 BScrollView 非常类似。它们需要满足一些条件：</p>
 <ul class="simple">
 <li>BDragger 期望其目标为它的父系，子系，或者视图继承关系中的同级。</li>
 <li>如果 BDragger 实例是其目标的子系，那么它必须是目标唯一的子视图，并且它的结构至少需要和拖动句柄一样大，即 7 个像素。</li>
 <li>如果 BDragger 实例为目标的父系，那么它的结构至少要和目标等大。</li>
 </ul>
-<p>下面是一个能够表现 Replicant 简易性的示例。它取自 Haiku 演示程序 OverlayImage 的主视图代码。
-<a href="#id18"><span class="problematic" id="id19">``</span></a><a href="#id20"><span class="problematic" id="id21">`</span></a>C++
-/*</p>
-<blockquote>
-<div><ul class="simple">
-<li>Copyright 1999-2010, Be Incorporated. All Rights Reserved.</li>
-<li>This file may be used under the terms of the Be Sample Code License.</li>
-<li></li>
-<li>Authors:</li>
-<li>Seth Flexman</li>
-<li>Hartmuth Reh</li>
-<li>Humdinger               &lt;<a class="reference external" href="mailto:humdingerb&#37;&#52;&#48;gmail&#46;com">humdingerb<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</li>
-</ul>
-<p><a href="#id22"><span class="problematic" id="id23">*</span></a>/</p>
-</div></blockquote>
-<p>#include &#8220;OverlayView.h&#8221;</p>
-<p>#include &lt;Catalog.h&gt;
-#include &lt;InterfaceDefs.h&gt;
-#include &lt;Locale.h&gt;
-#include &lt;String.h&gt;
-#include &lt;TextView.h&gt;</p>
-<p>#undef B_TRANSLATE_CONTEXT
-#define B_TRANSLATE_CONTEXT &#8220;Main Window&#8221;</p>
-<p>const float kDraggerSize = 7;</p>
-<dl class="docutils">
-<dt>OverlayView::OverlayView(BRect frame)</dt>
-<dd>:</dd>
-</dl>
-<p>BView(frame, &#8220;OverlayImage&#8221;, B_FOLLOW_NONE, B_WILL_DRAW)
-{</p>
-<blockquote>
-<div><p>fBitmap = NULL;
-fReplicated = false;</p>
-<p>frame.left = frame.right - kDraggerSize;
-frame.top = frame.bottom - kDraggerSize;</p>
-<p>BDragger* dragger = new BDragger(frame, this, B_FOLLOW_RIGHT|B_FLOLLOW_BOTTOM);
-AddChild(dragger);
-SetViewColor(B_TRANSPARENT_COLOR);
-fText = new BTextView(Bounds(), &#8220;bgView&#8221;, Bounds(), B_FOLLOW_ALL, B_WILL_DRAW);
-fText-&gt;SetViewColor(ui_color(B_PANEL_BACKGROUND_COLOR));
-AddChild(fText);
-BString text;
-text &lt;&lt; B_TRANSLATE(
-&#8220;Enable &#8220;Show replicants&#8221; in Deskbar. n&#8221;
-&#8220;Drag &amp; drop an image. n&#8221;
-&#8220;Drag the replicant to the Desktop.&#8221;);
-fText-&gt;SetText(text);
-fText-&gt;SetAlignment(B_ALIGN_CENTER);
-fText-&gt;MakeSelectable(false);
-fText-&gt;MoveBy(0, (Bounds().botton - fText-&gt;TextRect().bottom) / 2);</p>
-</div></blockquote>
-<p>}</p>
-<dl class="docutils">
-<dt>OverlayView::OverlayView(BMessage* archive)</dt>
-<dd>:</dd>
-</dl>
-<p>BView(archive)
-{</p>
-<blockquote>
-<div>fReplicated = true;
-fBitmap = new BBitmap(archive);</div></blockquote>
-<p>}</p>
-<p>OverlayView::~OverlayView()
-{</p>
-<blockquote>
-<div>Delete fBitmap;</div></blockquote>
-<p>}</p>
-<p>void
-OverlayView::Draw(BRect)
-{</p>
-<blockquote>
-<div><p>SetDrawingMode(B_OP_ALPHA);
-SetViewColor(B_TRANSPARENT_COLOR);</p>
-<p>if (fBitmap)
-DrawBitmap(fBitmap, B_ORIGIN);</p>
-</div></blockquote>
-<p>}</p>
-<p>void
-OverlayView::MessageReceived(BMessage* msg)
-{</p>
-<blockquote>
-<div><blockquote>
-<div><p>switch (msg-&gt;what)
-{
-case B_SIMPLE_DATA:
-{</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>if (fReplicanted)</dt>
-<dd>break;</dd>
-</dl>
-<p>entry_ref ref;
-msg-&gt;FindRef(&#8220;refs&#8221;, &amp;ref);
-BEntry entry(&amp;ref);
-BPath path(&amp;entry);</p>
-<p>delete fBitmap;
-fBitmap = BTranslationUtils::GetBitmap(path.Path());</p>
-<p>if (fBitmap != NULL)
-{</p>
-<blockquote>
-<div><p>if (fText != NULL)
-{</p>
-<blockquote>
-<div>RemoveChild(fText);
-fText = NULL;</div></blockquote>
-<p>}</p>
-<p>BRect rect = fBitmap-&gt;Bounds();
-if (!fReplicated)
-{</p>
-<blockquote>
-<div>Window()-&gt;ResizedTo(rect.right, rect.bottom);
-Window()-&gt;Activate(true);</div></blockquote>
-<p>}
-ResizeTo(rect.right, rect.bottom);
-Invalidate();</p>
-</div></blockquote>
-<p>}
-break;</p>
-</div></blockquote>
-<p>}
-case B_ABOUT_REQUESTED:
-{</p>
-<blockquote>
-<div>OverlayAboutRequested();
-break;</div></blockquote>
-<p>}
-default:
-{</p>
-<blockquote>
-<div>BView::MessageReceived(msg);
-break;</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-<p>BArchivable* OverlayView::Instantiate(BMessage* data)
-{</p>
-<blockquote>
-<div>return new OverlayView(data);</div></blockquote>
-<p>}</p>
-<p>status_t
-OverlayView::Archive(BMessage* archive, bool deep) const
-{</p>
-<blockquote>
-<div><p>BView::Archive(archive, deep);</p>
-<p>archive-&gt;AddString(&#8220;add_on&#8221;, &#8220;application/x-vnd.Haiku-OverlayImage&#8221;);
-archive-&gt;AddString(&#8220;class&#8221;, &#8220;OverlayImage&#8221;);</p>
-<p>if (fBitmap)
-{</p>
-<blockquote>
-<div>fBitmap-&gt;Lock();
-fBitmap-&gt;Archive(archive);
-fBitmap-&gt;Unlock();</div></blockquote>
-<p>}</p>
-<p>return B_OK;</p>
-</div></blockquote>
-<p>}</p>
-<p>void
-OverlayView::OverlayAboutRequested()
-{</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>BAlert* alert = new BAlert(&#8220;about&#8221;,</dt>
-<dd>&#8220;OverlayImagen&#8221;
-&#8220;Copyright 1999-2010nnt&#8221;
-&#8220;originally by Seth Flaxmannt&#8221;
-&#8220;modified by Hartmuth Rehnt&#8221;
-&#8220;further modified by Humdingern&#8221;,
-&#8220;OK&#8221;);</dd>
-</dl>
-<p>BTextView* view = alert-&gt;TextView();
-BFont font;
-view-&gt;SetStylable(true);
-view-&gt;GetFont(&amp;font);
-font.SetSize(font.Size() + 7.0f);
-font.SetFace(B_BOLD_FACE);
-view-&gt;SetFontAndColor(0, 12, &amp;font);</p>
-<p>alert-&gt;Go();</p>
-</div></blockquote>
+<p>下面是一个能够表现 Replicant 简易性的示例。它取自 Haiku 演示程序 OverlayImage 的主视图代码。</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cm">/*</span>
+<span class="cm"> * Copyright 1999-2010, Be Incorporated. All Rights Reserved.</span>
+<span class="cm"> * This file may be used under the terms of the Be Sample Code License.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Authors:</span>
+<span class="cm"> *                          Seth Flexman</span>
+<span class="cm"> *                          Hartmuth Reh</span>
+<span class="cm"> *                          Humdinger               &lt;humdingerb@gmail.com&gt;</span>
+<span class="cm"> */</span>
+<span class="cp">#include &quot;OverlayView.h&quot;</span>
+
+<span class="cp">#include &lt;Catalog.h&gt;</span>
+<span class="cp">#include &lt;InterfaceDefs.h&gt;</span>
+<span class="cp">#include &lt;Locale.h&gt;</span>
+<span class="cp">#include &lt;String.h&gt;</span>
+<span class="cp">#include &lt;TextView.h&gt;</span>
+
+<span class="cp">#undef B_TRANSLATE_CONTEXT</span>
+<span class="cp">#define B_TRANSLATE_CONTEXT &quot;Main Window&quot;</span>
+
+<span class="k">const</span> <span class="kt">float</span> <span class="n">kDraggerSize</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+
+<span class="n">OverlayView</span><span class="o">::</span><span class="n">OverlayView</span><span class="p">(</span><span class="n">BRect</span> <span class="n">frame</span><span class="p">)</span>
+    <span class="o">:</span>
+<span class="n">BView</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="s">&quot;OverlayImage&quot;</span><span class="p">,</span> <span class="n">B_FOLLOW_NONE</span><span class="p">,</span> <span class="n">B_WILL_DRAW</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">fBitmap</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">fReplicated</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+    <span class="n">frame</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">frame</span><span class="p">.</span><span class="n">right</span> <span class="o">-</span> <span class="n">kDraggerSize</span><span class="p">;</span>
+    <span class="n">frame</span><span class="p">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">frame</span><span class="p">.</span><span class="n">bottom</span> <span class="o">-</span> <span class="n">kDraggerSize</span><span class="p">;</span>
+
+    <span class="n">BDragger</span><span class="o">*</span> <span class="n">dragger</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BDragger</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="n">B_FOLLOW_RIGHT</span><span class="o">|</span><span class="n">B_FLOLLOW_BOTTOM</span><span class="p">);</span>
+    <span class="n">AddChild</span><span class="p">(</span><span class="n">dragger</span><span class="p">);</span>
+    <span class="n">SetViewColor</span><span class="p">(</span><span class="n">B_TRANSPARENT_COLOR</span><span class="p">);</span>
+    <span class="n">fText</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BTextView</span><span class="p">(</span><span class="n">Bounds</span><span class="p">(),</span> <span class="s">&quot;bgView&quot;</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">(),</span> <span class="n">B_FOLLOW_ALL</span><span class="p">,</span> <span class="n">B_WILL_DRAW</span><span class="p">);</span>
+    <span class="n">fText</span><span class="o">-&gt;</span><span class="n">SetViewColor</span><span class="p">(</span><span class="n">ui_color</span><span class="p">(</span><span class="n">B_PANEL_BACKGROUND_COLOR</span><span class="p">));</span>
+    <span class="n">AddChild</span><span class="p">(</span><span class="n">fText</span><span class="p">);</span>
+    <span class="n">BString</span> <span class="n">text</span><span class="p">;</span>
+    <span class="n">text</span> <span class="o">&lt;&lt;</span> <span class="n">B_TRANSLATE</span><span class="p">(</span>
+    <span class="s">&quot;Enable </span><span class="se">\&quot;</span><span class="s">Show replicants</span><span class="se">\&quot;</span><span class="s"> in Deskbar. </span><span class="se">\n</span><span class="s">&quot;</span>
+    <span class="s">&quot;Drag &amp; drop an image. </span><span class="se">\n</span><span class="s">&quot;</span>
+    <span class="s">&quot;Drag the replicant to the Desktop.&quot;</span><span class="p">);</span>
+    <span class="n">fText</span><span class="o">-&gt;</span><span class="n">SetText</span><span class="p">(</span><span class="n">text</span><span class="p">);</span>
+    <span class="n">fText</span><span class="o">-&gt;</span><span class="n">SetAlignment</span><span class="p">(</span><span class="n">B_ALIGN_CENTER</span><span class="p">);</span>
+    <span class="n">fText</span><span class="o">-&gt;</span><span class="n">MakeSelectable</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="n">fText</span><span class="o">-&gt;</span><span class="n">MoveBy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">Bounds</span><span class="p">().</span><span class="n">botton</span> <span class="o">-</span> <span class="n">fText</span><span class="o">-&gt;</span><span class="n">TextRect</span><span class="p">().</span><span class="n">bottom</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="n">OverlayView</span><span class="o">::</span><span class="n">OverlayView</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span> <span class="n">archive</span><span class="p">)</span>
+    <span class="o">:</span>
+<span class="n">BView</span><span class="p">(</span><span class="n">archive</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">fReplicated</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="n">fBitmap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BBitmap</span><span class="p">(</span><span class="n">archive</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">OverlayView</span><span class="o">::~</span><span class="n">OverlayView</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Delete</span> <span class="n">fBitmap</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span>
+<span class="n">OverlayView</span><span class="o">::</span><span class="n">Draw</span><span class="p">(</span><span class="n">BRect</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">SetDrawingMode</span><span class="p">(</span><span class="n">B_OP_ALPHA</span><span class="p">);</span>
+    <span class="n">SetViewColor</span><span class="p">(</span><span class="n">B_TRANSPARENT_COLOR</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">fBitmap</span><span class="p">)</span>
+        <span class="n">DrawBitmap</span><span class="p">(</span><span class="n">fBitmap</span><span class="p">,</span> <span class="n">B_ORIGIN</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span>
+<span class="n">OverlayView</span><span class="o">::</span><span class="n">MessageReceived</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">what</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">case</span> <span class="n">B_SIMPLE_DATA</span>:
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">fReplicanted</span><span class="p">)</span>
+                <span class="k">break</span><span class="p">;</span>
+
+            <span class="n">entry_ref</span> <span class="n">ref</span><span class="p">;</span>
+            <span class="n">msg</span><span class="o">-&gt;</span><span class="n">FindRef</span><span class="p">(</span><span class="s">&quot;refs&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ref</span><span class="p">);</span>
+            <span class="n">BEntry</span> <span class="nf">entry</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ref</span><span class="p">);</span>
+            <span class="n">BPath</span> <span class="nf">path</span><span class="p">(</span><span class="o">&amp;</span><span class="n">entry</span><span class="p">);</span>
+
+            <span class="k">delete</span> <span class="n">fBitmap</span><span class="p">;</span>
+            <span class="n">fBitmap</span> <span class="o">=</span> <span class="n">BTranslationUtils</span><span class="o">::</span><span class="n">GetBitmap</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">Path</span><span class="p">());</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">fBitmap</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">fText</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">RemoveChild</span><span class="p">(</span><span class="n">fText</span><span class="p">);</span>
+                    <span class="n">fText</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="n">BRect</span> <span class="n">rect</span> <span class="o">=</span> <span class="n">fBitmap</span><span class="o">-&gt;</span><span class="n">Bounds</span><span class="p">();</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fReplicated</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">Window</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ResizedTo</span><span class="p">(</span><span class="n">rect</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">bottom</span><span class="p">);</span>
+                    <span class="n">Window</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Activate</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="n">ResizeTo</span><span class="p">(</span><span class="n">rect</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">bottom</span><span class="p">);</span>
+                <span class="n">Invalidate</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">case</span> <span class="n">B_ABOUT_REQUESTED</span>:
+        <span class="p">{</span>
+            <span class="n">OverlayAboutRequested</span><span class="p">();</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nl">default:</span>
+        <span class="p">{</span>
+            <span class="n">BView</span><span class="o">::</span><span class="n">MessageReceived</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">BArchivable</span><span class="o">*</span> <span class="n">OverlayView</span><span class="o">::</span><span class="n">Instantiate</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">OverlayView</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">status_t</span>
+<span class="n">OverlayView</span><span class="o">::</span><span class="n">Archive</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span> <span class="n">archive</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">deep</span><span class="p">)</span> <span class="k">const</span>
+<span class="p">{</span>
+    <span class="n">BView</span><span class="o">::</span><span class="n">Archive</span><span class="p">(</span><span class="n">archive</span><span class="p">,</span> <span class="n">deep</span><span class="p">);</span>
+
+    <span class="n">archive</span><span class="o">-&gt;</span><span class="n">AddString</span><span class="p">(</span><span class="s">&quot;add_on&quot;</span><span class="p">,</span> <span class="s">&quot;application/x-vnd.Haiku-OverlayImage&quot;</span><span class="p">);</span>
+    <span class="n">archive</span><span class="o">-&gt;</span><span class="n">AddString</span><span class="p">(</span><span class="s">&quot;class&quot;</span><span class="p">,</span> <span class="s">&quot;OverlayImage&quot;</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">fBitmap</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fBitmap</span><span class="o">-&gt;</span><span class="n">Lock</span><span class="p">();</span>
+        <span class="n">fBitmap</span><span class="o">-&gt;</span><span class="n">Archive</span><span class="p">(</span><span class="n">archive</span><span class="p">);</span>
+        <span class="n">fBitmap</span><span class="o">-&gt;</span><span class="n">Unlock</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">B_OK</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span>
+<span class="n">OverlayView</span><span class="o">::</span><span class="n">OverlayAboutRequested</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">BAlert</span><span class="o">*</span> <span class="n">alert</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BAlert</span><span class="p">(</span><span class="s">&quot;about&quot;</span><span class="p">,</span>
+        <span class="s">&quot;OverlayImage</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="s">&quot;Copyright 1999-2010</span><span class="se">\n\n\t</span><span class="s">&quot;</span>
+        <span class="s">&quot;originally by Seth Flaxman</span><span class="se">\n\t</span><span class="s">&quot;</span>
+        <span class="s">&quot;modified by Hartmuth Reh</span><span class="se">\n\t</span><span class="s">&quot;</span>
+        <span class="s">&quot;further modified by Humdinger</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+        <span class="s">&quot;OK&quot;</span><span class="p">);</span>
+
+    <span class="n">BTextView</span><span class="o">*</span> <span class="n">view</span> <span class="o">=</span> <span class="n">alert</span><span class="o">-&gt;</span><span class="n">TextView</span><span class="p">();</span>
+    <span class="n">BFont</span> <span class="n">font</span><span class="p">;</span>
+    <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetStylable</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+    <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetFont</span><span class="p">(</span><span class="o">&amp;</span><span class="n">font</span><span class="p">);</span>
+    <span class="n">font</span><span class="p">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">font</span><span class="p">.</span><span class="n">Size</span><span class="p">()</span> <span class="o">+</span> <span class="mf">7.0f</span><span class="p">);</span>
+    <span class="n">font</span><span class="p">.</span><span class="n">SetFace</span><span class="p">(</span><span class="n">B_BOLD_FACE</span><span class="p">);</span>
+    <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetFontAndColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">font</span><span class="p">);</span>
+
+    <span class="n">alert</span><span class="o">-&gt;</span><span class="n">Go</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 </div>
-<div class="section" id="id24">
-<h2>}<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
 <p>在您构造了目标对象 BView 和相关的 BDragger 后，将它们放置到合适的视图层级，之后就不需要其他的工作了。用户可以拖动 BDragger 句柄，它将会复制原本的视图。当然，除非您对其进行了拖动，否则它并不会执行任何动作。下面将介绍 BShelf 类。</p>
-<p>BShelf 是一个附属于 BView 类的 BHandler 类，可以接受复制体（replicant）。它有三种不同的构造函数：
-<tt class="docutils literal"><span class="pre">`C++</span>
-<span class="pre">BShelf(BView*</span> <span class="pre">view,</span> <span class="pre">bool</span> <span class="pre">allowDragging</span> <span class="pre">=</span> <span class="pre">true,</span> <span class="pre">const</span> <span class="pre">char*</span> <span class="pre">name</span> <span class="pre">=</span> <span class="pre">NULL);</span>
-<span class="pre">BShelf(entry_ref*</span> <span class="pre">ref,</span> <span class="pre">BView*</span> <span class="pre">view,</span> <span class="pre">bool</span> <span class="pre">allowDragging</span> <span class="pre">=</span> <span class="pre">true,</span> <span class="pre">const</span> <span class="pre">char*</span> <span class="pre">name</span> <span class="pre">=</span> <span class="pre">NULL);</span>
-<span class="pre">BShelf(BDataIO*</span> <span class="pre">stream,</span> <span class="pre">BView*</span> <span class="pre">view,</span> <span class="pre">bool</span> <span class="pre">allowDragging</span> <span class="pre">=</span> <span class="pre">true,</span> <span class="pre">const</span> <span class="pre">char*</span> <span class="pre">name</span> <span class="pre">=</span> <span class="pre">NULL);</span>
-<span class="pre">`</span></tt>
-后两个构造函数初始化 shelf 为一个文件，shelf 将会利用它来保存复制体。如果 allowDragging 为真，在复制体放置到 shelf 之后，用户将允许移动这些复制体。反之，它们将会固定到初始化位置。shelf 的名称非常重要，如果 shelf 具有名称，系统将会检查并确保任何放置到其中的复制体带有 shelf_type 字段，并且该字段需要匹配 shelf 的名称。未具有相匹配名称的复制体将被拒绝。</p>
+<p>BShelf 是一个附属于 BView 类的 BHandler 类，可以接受复制体（replicant）。它有三种不同的构造函数：</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="n">BShelf</span><span class="p">(</span><span class="n">BView</span><span class="o">*</span> <span class="n">view</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">allowDragging</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">BShelf</span><span class="p">(</span><span class="n">entry_ref</span><span class="o">*</span> <span class="n">ref</span><span class="p">,</span> <span class="n">BView</span><span class="o">*</span> <span class="n">view</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">allowDragging</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">BShelf</span><span class="p">(</span><span class="n">BDataIO</span><span class="o">*</span> <span class="n">stream</span><span class="p">,</span> <span class="n">BView</span><span class="o">*</span> <span class="n">view</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">allowDragging</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>后两个构造函数初始化 shelf 为一个文件，shelf 将会利用它来保存复制体。如果 allowDragging 为真，在复制体放置到 shelf 之后，用户将允许移动这些复制体。反之，它们将会固定到初始化位置。shelf 的名称非常重要，如果 shelf 具有名称，系统将会检查并确保任何放置到其中的复制体带有 shelf_type 字段，并且该字段需要匹配 shelf 的名称。未具有相匹配名称的复制体将被拒绝。</p>
 <p>除了构造函数之外，BShelf 的处理非常的直观。它能够自动的添加，删除和计算附加到 shelf 的复制体数量。Save() 方法可以让 shelf 拥有一个状态，其可以连续的记录每个程序的运行状态。</p>
-<p>## 思路总结</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id9">思路总结</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>在 Windows Sidebar 和 Google Gadgets 出现以前，BeOS 就已经具有了复制体。和拖动支持，脚本支持一样，它们也是一个非常有趣的，但未被充分利用的技术。考虑一下如何在您的程序中加以使用。很可能，您将会使目标用户的工作更加简化，并且充满乐趣。</p>
 <p>这节课也完整的重现了一个特性丰富，完全实现的控件构建。多数开发者并不会这么完整的编写它们的代码。当然，您的代码也无需如此。挑选一些您的程序中需要的功能和特性，如果它们运行的很好，没有人会知道其中的不同，他们也不关心这些。</p>
 </div>
