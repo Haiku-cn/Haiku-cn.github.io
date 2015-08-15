@@ -1,63 +1,224 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Haiku 编码规范 &mdash; Haiku 中文文档</title>
+  
+
+  
+  
+
+  
+
+  
+  
     
-    <title>Haiku 编码规范 &mdash; Haiku 中文文档</title>
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Haiku 中文文档" href="index.html"/>
+        <link rel="up" title="开发" href="开发.html"/>
+        <link rel="next" title="开发常见问题（FAQ）" href="开发常见问题（FAQ）.html"/>
+        <link rel="prev" title="Haiku 指南" href="Haiku指南.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
     
-    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Haiku 中文文档" href="index.html" />
-    <link rel="up" title="开发" href="开发.html" />
-    <link rel="next" title="开发常见问题（FAQ）" href="开发常见问题（FAQ）.html" />
-    <link rel="prev" title="Haiku 指南" href="Haiku指南.html" /> 
-  </head>
-  <body>
-      <div class="header"><h1 class="heading"><a href="index.html">
-          <span>Haiku 中文文档</span></a></h1>
-        <h2 class="heading"><span>Haiku 编码规范</span></h2>
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Haiku Chinese Documents
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
       </div>
-      <div class="topnav">
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="关于Haiku.html">关于 Haiku</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="关于Haiku.html#id1">Haiku 好处在哪儿？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="关于Haiku.html#id2">为何选择 Haiku ？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="关于Haiku.html#id3">谁支持着 Haiku ？</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="开发.html">开发</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="开发.html#id2">用户指南</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="开发.html#id3">开发文档</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="开发入门.html">开发入门</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#id2">手册相关</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#id3">入门任务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#id4">当您找到任务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#id5">编写代码准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#git">获取 GIT 提交权限</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#id7">深入阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Haiku编程学习.html">Haiku编程学习</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Haiku编程学习.html#id1">简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku编程学习.html#id2">目录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku编程学习.html#id3">参考资料和工具</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Haiku编程教程.html">Haiku 编程详解</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Haiku编程教程.html#id1">前言</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku编程教程.html#id2">内容概览</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Haiku指南.html">Haiku 指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#guides-haiku"><code class="docutils literal"><span class="pre">/guides/构建Haiku</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#id1"><code class="docutils literal"><span class="pre">/guides/安装Haiku</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#id2"><code class="docutils literal"><span class="pre">/guides/启动Haiku</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#guides"><code class="docutils literal"><span class="pre">/guides/日常任务</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#id3"><code class="docutils literal"><span class="pre">/guides/虚拟化</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#id4">其他指南</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Haiku 编码规范</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">规范概况</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">缩进和空格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">杂项</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">标识符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">变量声明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#haiku-api">使用 Haiku 内置的 API，类型等</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">许可和版权</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">无用代码和调试代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">其他的要求</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">风格检查工具</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="开发常见问题（FAQ）.html">开发常见问题（FAQ）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#id1">我是一个程序员，希望可以帮忙，那么从何开始呢？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#id4">是否有简单的引导任务？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#id6">是否有特定的编程风格？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#id7">如何创建和提交补丁？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#trac">为什么无法在 Trac 中创建任务单？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#id8">使用哪些开发工具？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#id9">是否有开发者邮件列表？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#irc">是否有 IRC 聊天室？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#id10">我尝试进行测试，但是 Haiku 编译失败。接下来该如何操作？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#id11">我想把一些东西集成到官方源之中，可以集成那些组件？该使用何种协议呢？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发常见问题（FAQ）.html#beos-haiku">我希望可以把我的 BeOS 程序/驱动移植到 Haiku，该如何进行？</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="develop/Haiku图标指南.html">Haiku 图标指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id1">透视效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id2">光源效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id3">渐变效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id4">色彩效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id5">阴影效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id6">轮廓线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id7">高亮效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id8">使用覆盖</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id9">细节</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id10">中立图标</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="开发.html#id4">在线资源</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="开发.html#id7">开发工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="开发.html#id8">其他系统交叉编译</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="文档.html">文档</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="文档.html#id2">用户文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="文档.html#id3">开发者文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="文档.html#id4">早期文档</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="文档.html#bebook-be">BeBook 和 Be 信札</a></li>
+<li class="toctree-l3"><a class="reference internal" href="文档.html#id5">其他</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
       
-        <p>
-        «&#160;&#160;<a href="Haiku指南.html">Haiku 指南</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="开发常见问题（FAQ）.html">开发常见问题（FAQ）</a>&#160;&#160;»
-        </p>
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Haiku Chinese Documents</a>
+      </nav>
 
-      </div>
-      <div class="content">
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="开发.html">开发</a> &raquo;</li>
+      
+    <li>Haiku 编码规范</li>
+      <li class="wy-breadcrumbs-aside">
         
+          
         
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
   <div class="section" id="haiku">
-<h1>Haiku 编码规范<a class="headerlink" href="#haiku" title="Permalink to this headline">¶</a></h1>
+<h1>Haiku 编码规范<a class="headerlink" href="#haiku" title="永久链接至标题">¶</a></h1>
 <p>本文不是很完整。如果某一特殊类型的规范在这里没有写明，您应该遵循已经写好的代码的风格（最好使用 Haiku 的源代码作为本文的参考）。如果你对此有更好的建议，你可以直接向 <a class="reference external" href="http://www.haiku-os.org/contact">我们</a> 说明。请别向我们提供类似“我更喜欢这种类型的缩进风格，我们可以改成这样的么？”的建议。</p>
 <p>由于时间原因，可能在某些地方，一些代码风格与我们的源码规范不一致。如果您能够帮忙对这些代码进行整理，我们将会非常欢迎。</p>
 <p>相比于指定一个特定的代码风格，我们更主要的目的在于保证代码的前后一致；在经过一系列的外部代码贡献和补丁提交之后，我们希望Haiku的代码能够仍然保持整洁，一致，并且容易阅读和维护。</p>
 <div class="section" id="id2">
-<h2>规范概况<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>规范概况<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>保持缩进—使它们和你所贡献的其他代码保持保持前后一致。当你提交补丁的时候，你会看到这一规则贯穿整个代码规范。</p>
 </div>
 <div class="section" id="id3">
-<h2>缩进和空格<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>缩进和空格<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li>使用制表符来控制缩进。把你的编辑器的每个制表符设置为4个空格。</li>
 <li>Haiku的缩进风格与 <a class="reference external" href="http://en.wikipedia.org/wiki/Indent_style#K.26R_style">K&amp;R</a> 风格非常接近。</li>
@@ -66,7 +227,7 @@
 </ul>
 <p>首先，让我们通过一些例子来认识主要的规范：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Foo</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Bar</span> <span class="p">{</span>
-<span class="nl">public:</span>
+<span class="k">public</span><span class="o">:</span>
                                     <span class="n">Foo</span><span class="p">(</span><span class="n">int32</span><span class="p">);</span>
     <span class="k">virtual</span>                        <span class="o">~</span><span class="n">Foo</span><span class="p">();</span>
 
@@ -75,8 +236,8 @@
     <span class="c1">// 使用 tab 来控制长参数列表的缩进量:</span>
     <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span>            <span class="nf">FunctionWithLotsOfArguments</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span>
                                         <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">user</span><span class="p">);</span>
-<span class="nl">private:</span>
-            <span class="n">int32</span>                    <span class="nf">_PrivateMethod</span><span class="p">();</span>
+<span class="k">private</span><span class="o">:</span>
+            <span class="n">int32</span>                    <span class="n">_PrivateMethod</span><span class="p">();</span>
     <span class="k">static</span>  <span class="n">int32</span>                    <span class="nf">_SomeStaticPrivateMethod</span><span class="p">();</span>
 
             <span class="n">int32</span>                    <span class="n">fMember</span><span class="p">;</span>
@@ -178,11 +339,11 @@
 <span class="c1">// switch 条件语句格式</span>
 
 <span class="k">switch</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="n">label1</span>:
+    <span class="k">case</span> <span class="nl">label1</span><span class="p">:</span>
         <span class="n">DoSomething</span><span class="p">();</span>
         <span class="k">break</span><span class="p">;</span>
 
-    <span class="k">case</span> <span class="n">label2</span>:
+    <span class="k">case</span> <span class="nl">label2</span><span class="p">:</span>
     <span class="p">{</span>
         <span class="c1">// 由于这里存在 count 声明，因此需要使用一组</span>
         <span class="c1">// 大括号。</span>
@@ -204,7 +365,7 @@
 </div>
 </div>
 <div class="section" id="id4">
-<h2>杂项<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>杂项<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li>每一行不能够超过 80 列；并且在连接一行时，通常要缩进一个额外的制表符，而这则依赖于这些杂项的内容。</li>
 <li>在函数之间空出两个行距。</li>
@@ -212,7 +373,7 @@
 </ul>
 </div>
 <div class="section" id="id5">
-<h2>标识符<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>标识符<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li>使用简单鲜明的标识符。避免使用类似 r，aMessage，theView，MyDraw(who&#8217;s draw?) 等标识符；同时还要避免使用成对的标识符，例如：ProcessMessage 和 DoProcessMessage，AddTasks1 和 AddTask。在Haiku代码中推荐使用类似 rect，message，invokeMessage, view，targetView，DrawBorder，ProcessMessage 和 ProcessMessageinternals 或者ProcessMessageDetails 等的标识符。</li>
 <li>类名，结构体名，类型名，命名空间和函数名应该以大些字符开头，并且在名字中间要使用一些大写字符（这有助于其他人可以更好的理解代码，但是请不要使用下划线）。</li>
@@ -235,7 +396,7 @@
 </ul>
 </div>
 <div class="section" id="id6">
-<h2>变量声明<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2>变量声明<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li>在变量的本地作用范围内声明它，要避免把所有的变量都集中在函数的头部进行声明（就像我们在 C 语言中所做的那样）。这样做的好处是可以很容易检查变量是否被合理的进行了初始化，并且代码段可以很容易的被复制粘贴到其他的地方。</li>
 <li>尽量使用能够反映变量含义的名字，同时避免为了不同的目的而重复使用单个临时变量。</li>
@@ -243,7 +404,7 @@
 </ul>
 </div>
 <div class="section" id="haiku-api">
-<h2>使用 Haiku 内置的 API，类型等<a class="headerlink" href="#haiku-api" title="Permalink to this headline">¶</a></h2>
+<h2>使用 Haiku 内置的 API，类型等<a class="headerlink" href="#haiku-api" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li>推荐使用 Haiku API 功能调用，而不是自己重新设计。</li>
 <li>推荐使用 BobjestList 来代替 Blist。BobjectList 提供了安全类型，可选的项目权限，并且由于其良好的设计，附加的模板实例并不会增加代码的长度。</li>
@@ -253,7 +414,7 @@
 </ul>
 </div>
 <div class="section" id="id7">
-<h2>注释<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>注释<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <ul>
 <li><p class="first">在适当的地方对代码进行注释。</p>
 </li>
@@ -321,7 +482,7 @@
 </div></blockquote>
 </div>
 <div class="section" id="id8">
-<h2>许可和版权<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>许可和版权<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <ul>
 <li><p class="first">推荐的源文件的许可和版权声明格式如下：</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cm">/*</span>
@@ -356,14 +517,14 @@
 </ul>
 </div>
 <div class="section" id="id9">
-<h2>无用代码和调试代码<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2>无用代码和调试代码<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li>如果你无法保证自己贡献的代码的质量，请不要遗留无用的，有争议的或者使用 #if 0’ed 的代码。你的更改首先需要有很高的质量，并且能够很好地代替所要替代的代码。如果由于某些缘故，您希望收回你的代码或者仅仅把它们用作参考，你可以使用源代码控制工具</li>
 <li>不要留下简单的被注释掉的调试输出代码。现在 BeDebug 解决了大部分代码的调试输出的工作。可以通过设置断点来调试代码，在 #if DEBUG 代码段中包含需要调试的代码。一定要保证调试的代码在编译时没有警告，并保持正确性（保证你的更改不会破坏已经调试过的代码，否则，就还需要对这些代码进行修改）。您也可以利用 Debug.h 中的其他工具来进行代码调试。</li>
 </ul>
 </div>
 <div class="section" id="id10">
-<h2>其他的要求<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<h2>其他的要求<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
 <ul>
 <li><p class="first">使用新型的组件（dynamic_cast，static_cast，const_cast，reinterpret_cast 等等）来代替过时的组件。</p>
 </li>
@@ -476,7 +637,7 @@
 </ul>
 </div>
 <div class="section" id="id11">
-<h2>风格检查工具<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<h2>风格检查工具<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
 <p>由于下面的工具仍然存在一些问题，有时候可能会反馈错误的结果，但是它们在大多数时间还是能够正常使用，并且可以找出一些常见的问题。这些工具仍然还在开发之中，欢迎你提出一些有创意的建议。</p>
 <ul>
 <li><p class="first">Checkstyle.py 是一个独立的 Python 程序（在 Haiku 源码树的 src/tools/checkstyle/ 下可以找到相关的源码）。它可以以标准输出的方式反馈与风格相关的问题，而且生成一个易于阅读的有高亮度提示的 HTML 报告。示例如下：</p>
@@ -492,22 +653,71 @@
 </div>
 
 
-      </div>
-      <div class="bottomnav">
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <p>
-        «&#160;&#160;<a href="Haiku指南.html">Haiku 指南</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="开发常见问题（FAQ）.html">开发常见问题（FAQ）</a>&#160;&#160;»
-        </p>
+        <a href="开发常见问题（FAQ）.html" class="btn btn-neutral float-right" title="开发常见问题（FAQ）" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Haiku指南.html" class="btn btn-neutral" title="Haiku 指南" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; 版权所有 2015, Haiku Chinese Group.
+      最后更新于 Aug 16, 2015.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
       </div>
 
-    <div class="footer">
-        &copy; Copyright 2015, Han Pengfei.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
-    </div>
-  </body>
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

@@ -1,76 +1,237 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>开发常见问题（FAQ） &mdash; Haiku 中文文档</title>
+  
+
+  
+  
+
+  
+
+  
+  
     
-    <title>开发常见问题（FAQ） &mdash; Haiku 中文文档</title>
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Haiku 中文文档" href="index.html"/>
+        <link rel="up" title="开发" href="开发.html"/>
+        <link rel="next" title="Haiku 图标指南" href="develop/Haiku图标指南.html"/>
+        <link rel="prev" title="Haiku 编码规范" href="Haiku源码规范.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
     
-    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Haiku 中文文档" href="index.html" />
-    <link rel="up" title="开发" href="开发.html" />
-    <link rel="next" title="Haiku 图标指南" href="develop/Haiku图标指南.html" />
-    <link rel="prev" title="Haiku 编码规范" href="Haiku源码规范.html" /> 
-  </head>
-  <body>
-      <div class="header"><h1 class="heading"><a href="index.html">
-          <span>Haiku 中文文档</span></a></h1>
-        <h2 class="heading"><span>开发常见问题（FAQ）</span></h2>
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Haiku Chinese Documents
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
       </div>
-      <div class="topnav">
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="关于Haiku.html">关于 Haiku</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="关于Haiku.html#id1">Haiku 好处在哪儿？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="关于Haiku.html#id2">为何选择 Haiku ？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="关于Haiku.html#id3">谁支持着 Haiku ？</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="开发.html">开发</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="开发.html#id2">用户指南</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="开发.html#id3">开发文档</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="开发入门.html">开发入门</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#id2">手册相关</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#id3">入门任务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#id4">当您找到任务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#id5">编写代码准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#git">获取 GIT 提交权限</a></li>
+<li class="toctree-l4"><a class="reference internal" href="开发入门.html#id7">深入阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Haiku编程学习.html">Haiku编程学习</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Haiku编程学习.html#id1">简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku编程学习.html#id2">目录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku编程学习.html#id3">参考资料和工具</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Haiku编程教程.html">Haiku 编程详解</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Haiku编程教程.html#id1">前言</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku编程教程.html#id2">内容概览</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Haiku指南.html">Haiku 指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#guides-haiku"><code class="docutils literal"><span class="pre">/guides/构建Haiku</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#id1"><code class="docutils literal"><span class="pre">/guides/安装Haiku</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#id2"><code class="docutils literal"><span class="pre">/guides/启动Haiku</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#guides"><code class="docutils literal"><span class="pre">/guides/日常任务</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#id3"><code class="docutils literal"><span class="pre">/guides/虚拟化</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku指南.html#id4">其他指南</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Haiku源码规范.html">Haiku 编码规范</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#id2">规范概况</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#id3">缩进和空格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#id4">杂项</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#id5">标识符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#id6">变量声明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#haiku-api">使用 Haiku 内置的 API，类型等</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#id7">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#id8">许可和版权</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#id9">无用代码和调试代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#id10">其他的要求</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Haiku源码规范.html#id11">风格检查工具</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">开发常见问题（FAQ）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">我是一个程序员，希望可以帮忙，那么从何开始呢？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">是否有简单的引导任务？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">是否有特定的编程风格？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">如何创建和提交补丁？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trac">为什么无法在 Trac 中创建任务单？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">使用哪些开发工具？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">是否有开发者邮件列表？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#irc">是否有 IRC 聊天室？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">我尝试进行测试，但是 Haiku 编译失败。接下来该如何操作？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">我想把一些东西集成到官方源之中，可以集成那些组件？该使用何种协议呢？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#beos-haiku">我希望可以把我的 BeOS 程序/驱动移植到 Haiku，该如何进行？</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="develop/Haiku图标指南.html">Haiku 图标指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id1">透视效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id2">光源效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id3">渐变效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id4">色彩效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id5">阴影效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id6">轮廓线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id7">高亮效果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id8">使用覆盖</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id9">细节</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop/Haiku图标指南.html#id10">中立图标</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="开发.html#id4">在线资源</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="开发.html#id7">开发工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="开发.html#id8">其他系统交叉编译</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="文档.html">文档</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="文档.html#id2">用户文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="文档.html#id3">开发者文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="文档.html#id4">早期文档</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="文档.html#bebook-be">BeBook 和 Be 信札</a></li>
+<li class="toctree-l3"><a class="reference internal" href="文档.html#id5">其他</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
       
-        <p>
-        «&#160;&#160;<a href="Haiku源码规范.html">Haiku 编码规范</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="develop/Haiku图标指南.html">Haiku 图标指南</a>&#160;&#160;»
-        </p>
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Haiku Chinese Documents</a>
+      </nav>
 
-      </div>
-      <div class="content">
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="开发.html">开发</a> &raquo;</li>
+      
+    <li>开发常见问题（FAQ）</li>
+      <li class="wy-breadcrumbs-aside">
         
+          
         
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
   <div class="section" id="faq">
-<h1>开发常见问题（FAQ）<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
+<h1>开发常见问题（FAQ）<a class="headerlink" href="#faq" title="永久链接至标题">¶</a></h1>
 <div class="section" id="id1">
-<h2>我是一个程序员，希望可以帮忙，那么从何开始呢？<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>我是一个程序员，希望可以帮忙，那么从何开始呢？<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <p>查看我们的 <a class="reference external" href="开发入门">开发入门页面</a> 。你可以在文档资料找到一些链接，通过这些链接可以找到 <a class="reference external" href="开发">有关编程的页面</a> 。</p>
 </div>
 <div class="section" id="id4">
-<h2>是否有简单的引导任务？<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>是否有简单的引导任务？<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>你可以做一些介绍性质的工作，可以在 <a class="reference external" href="开发入门">开发入门页面</a> 看到相关的介绍。</p>
 </div>
 <div class="section" id="id6">
-<h2>是否有特定的编程风格？<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2>是否有特定的编程风格？<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>我们确实有自己的编程风格，你可以查看 <a class="reference external" href="Haiku编码规范">Haiku 源码规范</a> 获取相关的文档信息。</p>
 </div>
 <div class="section" id="id7">
-<h2>如何创建和提交补丁？<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>如何创建和提交补丁？<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <p>在[检出我们的源码库](构建Haiku)和[git配置完成](获取源码)之后，你可以进行源代码的修改。记着检查你的修改是否存在编译错误或者警告。之后就是提交修改，打开终端，在你进行修改的目录或者你的源码仓库的根目录，完成本地修改提交 <cite>git commit -a</cite> 之后，运行 <cite>git format-patch</cite>。 之后，您可以在代码库根目录找到这个补丁。如果希望提交该补丁，需要将该文件链接到相应的[错误报告](<a class="reference external" href="http://dev.haiku-os.org/">http://dev.haiku-os.org/</a>)或者将其发送到我们的[开发邮件列表](<a class="reference external" href="http://www.freelists.org/list/haiku-development">http://www.freelists.org/list/haiku-development</a>)。</p>
 </div>
 <div class="section" id="trac">
-<h2>为什么无法在 Trac 中创建任务单？<a class="headerlink" href="#trac" title="Permalink to this headline">¶</a></h2>
+<h2>为什么无法在 Trac 中创建任务单？<a class="headerlink" href="#trac" title="永久链接至标题">¶</a></h2>
 <p>在 Trac 中创建账号之前，需要通过电子邮件来核对你的账户，阅读这里[获取详细信息](<a class="reference external" href="http://dev.haiku-os.org/wiki/AccountVerificationEmail">http://dev.haiku-os.org/wiki/AccountVerificationEmail</a>)。</p>
 </div>
 <div class="section" id="id8">
-<h2>使用哪些开发工具？<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>使用哪些开发工具？<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li>一个稍微修改过的 Jam 是我们的编译工具，在 Haiku 的官方版本和最近发布的镜像都包含这个工具。如果需要跨平台编译 Haiku，您需要从[源代码编译 jam](从源码编译jam)。</li>
 <li>[GIT](<a class="reference external" href="http://git-scm.com/">http://git-scm.com/</a>) 是我们的版本控制系统。</li>
@@ -78,46 +239,95 @@
 </ul>
 </div>
 <div class="section" id="id9">
-<h2>是否有开发者邮件列表？<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2>是否有开发者邮件列表？<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
 <p>我们有几个邮件列表，可以在[邮件列表页面](<a class="reference external" href="http://www.haiku-os.org/community/ml">http://www.haiku-os.org/community/ml</a>)上查看相关内容。</p>
 </div>
 <div class="section" id="irc">
-<h2>是否有 IRC 聊天室？<a class="headerlink" href="#irc" title="Permalink to this headline">¶</a></h2>
+<h2>是否有 IRC 聊天室？<a class="headerlink" href="#irc" title="永久链接至标题">¶</a></h2>
 <p>有多个[IRC频道](<a class="reference external" href="http://www.haiku-os.org/community/irc">http://www.haiku-os.org/community/irc</a>)可供选择，所有的频道由 irc.freenode.net 网站提供支持。</p>
 </div>
 <div class="section" id="id10">
-<h2>我尝试进行测试，但是 Haiku 编译失败。接下来该如何操作？<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<h2>我尝试进行测试，但是 Haiku 编译失败。接下来该如何操作？<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
 <p>确保你的系统是被 Haiku 编译系统所支持的系统平台。确保你是用的是正确的编译工具（编译工具的版本号要正确），而且还要确保你调用的设置脚本和 jam 的正确性（阅读[开发入门](开发入门)来获取更多的信息）。如果所有步骤都是正确的，但是问题仍然存在，在 [Haiku 开发邮件列表](<a class="reference external" href="http://www.freelists.org/list/haiku-development">http://www.freelists.org/list/haiku-development</a>)上发布错误，但是请不要在 Trac 中报告编译错误。</p>
 </div>
 <div class="section" id="id11">
-<h2>我想把一些东西集成到官方源之中，可以集成那些组件？该使用何种协议呢？<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<h2>我想把一些东西集成到官方源之中，可以集成那些组件？该使用何种协议呢？<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
 <p>由于 Haiku 源码树包括了几个移植的应用程序，我们尽量只把重要的部分包含进来（如 bash，GNU 命令行工具，以及调试工具 gdb）。对于多数其他的应用，建议它们用于 Haiku 平台分支的源码保存在原始提供者的代码库中。第三方的库函数只有在它们被我们认为很重要的应用所使用时，我们才会在代码库中包含它们。但是，我们非常乐意接受用于硬件支持的内核驱动代码。</p>
 <p>我们通常只接受自由软件协议授权下的捐赠（例如 FSF 下的[自由软件协议](<a class="reference external" href="http://www.fsf.org/licensing/essays/free-sw.html">http://www.fsf.org/licensing/essays/free-sw.html</a>)），最好是 Haiku 使用的协议（即 [MIT 协议](<a class="reference external" href="http://www.opensource.org/licenses/mit-license.php">http://www.opensource.org/licenses/mit-license.php</a>)）。如果是应用程序，内核驱动，或者大多数的插件，唯一的限制就是它们所使用的条件不是我们所不能够或者不愿意采用的（例如：BSD 协议较早的版本中包含的广告条款）。对于操作系统的各个组成部分（如内核，或者提供公共API的函数库,例如 libbe），我们拒绝使用由传染性的协议授权的捐赠（如 GPL），这类协议要求我们在相关的代码中使用该协议。目前有只有 libroot 是个例外，它使用的大量代码来源于 LGPL 授权下的 glibc。</p>
 </div>
 <div class="section" id="beos-haiku">
-<h2>我希望可以把我的 BeOS 程序/驱动移植到 Haiku，该如何进行？<a class="headerlink" href="#beos-haiku" title="Permalink to this headline">¶</a></h2>
+<h2>我希望可以把我的 BeOS 程序/驱动移植到 Haiku，该如何进行？<a class="headerlink" href="#beos-haiku" title="永久链接至标题">¶</a></h2>
 <p>由于 Haiku R1 与 BeOS R5 是二进制和源代码大部分兼容的，通常你可以直接在 Haiku 中使用 BeOS 的程序。在应用程序级别的 API中，只有极少的不兼容性存在。尽管已经有了一个新的驱动接口，但是 BeOS R5 的驱动仍然被 Haiku 所支持（只是需要做少量的改动）。文件系统添加接口的方式发生了显著地变化，你需要移植老的文件系统。你可以查阅下面的文档列表获取更多的信息，如果需要进一步的帮助，在 [Haiku 邮件列表](<a class="reference external" href="http://www.haiku-os.org/community/ml#haiku">http://www.haiku-os.org/community/ml#haiku</a>)中联系我们。</p>
 <p>[Application Level API Incompatibilities with BeOS](<a class="reference external" href="http://www.haiku-os.org/documents/dev/application_level_api_incompatibilities_with_beos">http://www.haiku-os.org/documents/dev/application_level_api_incompatibilities_with_beos</a>)</p>
 </div>
 </div>
 
 
-      </div>
-      <div class="bottomnav">
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <p>
-        «&#160;&#160;<a href="Haiku源码规范.html">Haiku 编码规范</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="develop/Haiku图标指南.html">Haiku 图标指南</a>&#160;&#160;»
-        </p>
+        <a href="develop/Haiku图标指南.html" class="btn btn-neutral float-right" title="Haiku 图标指南" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Haiku源码规范.html" class="btn btn-neutral" title="Haiku 编码规范" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; 版权所有 2015, Haiku Chinese Group.
+      最后更新于 Aug 16, 2015.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
       </div>
 
-    <div class="footer">
-        &copy; Copyright 2015, Han Pengfei.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
-    </div>
-  </body>
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
