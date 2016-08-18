@@ -85,10 +85,10 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="">开发入门</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id2">手册相关</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id3">入门任务</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">当您找到任务</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">编写代码准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">当您找到任务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">编写代码准备</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#git">获取 GIT 提交权限</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">深入阅读</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">深入阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="Haiku编程学习.html">Haiku编程学习</a><ul>
@@ -223,10 +223,10 @@
 <p>试着运行 apps,改变字体显示，检查是否一切都能够完好的显示；否则，您可以尝试着修改这个 bug。检查的硬编码值使用的源（例如，颜色，路径），并且使用各自的API调用来检索系统内置的编码值(如：通过 ui_color())。</p>
 </li>
 <li><p class="first">设计我们 UI(用户界面)和应用程序，使它们更加符合我们的 HIG(人机交互界面)</p>
-<p>运行一些程序，检查它们的菜单和按钮的命名和放置位置是否正确(举一个例子，那些用来打开一个会话的菜单或者按钮时以“…”结束，使用 <a href="#id19"><span class="problematic" id="id20">B_UTF8_</span></a> ELLIPSIS)同时, 检查一下是否那些参数配置会话框及时的应用了那些改变的设定(或者有“应用”两字的按钮)，并且检查它们是否有一个“恢复”按钮。(而不是“取消”和“确定”)而且还要检查它们和其他的系统偏好配置是否一致。如果希望获得有关这一方面的详细信息，可以参看 <a class="reference external" href="http://api.haiku-os.org/HIG/">人机界面规范</a>。</p>
+<p>运行一些程序，检查它们的菜单和按钮的命名和放置位置是否正确(举一个例子，那些用来打开一个会话的菜单或者按钮时以“…”结束，使用 <a href="#id22"><span class="problematic" id="id23">B_UTF8_</span></a> ELLIPSIS)同时, 检查一下是否那些参数配置会话框及时的应用了那些改变的设定(或者有“应用”两字的按钮)，并且检查它们是否有一个“恢复”按钮。(而不是“取消”和“确定”)而且还要检查它们和其他的系统偏好配置是否一致。如果希望获得有关这一方面的详细信息，可以参看 <a class="reference external" href="http://api.haiku-os.org/HIG/">人机界面规范</a>。</p>
 </li>
 <li><p class="first">清理不符合规范的源文件</p>
-<p>我们所有的源程序都遵守已经制定的 <a class="reference external" href="Haiku编码规范">源码规范</a> (但是那些从其他项目引入的源码除外)。还有一些本地程序也不遵循编码规范。把它们整理干净，让它们更加美观，然后向我们的 <a class="reference external" href="http://dev.haiku-os.org/">错误跟踪系统</a> 提交一个补丁来作为 enhancement 任务单。</p>
+<p>我们所有的源程序都遵守已经制定的 <a href="#id4"><span class="problematic" id="id5">:doc:`源码规范 &lt;/Haiku源码规范&gt;`_</span></a> (但是那些从其他项目引入的源码除外)。还有一些本地程序也不遵循编码规范。把它们整理干净，让它们更加美观，然后向我们的 <a class="reference external" href="http://dev.haiku-os.org/">错误跟踪系统</a> 提交一个补丁来作为 enhancement 任务单。</p>
 </li>
 <li><p class="first">与错误跟踪系统相关的简单任务</p>
 <p>请在错误跟踪系统中浏览一下这些 <a class="reference external" href="http://dev.haiku-os.org/wiki/EasyTasks">简单任务列表</a> 。列表中的大多数错误是可以被个人所修复的。选出其中之一，然后注明您正在修复这一错误。完成之后您就可以向我们提交相关补丁。</p>
@@ -241,12 +241,12 @@
 </ul>
 <p>我们会向您提出一些问题，然后再做出任务安排，也可能会给您指出特别的错误。</p>
 </div>
-<div class="section" id="id4">
-<h2>当您找到任务<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h2>当您找到任务<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>当您发现了自己感兴趣的任务后，你尽可在项目开发邮件列表里询问有关问题。在编写代码之前，请参阅我们的编码规范，并且尽可能的记住它们(在这点上我们是很严格的)。祝愿您可以在为Haiku编写代码的过程中找到自己的兴趣所在。</p>
 </div>
-<div class="section" id="id5">
-<h2>编写代码准备<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id7">
+<h2>编写代码准备<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <ul>
 <li><p class="first">目前，Haiku 是最合适的开发环境。当然 Linux、BSD 和 OS X 也可以。但是 BeOS，Zeta，Cygn 和 Solaris 等平台将不再作为开发环境，也将不再被支持。</p>
 </li>
@@ -268,17 +268,17 @@
 </li>
 <li><p class="first">熟悉我们的`项目管理和错误问题跟踪系统`_ (Trac)。</p>
 </li>
-<li><p class="first">学习我们的 <a class="reference external" href="Haiku编码规范">源码规范</a>。所有 Haiku 源码都应该遵循该规范。</p>
+<li><p class="first">学习我们的 <a href="#id8"><span class="problematic" id="id9">:doc:`源码规范 &lt;/Haiku源码规范&gt;`_</span></a> 。所有 Haiku 源码都应该遵循该规范。</p>
 </li>
 </ul>
 </div>
 <div class="section" id="git">
 <h2>获取 GIT 提交权限<a class="headerlink" href="#git" title="永久链接至标题">¶</a></h2>
 <p>我们将根据开发者对于 Haiku 代码的贡献来决定他们是否具有 Haiku 源码库的 GIT 提交权限。您可以通过我们的 <a class="reference external" href="http://dev.haiku-os.org/">Trac 错误提交工具</a> 提交补丁来快速的获取SVN写入权限。</p>
-<p>当您成功地向我们的 Haiku 代码库里提交了一些补丁之后，则可以向 <a href="#id21"><span class="problematic" id="id22">`Haiku 开发邮件列表`_</span></a> 里发送邮件申请获得 GIT 提交权限。为了便于审查您的任务和对您的要求做出决定，请在您的邮件里包含您所提供的补丁清单(标题以及链接到 Track 的条目)。</p>
+<p>当您成功地向我们的 Haiku 代码库里提交了一些补丁之后，则可以向 <a href="#id24"><span class="problematic" id="id25">`Haiku 开发邮件列表`_</span></a> 里发送邮件申请获得 GIT 提交权限。为了便于审查您的任务和对您的要求做出决定，请在您的邮件里包含您所提供的补丁清单(标题以及链接到 Track 的条目)。</p>
 </div>
-<div class="section" id="id7">
-<h2>深入阅读<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id10">
+<h2>深入阅读<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="http://haiku-os.org/development/faq#intro-tasks">FAQ: 是否有简单的引导任务？</a></li>
 <li><a class="reference external" href="源码库布局简明介绍.rst">源码库布局的简明介绍</a></li>
@@ -311,7 +311,7 @@
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2015, Haiku Chinese Group.
-      最后更新于 Aug 16, 2015.
+      最后更新于 Aug 18, 2016.
     </p>
   </div>
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
